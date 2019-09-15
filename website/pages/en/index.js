@@ -64,8 +64,7 @@ class HomeSplash extends React.Component {
                 <div className="inner">
                     <ProjectTitle siteConfig={siteConfig} />
                     <PromoSection>
-                        <Button href="#try">Get Started</Button>
-                        <Button href={docUrl('doc1.html')}>Tutorial</Button>
+                        <Button href={docUrl('installation')}>Get Started</Button>
                     </PromoSection>
                 </div>
             </SplashContainer>
@@ -96,9 +95,8 @@ class Index extends React.Component {
             <Block background="light">
                 {[
                     {
-                        content: 'Workflows can be defined using plain C# code. In addition to an increasing number of activities that you can choose from, Elsa is designed to be extensible with your own **custom activities**.\n\n' +
-                            `![](${baseUrl}img/elsa-dashboard-1.png)`,
-                        image: `${baseUrl}img/undraw_code_review.svg`,
+                        content: 'Workflows can be defined using plain C# code. In addition to an increasing number of activities that you can choose from, Elsa is designed to be extensible with your own **custom activities**.',
+                        image: `${baseUrl}img/undraw_data_trends_b0wg.svg`,
                         imageAlign: 'right',
                         title: 'Manage Workflows using the ASP.NET Core Dashboard Middleware',
                     },
@@ -111,7 +109,7 @@ class Index extends React.Component {
                 {[
                     {
                         content:
-                            `The Workflow Designer is a **100% client-side web component** that can be **re-used** in any application, and allows you to easily design workflows. Workflows can be exported as JSON files, which can then be executed using the Elsa Core API.\n\n![](${baseUrl}img/elsa-workflow-designer-1.png)`,
+                            `The Workflow Designer is a **100% client-side web component** that can be **re-used** in any application, and allows you to easily design workflows. Workflows can be exported as JSON files, which can then be executed using the Elsa Core API.`,
                         image: `${baseUrl}img/undraw_software_engineer_lvl5.svg`,
                         imageAlign: 'left',
                         title: 'Design workflows using the reusable HTML5 Workflow Designer',

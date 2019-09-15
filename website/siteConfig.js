@@ -21,25 +21,22 @@ const users = [
 const siteConfig = {
   title: 'ELSA',
   tagline: 'An open source .NET Standard 2.0 workflows library',
-  url: 'https://your-docusaurus-test-site.com', // Your website URL
-  baseUrl: '/', // Base URL for your project */
+  url: 'https://elsa-workflows.github.io/', // Your website URL
+  baseUrl: '/elsa-core/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
-  projectName: 'elsa-workflows',
-  organizationName: 'Skywalker',
+  projectName: 'elsa-core',
+  organizationName: 'elsa-workflows',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'installation', label: 'Docs'},
-    {doc: 'doc4', label: 'API'},
-    {page: 'help', label: 'Help'},
-    {blog: false, label: 'Blog'},
+    {doc: 'installation', label: 'Documentation'},
   ],
 
   // If you have users set above, you add it here:
