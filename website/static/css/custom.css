@@ -1,0 +1,59 @@
+html {
+    box-sizing: border-box;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+.homeSplashFade {
+    background: #282C33;
+}
+
+.homeSplashFade * {
+    color: #ffffff;
+}
+
+.homeSplashFade .projectTitle {
+    text-transform: uppercase;
+}
+
+.homeSplashFade .projectTitle small {
+    text-transform: none;
+}
+
+.homeSplashFade .promoSection .button {
+    border-color: #ffffff;
+}
+
+.homeContainer .homeWrapper {
+    padding: 90px;
+}
+
+.feature-block h2 {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.3;
+}
+
+@media only screen and (max-device-width: 359px) {
+    
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+    .fixedHeaderContainer header img.logo {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
