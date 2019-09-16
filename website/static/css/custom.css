@@ -6,8 +6,12 @@ html {
     -webkit-font-smoothing: antialiased;
 }
 
-.homeSplashFade {
+.homeContainer {
     background: #282C33;
+}
+
+.homeContainer .homeWrapper {
+    padding: 90px;
 }
 
 .homeSplashFade * {
@@ -24,10 +28,6 @@ html {
 
 .homeSplashFade .promoSection .button {
     border-color: #ffffff;
-}
-
-.homeContainer .homeWrapper {
-    padding: 90px;
 }
 
 .feature-block h2 {

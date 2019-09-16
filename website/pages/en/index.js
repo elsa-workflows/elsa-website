@@ -83,7 +83,7 @@ class Index extends React.Component {
                 id={props.id}
                 background={props.background}>
                 <GridBlock
-                    align="left"
+                    align={props.align || "left"}
                     contents={props.children}
                     layout={props.layout}
                     className={props.className}
@@ -144,22 +144,36 @@ class Index extends React.Component {
             </Block>
         );
 
-        const Features = () => (
+        const Headlines = () => (
             <Block layout="threeColumn" className="feature-block">
                 {[
                     {
-                        content: 'Whether implementing short-running or long-running processes, implement workflow capabilities into your own .NET projects using .NET Standard NuGet packages with ease. ' +
-                            '\n\n ' +
-                            'Workflows can be defined fluently using C# code, or declarative using JSON or YAML. This way, workflow definitions can be part of source control or stored in a database.',
-                        title: '.NET Standard Library',
+                        content: 'Build workflows **in code** using the **fluent API** or **as data** using **JSON** or **YAML** syntax. Or use the **workflow designer** to design executable workflows visually.\n\n' +
+                            'Elsa comes with an ASP.NET Core middleware that provides a **dashboard** to manage workflows and activities.\n\n' +
+                            'Whether you are implementing a business rules engine or long-running processes, implementing these with Elsa could not be simpler.',
+                        title: 'Build',
                     },
                     {
-                        content: 'Instead of hand-crafting workflow with C# code or JSON/YAML syntax, workflows can be designed using the reusable HTML5 web component. The designer generates JSON that can be executed with the .NET library.',
-                        title: 'HTML5 Workflow Designer'
+                        content: 'Run workflows from within your application using simple to use APIs.\n\n' +
+                            'Start or resume workflows manually, or automatically by invoking triggers.',
+                        title: 'Run'
                     },
                     {
-                        content: 'Save time with the Elsa Dashboard ASP.NET Core middleware. The dashboard can be installed in any ASP.NET Core application and provides basic workflow management capabilities.',
-                        title: 'ASP.NET Core Dashboard Middleware'
+                        content: 'Make it your own by **extending** the set of activities with your own.\n\n' +
+                            'Implementing custom activities allows for powerful workflows that can be implemented with ease.',
+                        title: 'Extend'
+                    }
+                ]}
+            </Block>
+        );
+
+        const Designer = () => (
+            <Block align="center">
+                {[
+                    {
+                        title: 'Hello World',
+                        image: `${baseUrl}img/elsa-workflow-designer-1.png`,
+                        imageAlign: 'bottom'
                     }
                 ]}
             </Block>
@@ -169,7 +183,8 @@ class Index extends React.Component {
             <div>
                 <HomeSplash siteConfig={siteConfig} language={language} />
                 <div className="mainContainer">
-                    <Features />
+                    <Headlines />
+                    <Designer />
                     <WorkflowsByCode />
                     <DesignWorkflows />
                     <ManageWorkflows />
