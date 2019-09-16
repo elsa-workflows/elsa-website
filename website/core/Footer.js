@@ -53,7 +53,7 @@ class Footer extends React.Component {
             {/*  User Showcase*/}
             {/*</a>*/}
             <a
-              href="https://stackoverflow.com/questions/tagged/elsa"
+              href="https://stackoverflow.com/questions/tagged/elsa-workflows"
               target="_blank"
               rel="noreferrer noopener">
               Stack Overflow

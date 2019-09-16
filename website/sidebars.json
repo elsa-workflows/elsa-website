@@ -7,8 +7,11 @@
       "installing-persistence",
       "installing-elsa-designer"
     ],
+    "Concepts": [
+      "concepts-workflows"
+    ],
     "Guides": [
-      "guides-simple-workflow-csharp"
+      "guides-hello-world-csharp"
     ]
   }
 }
