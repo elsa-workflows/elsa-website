@@ -1,6 +1,6 @@
 {
-  "docs": {
-    "Get Started": ["installation"],
-    "Guides": ["hello-world"]
+  "docs/getting-started": {
+    "Installation": ["installing-elsa-core", "installing-elsa-dashboard", "installing-elsa-designer"],
+    "Guides": ["guides-simple-workflow-csharp"]
   }
 }

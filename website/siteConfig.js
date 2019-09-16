@@ -36,7 +36,7 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'installation', label: 'Documentation'},
+    {doc: 'installing-elsa-core', label: 'Documentation'},
   ],
 
   // If you have users set above, you add it here:
