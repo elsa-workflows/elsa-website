@@ -1,37 +1,20 @@
 ---
 id: installing-elsa-core
 title: Installing Elsa Core 
-sidebar_label: Elsa Core
+sidebar_label: Core
 ---
 
-The Elsa Core NuGet package provides APIs to build and execute workflows. In this section, we'll see how to install the package into a .NET project and register the appropriate services with the DI container.
+The **Elsa.Core** NuGet package provides APIs to build and execute workflows. In this section, we'll see how to install the package into a .NET project and register the appropriate services with the DI container.
 
-## Add the Preview Feed
+> Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
 
-Elsa is currently only available from [MyGet](https://www.myget.org/feed/Packages/elsa), which means you need to add the following package feed source to your project:
-
-`https://www.myget.org/F/elsa/api/v3/index.json`
-
-The easiest way to do that is by adding a `NuGet.config` file to the root of your project/solution folder:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-    <packageSources>
-        <add key="Elsa Preview Feed" value="https://www.myget.org/F/elsa/api/v3/index.json" />
-    </packageSources>
-</configuration>
-```
-
-## Add the Elsa.Core Package
-
-With the preview feed in place, run the following command.
+## Add Package
 
 ```bash
 dotnet add package Elsa.Core
 ```
 
-## Add Elsa Services
+## Register Services
 
 To add Elsa services to your application, add the following code to `Startup.cs`:
 

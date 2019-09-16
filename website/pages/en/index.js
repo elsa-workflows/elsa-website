@@ -149,7 +149,7 @@ class Index extends React.Component {
                 {[
                     {
                         content: 'Build workflows **in code** using the **fluent API** or **as data** using **JSON** or **YAML** syntax. Or use the **workflow designer** to design executable workflows visually.\n\n' +
-                            'Elsa comes with an ASP.NET Core middleware that provides a **dashboard** to manage workflows and activities.\n\n' +
+                            'Elsa comes with an ASP.NET Core area that provides a **dashboard** to manage workflows and activities.\n\n' +
                             'Whether you are implementing a business rules engine or long-running processes, implementing these with Elsa could not be simpler.',
                         title: 'Build',
                     },
@@ -166,25 +166,12 @@ class Index extends React.Component {
                 ]}
             </Block>
         );
-
-        const Designer = () => (
-            <Block align="center">
-                {[
-                    {
-                        title: 'Hello World',
-                        image: `${baseUrl}img/elsa-workflow-designer-1.png`,
-                        imageAlign: 'bottom'
-                    }
-                ]}
-            </Block>
-        );
-
+        
         return (
             <div>
                 <HomeSplash siteConfig={siteConfig} language={language} />
                 <div className="mainContainer">
                     <Headlines />
-                    <Designer />
                     <WorkflowsByCode />
                     <DesignWorkflows />
                     <ManageWorkflows />

@@ -1,6 +1,14 @@
 {
   "docs/getting-started": {
-    "Installation": ["installing-elsa-core", "installing-elsa-dashboard", "installing-elsa-designer"],
-    "Guides": ["guides-simple-workflow-csharp"]
+    "Installation": [
+      "installing-preview-feed",
+      "installing-elsa-core",
+      "installing-elsa-dashboard",
+      "installing-persistence",
+      "installing-elsa-designer"
+    ],
+    "Guides": [
+      "guides-simple-workflow-csharp"
+    ]
   }
 }
