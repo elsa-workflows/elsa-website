@@ -40,6 +40,9 @@ class Footer extends React.Component {
             <a href={this.docUrl('installing-elsa-core', this.props.language)}>
               Getting Started
             </a>
+            <a href={this.docUrl('concepts-workflows', this.props.language)}>
+              Concepts
+            </a>
             <a href={this.docUrl('guides-simple-workflow-csharp', this.props.language)}>
               Guides
             </a>
