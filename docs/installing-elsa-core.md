@@ -6,9 +6,9 @@ sidebar_label: Core
 
 The **Elsa.Core** NuGet package provides APIs to build and execute workflows. In this section, we'll see how to install the package into a .NET project and register the appropriate services with the DI container.
 
-> Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
-
 ## Add Package
+
+> Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
 
 ```bash
 dotnet add package Elsa.Core
@@ -59,8 +59,8 @@ namespace Example1
             // Define a workflow.
             var workflowBuilder = services.GetRequiredService<IWorkflowBuilder>();
             var workflowDefinition = workflowBuilder
-                .StartWith<WriteLine>(x => x.TextExpression = new Literal("Hello world!"))
-                .Then<WriteLine>(x => x.TextExpression = new Literal("Goodbye cruel world..."))
+                .StartWith<WriteLine>(x => x.TextExpression = new LiteralExpression("Hello world!"))
+                .Then<WriteLine>(x => x.TextExpression = new LiteralExpression("Goodbye cruel world..."))
                 .Build();
 
             // Start the workflow.

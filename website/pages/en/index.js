@@ -149,8 +149,7 @@ class Index extends React.Component {
                 {[
                     {
                         content: 'Build workflows **in code** using the **fluent API** or **as data** using **JSON** or **YAML** syntax. Or use the **workflow designer** to design executable workflows visually.\n\n' +
-                            'Elsa comes with an ASP.NET Core area that provides a **dashboard** to manage workflows and activities.\n\n' +
-                            'Whether you are implementing a business rules engine or long-running processes, implementing these with Elsa could not be simpler.',
+                            'Elsa comes with an ASP.NET Core area that provides a **dashboard** to manage workflows and activities.',
                         title: 'Build',
                     },
                     {

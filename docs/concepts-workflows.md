@@ -1,6 +1,6 @@
 ---
 id: concepts-workflows
-title: Creating & running a simple workflow with C#
+title: Workflow Concepts
 sidebar_label: Workflows
 ---
 

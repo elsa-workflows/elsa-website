@@ -11,7 +11,8 @@
       "concepts-workflows"
     ],
     "Guides": [
-      "guides-hello-world-csharp"
+      "guides-hello-world",
+      "guides-recurring-task"
     ]
   }
 }
