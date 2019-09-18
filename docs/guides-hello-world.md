@@ -4,17 +4,11 @@ title: Create & run a simple Hello World workflow
 sidebar_label: Hello World
 ---
 
-In this guide, we will implement a very simple Hello World workflow.
-In practice, most workflows will be triggered automatically, for example when a timer elapses, a signal is received or an HTTP request comes in,
-Under the covers, however, it all comes down to selecting what workflows to start and resume, and then invoking them.
+In this guide, we will do the following:
 
-To get a feel for what a workflow is and how to run one, we'll create a simple but complete program that shows the following:
-
-* What packages to use
-* What namespaces to import
-* What services to register
-* What services to use to define a workflow
-* What services to use to invoke a workflow
+* Create a console application.
+* Programmatically define a workflow definition that displays the text "Hello World" to the console.
+* Run the workflow.
 
 Let's get to it!   
 
@@ -27,8 +21,8 @@ Run the following commands to create a new .NET Core Console project and add the
 ```bash
 dotnet new console --name Elsa.HelloWorld.ConsoleApp
 cd Elsa.HelloWorld.ConsoleApp
-dotnet add package Elsa.Core -v 1.0.0.11-beta3
-dotnet add package Elsa.Activities.Console -v 1.0.0.11-beta3
+dotnet add package Elsa.Core -v 1.0.0.14-beta3
+dotnet add package Elsa.Activities.Console -v 1.0.0.14-beta3
 ```
 
 Next, open `Program.cs` and insert the following code:

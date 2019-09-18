@@ -12,7 +12,11 @@
     ],
     "Guides": [
       "guides-hello-world",
-      "guides-recurring-task"
+      "guides-recurring-task",
+      "guides-http-workflow"
     ]
+  },
+  "docs/features": {
+    "Features": []
   }
 }

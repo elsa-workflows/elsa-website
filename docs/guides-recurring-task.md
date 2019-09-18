@@ -4,14 +4,12 @@ title: Create & run a recurring workflow
 sidebar_label: Recurring Task
 ---
 
-Using timer activities are a great way to kick off recurring tasks.
-Elsa ships with 3 types of timer activities:
+In this guide, we will do the following:
 
-* CronEvent
-* InstantEvent
-* TimerEvent
+* Create a console application.
+* Programmatically define a workflow definition that automatically executes every 5 seconds using the `TimerEvent` activity.
 
-In this guide, we will implement a workflow that is automatically triggered every 5 seconds using the `TimerEvent` activity.
+Let's get to it!   
 
 ## Create Console Project
 
@@ -22,9 +20,9 @@ Run the following commands to create a new .NET Core Console project and add the
 ```bash
 dotnet new console --name Elsa.Guides.RecurringTask.ConsoleApp
 cd Elsa.Guides.RecurringTask.ConsoleApp
-dotnet add package Elsa.Core -v 1.0.0.11-beta3
-dotnet add package Elsa.Activities.Console -v 1.0.0.11-beta3
-dotnet add package Elsa.Activities.Timers -v 1.0.0.11-beta3
+dotnet add package Elsa.Core -v 1.0.0.14-beta3
+dotnet add package Elsa.Activities.Console -v 1.0.0.14-beta3
+dotnet add package Elsa.Activities.Timers -v 1.0.0.14-beta3
 dotnet add package Microsoft.Extensions.Hosting
 ```
 
@@ -48,12 +46,16 @@ namespace Elsa.Guides.RecurringTask.ConsoleApp
         public void Build(IWorkflowBuilder builder)
         {
             builder
+                .AsSingleton()
                 .StartWith<TimerEvent>(x => x.TimeoutExpression = new LiteralExpression<TimeSpan>("00:00:05"))
                 .Then<WriteLine>(x => x.TextExpression = new JavaScriptExpression<string>("`It's now ${new Date()}. Let's do this thing!`"));
         }
     }
 }
 ```
+
+> Notice that we're defining this workflow as a **singleton**. Singleton workflows will only ever have a single instance running. 
+> This is desirable in this example, because we don't want to spawn a new workflow instance every time the timer background runner ticks.  
 
 Next, open `Program.cs` and insert the following code:
 
@@ -120,8 +122,8 @@ After 5 seconds, you will start seeing the following output:
 
 ```text
 It's now Tue Sep 17 2019 16:28:40 GMT+02:00. Let's do this thing!
-It's now Tue Sep 17 2019 16:28:41 GMT+02:00. Let's do this thing!
-It's now Tue Sep 17 2019 16:28:42 GMT+02:00. Let's do this thing!
+It's now Tue Sep 17 2019 16:28:46 GMT+02:00. Let's do this thing!
+It's now Tue Sep 17 2019 16:28:52 GMT+02:00. Let's do this thing!
 ```
 
 ## Summary
