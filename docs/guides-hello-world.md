@@ -21,8 +21,8 @@ Run the following commands to create a new .NET Core Console project and add the
 ```bash
 dotnet new console --name Elsa.HelloWorld.ConsoleApp
 cd Elsa.HelloWorld.ConsoleApp
-dotnet add package Elsa.Core -v 1.0.0.14-beta3
-dotnet add package Elsa.Activities.Console -v 1.0.0.14-beta3
+dotnet add package Elsa.Core -v 1.0.0.16-beta3
+dotnet add package Elsa.Activities.Console -v 1.0.0.16-beta3
 ```
 
 Next, open `Program.cs` and insert the following code:

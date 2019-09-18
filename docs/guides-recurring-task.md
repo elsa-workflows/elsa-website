@@ -20,9 +20,9 @@ Run the following commands to create a new .NET Core Console project and add the
 ```bash
 dotnet new console --name Elsa.Guides.RecurringTask.ConsoleApp
 cd Elsa.Guides.RecurringTask.ConsoleApp
-dotnet add package Elsa.Core -v 1.0.0.14-beta3
-dotnet add package Elsa.Activities.Console -v 1.0.0.14-beta3
-dotnet add package Elsa.Activities.Timers -v 1.0.0.14-beta3
+dotnet add package Elsa.Core -v 1.0.0.16-beta3
+dotnet add package Elsa.Activities.Console -v 1.0.0.16-beta3
+dotnet add package Elsa.Activities.Timers -v 1.0.0.16-beta3
 dotnet add package Microsoft.Extensions.Hosting
 ```
 

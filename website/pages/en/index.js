@@ -98,7 +98,7 @@ class Index extends React.Component {
                         content: 'Workflows can be defined using plain C# code. In addition to an increasing number of activities that you can choose from, Elsa is designed to be extensible with your own **custom activities**.',
                         image: `${baseUrl}img/undraw_data_trends_b0wg.svg`,
                         imageAlign: 'right',
-                        title: 'Manage Workflows using the ASP.NET Core Dashboard Middleware',
+                        title: 'Manage Workflows using the Elsa Dashboard built with ASP.NET Core',
                     },
                 ]}
             </Block>

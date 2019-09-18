@@ -1,13 +1,14 @@
 ---
-id: guides-http-workflow
-title: Create & run a workflow triggered with HTTP
-sidebar_label: HTTP Workflow
+id: guides-document-approval
+title: A Simple Document Approval Workflow 
+sidebar_label: Document Approval
 ---
 
 In this guide, we will do the following:
 
 * Create an ASP.NET Core application.
-* Programmatically define a workflow definition that executes when an HTTP request comes in at a specified URL.
+* Programmatically define a workflow definition that executes when an HTTP request comes in at a specified URL. Specifically, the workflow accepts a POST request with a JSON payload representing a document to be reviewed.
+* See the following activities in action: `HttpRequest`, `HttpResponse`, `Fork`, `Join`, `SetVariable`, `Signaled`, `SendEmail` and `IfElse`.  
 
 Let's get to it!   
 
@@ -18,10 +19,12 @@ Run the following commands to create a new ASP.NET Core API project and add the 
 > Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
 
 ```bash
-dotnet new web --name Elsa.Guides.HttpWorkflow.Web
-cd Elsa.Guides.HttpWorkflow.Web
+dotnet new web --name Elsa.Guides.DocumentApproval.Web
+cd Elsa.Guides.DocumentApproval.Web
 dotnet add package Elsa.Core -v 1.0.0.16-beta3
 dotnet add package Elsa.Activities.Http -v 1.0.0.16-beta3
+dotnet add package Elsa.Activities.Timers -v 1.0.0.16-beta3
+dotnet add package Elsa.Activities.Email -v 1.0.0.16-beta3
 ```
 
 ## Create Workflow Class

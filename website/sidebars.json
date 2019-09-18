@@ -13,7 +13,8 @@
     "Guides": [
       "guides-hello-world",
       "guides-recurring-task",
-      "guides-http-workflow"
+      "guides-http-workflow",
+      "guides-document-approval"
     ]
   },
   "docs/features": {
