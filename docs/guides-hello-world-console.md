@@ -1,31 +1,28 @@
 ---
-id: guides-hello-world
+id: guides-hello-world-console
 title: Create & run a simple Hello World workflow
-sidebar_label: Hello World
+sidebar_label: Hello World Console
 ---
 
 In this guide, we will do the following:
 
-* Create a console application.
 * Programmatically define a workflow definition that displays the text "Hello World" to the console.
-* Run the workflow.
+* Run the workflow.     
 
-Let's get to it!   
+Let's get to it!
 
 ## Create Console Project
 
-Run the following commands to create a new .NET Core Console project and add the necessary packages:
-
 > Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
 
-```bash
-dotnet new console --name Elsa.HelloWorld.ConsoleApp
-cd Elsa.HelloWorld.ConsoleApp
-dotnet add package Elsa.Core -v 1.0.0.16-beta3
-dotnet add package Elsa.Activities.Console -v 1.0.0.16-beta3
-```
+Create a new .NET Core Console project called `Elsa.Guides.HelloWorld.ConsoleApp` and add the following packages:
 
-Next, open `Program.cs` and insert the following code:
+* Elsa.Core
+* Elsa.Activities.Console
+
+## Define Workflow
+
+Open `Program.cs` and insert the following code:
 
 ```csharp
 using System;
@@ -37,7 +34,7 @@ using Elsa.Extensions;
 using Elsa.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Elsa.HelloWorld.ConsoleApp
+namespace Elsa.Guides.HelloWorld.ConsoleApp
 {
     class Program
     {
@@ -78,13 +75,7 @@ namespace Elsa.HelloWorld.ConsoleApp
 
 ## Run
 
-Execute the following command to run the program: 
-
-```bash
-dotnet run Elsa.HelloWorld.ConsoleApp.csproj
-```
-
-You should see the following output:
+When you run the program, you should see the following output:
 
 ```text
 Hello world!
@@ -92,6 +83,8 @@ Hello world!
 
 ## Summary
 
-In this guide, we've seen how to create a simple console application and how to implement a workflow using `IWorkflowBuilder`. We then executed that workflow using `IWorkflowInvoker`. 
+In this guide, we've seen how to create a simple console application and how to implement a workflow using `IWorkflowBuilder`. We then executed that workflow using `IWorkflowInvoker`.
 
-Easy as that!
+## Source
+
+https://github.com/elsa-workflows/elsa-guides/tree/master/src/Elsa.Guides.HelloWorld.ConsoleApp

@@ -1,7 +1,7 @@
 ---
-id: guides-http-workflow
+id: guides-hello-world-http
 title: Create & run a workflow triggered with HTTP
-sidebar_label: HTTP Workflow
+sidebar_label: Hello World HTTP
 ---
 
 In this guide, we will do the following:
@@ -13,20 +13,16 @@ Let's get to it!
 
 ## Create ASP.NET Core Project
 
-Run the following commands to create a new ASP.NET Core API project and add the necessary packages:
-
 > Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
 
-```bash
-dotnet new web --name Elsa.Guides.HttpWorkflow.Web
-cd Elsa.Guides.HttpWorkflow.Web
-dotnet add package Elsa.Core -v 1.0.0.16-beta3
-dotnet add package Elsa.Activities.Http -v 1.0.0.16-beta3
-```
+Create a new, empty ASP.NET Core project called `Elsa.Guides.HelloWorld.WebApp` and add the following packages:
+
+* Elsa.Core
+* Elsa.Activities.Http
 
 ## Create Workflow Class
 
-Create and add a new file to the project called `HttpWorkflow.cs` and add the following code:
+Create a new class called `HelloWorldHttpWorkflow` and add the following code:
 
 ```csharp
 using System;
@@ -37,9 +33,9 @@ using Elsa.Expressions;
 using Elsa.Services;
 using Elsa.Services.Models;
 
-namespace Elsa.Guides.HttpWorkflow.Web
+namespace Rtl.Guides.HelloWorld.WebApp
 {
-    public class HttpWorkflow : IWorkflow
+    public class HelloWorldHttpWorkflow : IWorkflow
     {
         public void Build(IWorkflowBuilder builder)
         {
@@ -74,7 +70,7 @@ using Elsa.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Elsa.Guides.HttpWorkflow.Web
+namespace Rtl.Guides.HelloWorld.WebApp
 {
     public class Startup
     {
@@ -88,7 +84,7 @@ namespace Elsa.Guides.HttpWorkflow.Web
         public void Configure(IApplicationBuilder app, IWorkflowRegistry workflowRegistry)
         {
             app.UseHttpActivities();
-            workflowRegistry.RegisterWorkflow<HttpWorkflow>();
+            workflowRegistry.RegisterWorkflow<HelloWorldHttpWorkflow>();
         }
     }
 }
@@ -96,13 +92,7 @@ namespace Elsa.Guides.HttpWorkflow.Web
 
 ## Run
 
-Execute the following command to run the program: 
-
-```bash
-dotnet run Elsa.Guides.HttpWorkflow.Web.csproj
-```
-
-The output should read: 
+Run the program and wait until you see the following output:
 
 ```text
 Now listening on: http://localhost:5000
@@ -120,3 +110,7 @@ The result should look like this:
 
 In this guide, we've seen how to setup a workflow that is triggered when an HTTP request comes in.
 Implementing HTTP workflows is a great way to easily implement logic in response to HTTP requests quickly. 
+
+## Source
+
+https://github.com/elsa-workflows/elsa-guides/tree/master/src/Elsa.Guides.HelloWorld.WebApp

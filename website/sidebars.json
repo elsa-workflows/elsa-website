@@ -11,9 +11,9 @@
       "concepts-workflows"
     ],
     "Guides": [
-      "guides-hello-world",
+      "guides-hello-world-console",
+      "guides-hello-world-http",
       "guides-recurring-task",
-      "guides-http-workflow",
       "guides-document-approval"
     ]
   },

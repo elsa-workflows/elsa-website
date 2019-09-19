@@ -6,29 +6,24 @@ sidebar_label: Recurring Task
 
 In this guide, we will do the following:
 
-* Create a console application.
 * Programmatically define a workflow definition that automatically executes every 5 seconds using the `TimerEvent` activity.
 
-Let's get to it!   
+Let's get to it!
 
 ## Create Console Project
 
-Run the following commands to create a new .NET Core Console project and add the necessary packages:
-
 > Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
 
-```bash
-dotnet new console --name Elsa.Guides.RecurringTask.ConsoleApp
-cd Elsa.Guides.RecurringTask.ConsoleApp
-dotnet add package Elsa.Core -v 1.0.0.16-beta3
-dotnet add package Elsa.Activities.Console -v 1.0.0.16-beta3
-dotnet add package Elsa.Activities.Timers -v 1.0.0.16-beta3
-dotnet add package Microsoft.Extensions.Hosting
-```
+Create a new .NET Core Console project called `Elsa.Guides.RecurringTask.ConsoleApp` and add the following packages:
 
-## Create Workflow Class
+* Elsa.Core
+* Elsa.Activities.Console
+* Elsa.Activities.Timers
+* Microsoft.Extensions.Hosting
 
-Create and add a new file to the project called `RecurringTaskWorkflow.cs` and add the following code:
+## Define Workflow
+
+Create a new class called `RecurringTaskWorkflow` and add the following code:
 
 ```csharp
 using System;
@@ -129,3 +124,7 @@ It's now Tue Sep 17 2019 16:28:52 GMT+02:00. Let's do this thing!
 ## Summary
 
 In this guide, we've seen how to setup a workflow that is triggered using a `TimerEvent` activity.
+
+## Source
+
+https://github.com/elsa-workflows/elsa-guides/tree/master/src/Elsa.Guides.RecurringTask.ConsoleApp
