@@ -33,7 +33,7 @@ using Elsa.Expressions;
 using Elsa.Services;
 using Elsa.Services.Models;
 
-namespace Rtl.Guides.HelloWorld.WebApp
+namespace Elsa.Guides.HelloWorld.WebApp
 {
     public class HelloWorldHttpWorkflow : IWorkflow
     {
@@ -70,7 +70,7 @@ using Elsa.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Rtl.Guides.HelloWorld.WebApp
+namespace Elsa.Guides.HelloWorld.WebApp
 {
     public class Startup
     {
