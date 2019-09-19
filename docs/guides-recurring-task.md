@@ -52,6 +52,8 @@ namespace Elsa.Guides.RecurringTask.ConsoleApp
 > Notice that we're defining this workflow as a **singleton**. Singleton workflows will only ever have a single instance running. 
 > This is desirable in this example, because we don't want to spawn a new workflow instance every time the timer background runner ticks.  
 
+## Update Program
+
 Next, open `Program.cs` and insert the following code:
 
 ```csharp

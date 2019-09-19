@@ -61,6 +61,8 @@ namespace Elsa.Guides.HelloWorld.WebApp
 }
 ```
 
+## Update Startup
+
 Next, open `Startup.cs` and insert the following code:
 
 ```csharp
