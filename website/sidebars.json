@@ -3,8 +3,9 @@
     "Installation": [
       "installing-preview-feed",
       "installing-elsa-core",
-      "installing-elsa-dashboard",
+      "installing-host",
       "installing-persistence",
+      "installing-elsa-dashboard",
       "installing-elsa-designer"
     ],
     "Concepts": [

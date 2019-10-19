@@ -38,6 +38,7 @@ Currently, the following providers are supported:
 
 * [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
 * [MongoDB](https://www.mongodb.com/)
+* [Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/)
 * [YesSQL](https://github.com/sebastienros/yessql/blob/dev/README.md)
 
 ## Custom Providers
