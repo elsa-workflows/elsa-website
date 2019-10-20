@@ -15,7 +15,8 @@
       "guides-hello-world-console",
       "guides-hello-world-http",
       "guides-recurring-task",
-      "guides-document-approval"
+      "guides-document-approval",
+      "guides-dashboard"
     ]
   },
   "docs/features": {
