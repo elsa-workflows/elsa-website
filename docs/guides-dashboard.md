@@ -226,4 +226,4 @@ Although we were hosting both the Dashboard and Workflow Host in the same ASP.NE
 
 ## Source
 
-https://github.com/elsa-workflows/elsa-guides/tree/master/src/Elsa.Guides.DocumentApproval.WebApp
+https://github.com/elsa-workflows/elsa-guides/tree/master/src/Elsa.Guides.Dashboard.WebApp
