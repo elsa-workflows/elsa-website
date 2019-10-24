@@ -4,7 +4,10 @@ title: Installing the MyGet Preview Feed
 sidebar_label: Preview Feed 
 ---
 
-Elsa is currently only available from [MyGet](https://www.myget.org/feed/Packages/elsa). In order to install Elsa packages, add the following package feed to your project:
+Elsa releases are deployed to NuGet and are considered stable.
+
+However, development is ongoing and every commit to the `develop` branch is deployed to [MyGet](https://www.myget.org/feed/Packages/elsa).  
+In order to install Elsa packages from MyGet, add the following package feed to your project:
 
 `https://www.myget.org/F/elsa/api/v3/index.json`
 

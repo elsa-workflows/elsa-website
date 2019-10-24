@@ -8,8 +8,6 @@ The **Elsa.Core** NuGet package provides APIs to build and execute workflows. In
 
 ## Add Package
 
-> Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
-
 ```bash
 dotnet add package Elsa.Core
 ```
@@ -30,6 +28,8 @@ You can now resolve workflow services to build, load and execute workflows.
 ## Example
 
 As a quick example, try the following in a new console project:
+
+> 
 
 ```csharp
 using System;

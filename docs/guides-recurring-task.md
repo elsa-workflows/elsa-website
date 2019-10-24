@@ -12,8 +12,6 @@ Let's get to it!
 
 ## Create Console Project
 
-> Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
-
 Create a new .NET Core Console project called `Elsa.Guides.RecurringTask.ConsoleApp` and add the following packages:
 
 * Elsa.Core

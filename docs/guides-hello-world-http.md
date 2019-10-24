@@ -13,8 +13,6 @@ Let's get to it!
 
 ## Create ASP.NET Core Project
 
-> Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
-
 Create a new, empty ASP.NET Core project called `Elsa.Guides.HelloWorld.WebApp` and add the following packages:
 
 * Elsa.Core

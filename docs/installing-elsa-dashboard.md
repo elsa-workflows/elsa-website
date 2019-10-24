@@ -9,8 +9,6 @@ In this section, we'll see how to install the package into a ASP.NET Core projec
 
 ## Add Package
 
-> Elsa is currently still in preview and not yet published to NuGet. Make sure to [add the MyGet feed](./installing-preview-feed.md) first.
-
 To add the package to your ASP.NET Core project, run the following command: 
 
 ```bash

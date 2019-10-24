@@ -95,7 +95,8 @@ class Index extends React.Component {
             <Block background="light">
                 {[
                     {
-                        content: 'Workflows can be defined using plain C# code. In addition to an increasing number of activities that you can choose from, Elsa is designed to be extensible with your own **custom activities**.',
+                        content: 'Workflows can be defined using plain C# code. In addition to an increasing number of activities that you can choose from, Elsa is designed to be extensible with your own **custom activities**.\n\n' +
+                            '[Learn how](docs/guides-dashboard)',
                         image: `${baseUrl}img/undraw_data_trends_b0wg.svg`,
                         imageAlign: 'right',
                         title: 'Manage Workflows using the Elsa Dashboard built with ASP.NET Core',
@@ -109,7 +110,8 @@ class Index extends React.Component {
                 {[
                     {
                         content:
-                            `The Workflow Designer is a **100% client-side web component** that can be **re-used** in any application, and allows you to easily design workflows. Workflows can be exported as JSON files, which can then be executed using the Elsa Core API.`,
+                            'The Workflow Designer is a **100% client-side web component** that can be **re-used** in any application, and allows you to easily design workflows. Workflows can be exported as JSON files, which can then be executed using the Elsa Core API.\n\n' +
+                            '[Learn how](docs/installing-elsa-designer)',
                         image: `${baseUrl}img/undraw_software_engineer_lvl5.svg`,
                         imageAlign: 'left',
                         title: 'Design workflows using the reusable HTML5 Workflow Designer',
@@ -135,7 +137,8 @@ class Index extends React.Component {
                             '}\n' +
                             '```' +
                             '\n\n' +
-                            'Short-running Workflows can be useful to implement a business rules engine, while long-running workflows greatly simplify the implementation of complex processes that involve coordinating between multiple agents (users & machines).',
+                            'Short-running Workflows can be useful to implement a business rules engine, while long-running workflows greatly simplify the implementation of complex processes that involve coordinating between multiple agents (users & machines).\n\n' +
+                            '[Learn how](docs/guides-hello-world-console)',
                         image: `${baseUrl}img/undraw_Designer_by46.svg`,
                         imageAlign: 'right',
                         title: 'Craft workflows using C#',
