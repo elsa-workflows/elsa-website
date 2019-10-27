@@ -42,7 +42,7 @@ namespace Elsa.Guides.HelloWorld.ConsoleApp
             var services = new ServiceCollection()
 
                 // Add essential workflow services.
-                .AddWorkflows()
+                .AddElsa()
 
                 // Add Console activities (ReadLine and WriteLine).
                 .AddConsoleActivities()

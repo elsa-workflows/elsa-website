@@ -234,7 +234,7 @@ The activity will store this value in its output dictionary with a key of `"Cont
     x =>
     {
         x.VariableName = "Document";
-        x.ValueExpression = new JavaScriptExpression<ExpandoObject>("lastResult().ParsedContent");
+        x.ValueExpression = new JavaScriptExpression<ExpandoObject>("lastResult().Content");
     }
 )
 ```
@@ -486,16 +486,16 @@ namespace Elsa.Guides.DocumentApproval.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddWorkflows()
+                .AddElsa()
                 .AddHttpActivities(options => options.Bind(Configuration.GetSection("Http")))
                 .AddEmailActivities(options => options.Bind(Configuration.GetSection("Smtp")))
-                .AddTimerActivities(options => options.Bind(Configuration.GetSection("BackgroundRunner")));
+                .AddTimerActivities(options => options.Bind(Configuration.GetSection("BackgroundRunner")))
+                .AddWorkflow<DocumentApprovalWorkflow>;
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IWorkflowRegistry workflowRegistry)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseHttpActivities();
-            workflowRegistry.RegisterWorkflow<DocumentApprovalWorkflow>();
         }
     }
 }

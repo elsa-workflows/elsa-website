@@ -12,11 +12,22 @@
       "concepts-workflows"
     ],
     "Guides": [
+      "guides-dashboard",
       "guides-hello-world-console",
       "guides-hello-world-http",
       "guides-recurring-task",
-      "guides-document-approval",
-      "guides-dashboard"
+      "guides-document-approval"
+    ],
+    "Expressions": [
+      "expressions-javascript",
+      "expressions-liquid"
+    ],
+    "Extensibility": [
+      "extensibility-custom-activities",
+      "extensibility-persistence",
+      "extensibility-javascript",
+      "extensibility-liquid",
+      "extensibility-expression-evaluators"
     ]
   },
   "docs/features": {

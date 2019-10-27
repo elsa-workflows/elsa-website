@@ -71,15 +71,3 @@ Visually, this would look like this:
 1. The `Failed` outcome of `Activity A`.
 1. The connection between `Activity A` and `Activity B`.
 1. The connection between `Activity A` and `Activity C`.    
-
-## Outcome 
-
-## Workflow Invoker 
-
-## Variables
-
-## Workflow Expressions
-
-## Workflow Definitions
-
-## Workflow Instances

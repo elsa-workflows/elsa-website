@@ -38,14 +38,14 @@ namespace Elsa.Guides.HelloWorld.WebApp
         public void Build(IWorkflowBuilder builder)
         {
             builder
-                .StartWith<HttpRequestEvent>(
+                .StartWith<ReceiveHttpRequest>(
                     x =>
                     {
                         x.Method = HttpMethod.Get.Method;
                         x.Path = new Uri("/hello-world", UriKind.Relative);
                     }
                 )
-                .Then<HttpResponseAction>(
+                .Then<WriteHttpResponse>(
                     x =>
                     {
                         x.Content = new LiteralExpression("<h1>Hello World!</h1>");
@@ -77,14 +77,14 @@ namespace Elsa.Guides.HelloWorld.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddWorkflows()
-                .AddHttpActivities();
+                .AddElsa()
+                .AddHttpActivities()
+                .AddWorkflow<HelloWorldHttpWorkflow>;
         }
 
-        public void Configure(IApplicationBuilder app, IWorkflowRegistry workflowRegistry)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseHttpActivities();
-            workflowRegistry.RegisterWorkflow<HelloWorldHttpWorkflow>();
         }
     }
 }
