@@ -128,7 +128,7 @@ namespace Elsa.Guides.DocumentApproval.WebApp
                             .When("Remind")
                             .Then<TimerEvent>(
                                 x => x.TimeoutExpression = new LiteralExpression<TimeSpan>("00:00:10"),
-                                id: "RemindTimer"
+                                name: "RemindTimer"
                             )
                             .Then<IfElse>(
                                 x => x.ConditionExpression = new JavaScriptExpression<bool>("!!Approved"),
@@ -156,7 +156,7 @@ namespace Elsa.Guides.DocumentApproval.WebApp
                             );
                     }
                 )
-                .Then<Join>(x => x.Mode = Join.JoinMode.WaitAny, id: "Join")
+                .Then<Join>(x => x.Mode = Join.JoinMode.WaitAny, name: "Join")
                 .Then<SetVariable>(
                     x =>
                     {
@@ -337,7 +337,7 @@ If the variable were undefined, the workflow would **fault**.
             .When("Remind")
             .Then<TimerEvent>(
                 x => x.TimeoutExpression = new LiteralExpression<TimeSpan>("00:00:10"),
-                id: "RemindTimer"
+                name: "RemindTimer"
             )
             .Then<IfElse>(
                 ...
@@ -359,7 +359,7 @@ When this happens, workflow execution continues on to the `Join` activity, which
 > #### Connecting Activities
 >
 > Notice that we can connect to activities other than whatever is specified as a generic type parameter. Instead of specifying what activity will be executed next using the type argument, we can specify the **ID** of an activity instead.
-> In reality, the `Next<T>` method simply defines an activity and then automatically creates a connection between the current one and the one being defined. The `Next` method taking no type arguments, and only a single `id: string` argument, simply creates a connection between the current activity and the one specified by the ID.   
+> In reality, the `Next<T>` method simply defines an activity and then automatically creates a connection between the current one and the one being defined. The `Next` method taking no type arguments, and only a single `name: string` argument, simply creates a connection between the current activity and the one specified by the ID.   
 
 Not only will the workflow be blocked on the two Signaled activities, it will also block on the `TimerEvent` activity.
 This activity is configured to trigger every 10 seconds. Every 10 seconds, this branch of the workflow will continue to the `IfElse` activity.
@@ -401,7 +401,7 @@ If `false`, an email is sent using the `SendEmail` activity, which we've seen be
 ### Join
 
 ```csharp
-.Then<Join>(x => x.Mode = Join.JoinMode.WaitAny, id: "Join")
+.Then<Join>(x => x.Mode = Join.JoinMode.WaitAny, name: "Join")
 .Then<SetVariable>(
     x =>
     {
