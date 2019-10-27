@@ -22,11 +22,9 @@ When installed, update your `Startup` class as follows:
 public void ConfigureServices(IServiceCollection services)
 {
     services
-        .AddMvc()
-        .AddElsaDashboard()
-        .AddEntityFrameworkCore(options => options.UseSqlite("Data Source=c:\data\elsa.db;Cache=Shared"))
-        .AddEntityFrameworkCoreWorkflowDefinitionStore()
-        .AddEntityFrameworkCoreWorkflowInstanceStore();
+        .AddElsa(elsa => elsa
+            .AddEntityFrameworkStores(options => options
+                .UseSqlite("Data Source=c:\data\elsa.db;Cache=Shared"));
 }
 ```
 
@@ -36,6 +34,7 @@ This time, your workflow definitions will be persisted even when your applicatio
 
 Currently, the following providers are supported:
 
+* Memory
 * [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
 * [MongoDB](https://www.mongodb.com/)
 * [Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/)

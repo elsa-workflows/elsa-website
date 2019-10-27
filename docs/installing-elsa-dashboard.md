@@ -23,14 +23,15 @@ To add the required services to your application, add the following code to `Sta
 public void ConfigureServices(IServiceCollection services)
 {
     services
-        .AddMvc()
         .AddElsaDashboard();
 }
 
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
-    app.UseStaticFiles();
-    app.UseMvcWithDefaultRoute();
+    app
+        .UseStaticFiles()
+        .UseRouting()
+        .UseEndpoints(endpoints => endpoints.MapControllers());
 }
 ```
 

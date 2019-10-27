@@ -1,7 +1,7 @@
 {
   "docs/getting-started": {
     "Installation": [
-      "installing-preview-feed",
+      "installing-feeds",
       "installing-elsa-core",
       "installing-host",
       "installing-persistence",

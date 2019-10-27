@@ -4,6 +4,10 @@ title: Installing Elsa Designer
 sidebar_label: Designer
 ---
 
+> NOTE: There's no need to install the designer yourself if you are using [Elsa Dashboard](./installing-elsa-dashboard.md). Elsa Dashboard already embeds the designer in the appropriate MVC view.
+>
+> The below guide is intended for those who wish to reuse the HTML5 workflow designer web component without relying on Elsa Dashboard.
+
 The easiest way to install the Elsa workflow designer is by including the following script tag in your HTML document:
 
 ```html

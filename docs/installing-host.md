@@ -23,15 +23,12 @@ public void ConfigureServices(IServiceCollection services)
 {
     services
         // Required services for Elsa to work. Registers things like `IWorkflowInvoker`.
-        .AddWorkflows()
-
-        // Registers an IServer decorator that will automatically invoke startup tasks. This enables async initialization.
-        .AddTaskExecutingServer()
+        .AddElsa()
 
         // Registers necessary service to handle HTTP requests.
         .AddHttpActivities()
 
-        // Registers a hosted services that periodically invokes workflows containing time-based activities. 
+        // Registers a hosted service that periodically invokes workflows containing time-based activities. 
         .AddTimerActivities();
 }
 ```
@@ -45,13 +42,3 @@ public void Configure(IApplicationBuilder app)
     app.UseHttpActivities();
 }
 ```
-
-## About the Startup Runner
-When the application starts, it will automatically read all of your workflow definitions into the workflow registry. This is handled by a `IStartupTask` called `PopulateRegistryTask`.
-Startup tasks are executed by the `IStartupRunner`, which is automatically invoked by `TaskExecutingServer`.
-
-> If you prefer to control when the startup tasks execute, simply remove the call to `AddTaskExecutingServer`. It's now your responsibility to resolve the `IStartupRunner` and invoke its `StartupAsync` method.
->
-> The `PopulateRegistryTask` task is responsible for populating the workflow registry with workflow definitions from the underlying workflow definition store.
-> Another startup task called `InitializeStoreTask` is shipped with the YesSQL provider, and takes care of creating the necessary database tables.
-> You can implement your own `IStartupTask` if you need to run initialization code. A use case might be to automatically run EF migrations.  
