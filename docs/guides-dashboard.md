@@ -18,10 +18,7 @@ Let's get to it!
 
 Create a new, empty ASP.NET Core 3.0 project called `Elsa.Guides.Dashboard.WebApp` and add the following packages:
 
-* Elsa.Core
-* Elsa.Activities.Email
-* Elsa.Activities.Http
-* Elsa.Activities.Timers
+* Elsa
 * Elsa.Dashboard
 * Elsa.Persistence.EntityFrameworkCore
 
