@@ -6,6 +6,15 @@ sidebar_label: JavaScript
 
 The following JavaScript expressions are supported:
 
+## Variables
+Any workflow variable can be accessed directly as if they were a global variable.
+
+For example, if the `SetVariable` activity sets a variable called `Foo` to `'Bar'`, it can be accessed as follows:
+
+Expression: `"Hello " + Foo`
+
+Result: `"Hello Bar"`
+
 ## Common Functions
 
 ### currentCulture
@@ -30,6 +39,8 @@ Returns the value of the specified workflow variable.
 ```
 variable(name: string): JToken
 ```
+
+> Instead of using `variable()`, you can access workflow variables directly.
 
 ### correlationId()
 Returns the correlation ID of the workflow instance.
