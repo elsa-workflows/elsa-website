@@ -54,7 +54,7 @@ namespace Elsa.Guides.Dashboard.WebApp
         {
             services
                 // Add services used for the workflows runtime.
-                .AddElsa(elsa => elsa.AddEntityFrameworkStores(options => options.UseSqlite(Configuration.GetConnectionString("Sqlite"))))
+                .AddElsa(elsa => elsa.AddEntityFrameworkStores<SqliteContext>(options => options.UseSqlite(Configuration.GetConnectionString("Sqlite"))))
                 .AddHttpActivities(options => options.Bind(Configuration.GetSection("Elsa:Http")))
                 .AddEmailActivities(options => options.Bind(Configuration.GetSection("Elsa:Smtp")))
                 .AddTimerActivities(options => options.Bind(Configuration.GetSection("Elsa:Timers")))
@@ -114,12 +114,23 @@ using Elsa.Persistence.EntityFrameworkCore;
 namespace Elsa.Guides.Dashboard.WebApp
 {
     // To run migrations:
-    // SET EF_PROVIDER=Sqlite
-    // SET EF_CONNECTIONSTRING=Data Source=c:\data\elsa-dashboard.db;Cache=Shared
     // dotnet ef database update --context ElsaContext
 
-    public class ElsaContextFactory : DesignTimeElsaContextFactory
+    public class SqliteContextFactory : IDesignTimeDbContextFactory<SqliteContext>
     {
+        public SqliteContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<SqliteContext>();
+            var migrationAssembly = typeof(SqliteContext).Assembly.FullName;
+            var connectionString = Environment.GetEnvironmentVariable("EF_CONNECTIONSTRING") ?? @"Data Source=c:\data\elsa-dashboard.db;Cache=Shared";
+
+            optionsBuilder.UseSqlite(
+                connectionString,
+                x => x.MigrationsAssembly(migrationAssembly)
+            );
+
+            return new SqliteContext(optionsBuilder.Options);
+        }
     }
 }
 ```
