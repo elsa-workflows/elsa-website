@@ -94,7 +94,7 @@ As you can see, we are configuring the **HTTP**, **Email** and **Timer** activit
       "Port": "2525"
     },
     "Timers": {
-      "SweepInterval": "PT10S"
+      "SweepInterval": "0:00:00:10"
     }
   }
 }
