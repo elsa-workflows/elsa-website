@@ -104,6 +104,10 @@ As you can see, we are configuring the **HTTP**, **Email** and **Timer** activit
 Before the application becomes operational, we need to create the Sqlite database.
 The `Elsa.Persistence.EntityFrameworkCore` package comes with the necessary migrations that we can run, including implementations of `IDesignTimeDbContextFactory` for each database provider currently supported by Elsa.
 
+> **EF Core Tools**
+> Before you can run the dotnet tool `dotnet ef`, you will need to install it. When you do, make sure to include the version number (3.1 at the time of writing). If you don't, odds are you will get a message that dotnet could not find the tool `dotnet ef`.
+> To install dotnet ef, run the following command from your terminal: `dotnet tool install --global dotnet-ef --version 3.1.0`
+
 Open a terminal window and navigate to the `src\Elsa.Guides.Dashboard.WebApp` folder.
 The `IDesignTimeDbContextFactory` implementations expect the following environment variable to be present:
 
