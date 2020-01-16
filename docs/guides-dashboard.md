@@ -31,10 +31,9 @@ using Elsa.Activities.Email.Extensions;
 using Elsa.Activities.Http.Extensions;
 using Elsa.Activities.Timers.Extensions;
 using Elsa.Dashboard.Extensions;
-using Elsa.Extensions;
+using Elsa.Persistence.EntityFrameworkCore.DbContexts;
 using Elsa.Persistence.EntityFrameworkCore.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -60,7 +59,7 @@ namespace Elsa.Guides.Dashboard.WebApp
                 .AddTimerActivities(options => options.Bind(Configuration.GetSection("Elsa:Timers")))
                 
                 // Add services used for the workflows dashboard.
-                .AddElsaDashboard(options => options.DiscoverActivities());
+                .AddElsaDashboard();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -102,50 +101,20 @@ As you can see, we are configuring the **HTTP**, **Email** and **Timer** activit
 
 ## Run EF Migrations
 
-Before the application becomes operational, we need to create the Sqlite database. The `Elsa.Persistence.EntityFrameworkCore` package comes with the necessary migrations that we can run.
+Before the application becomes operational, we need to create the Sqlite database.
+The `Elsa.Persistence.EntityFrameworkCore` package comes with the necessary migrations that we can run, including implementations of `IDesignTimeDbContextFactory` for each database provider currently supported by Elsa.
 
-In order to be able to run these migrations, we need to create a class that inherits from `DesignTimeElsaContextFactory`. The reason is so that the EF tooling is able to recognize the existence of the `ElsaContext` class.
+Open a terminal window and navigate to the `src\Elsa.Guides.Dashboard.WebApp` folder.
+The `IDesignTimeDbContextFactory` implementations expect the following environment variable to be present:
 
-Let's create the following class:
+- EF_CONNECTIONSTRING 
 
-```csharp
-using Elsa.Persistence.EntityFrameworkCore;
-
-namespace Elsa.Guides.Dashboard.WebApp
-{
-    // To run migrations:
-    // dotnet ef database update --context ElsaContext
-
-    public class SqliteContextFactory : IDesignTimeDbContextFactory<SqliteContext>
-    {
-        public SqliteContext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<SqliteContext>();
-            var migrationAssembly = typeof(SqliteContext).Assembly.FullName;
-            var connectionString = Environment.GetEnvironmentVariable("EF_CONNECTIONSTRING") ?? @"Data Source=c:\data\elsa-dashboard.db;Cache=Shared";
-
-            optionsBuilder.UseSqlite(
-                connectionString,
-                x => x.MigrationsAssembly(migrationAssembly)
-            );
-
-            return new SqliteContext(optionsBuilder.Options);
-        }
-    }
-}
-```
-
-Build the project, then open a terminal window and navigate to the `src\Elsa.Guides.Dashboard.WebApp` folder.
-The `DesignTimeElsaContextFactory` expects two environment variables to be present:
-
-- EF_PROVIDER (defaults to `Sqlite`)
-- EF_CONNECTIONSTRING (defaults to `Data Source=c:\data\elsa.db;Cache=Shared`) 
-
+We will set this variable from our terminal window and then execute an EF Core command.
 Enter the following commands:
 
 ```bash
 SET EF_CONNECTIONSTRING=Data Source=c:\data\elsa-dashboard.db;Cache=Shared
-dotnet ef database update --context ElsaContext
+dotnet ef database update --context SqliteContext
 ```
 
 If everything worked out, there should now be a `elsa-dashboard.db` file in `c:\data`.
