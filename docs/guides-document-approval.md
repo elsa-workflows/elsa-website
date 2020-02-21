@@ -7,7 +7,7 @@ sidebar_label: Document Approval
 In this guide, we will do the following:
 
 * Define a **long-running** workflow definition programmatically that executes when an HTTP request comes in at a specified URL. The workflow accepts a POST request with a JSON payload representing a document to be reviewed.
-* See the following activities in action: `HttpRequest`, `HttpResponse`, `Fork`, `Join`, `SetVariable`, `Signaled`, `SendEmail` and `IfElse`.  
+* See the following activities in action: `ReceiveHttpRequest`, `WriteHttpResponse`, `Fork`, `Join`, `SetVariable`, `Signaled`, `SendEmail` and `IfElse`.  
 
 The purpose of the workflow is to allow authors to submit documents (modeled as JSON objects), and have a reviewer either **approve** or **reject** the document.
 Furthermore, if the reviewer takes too long to take action, she is **reminded periodically** to approve or reject the pending document.
@@ -64,7 +64,7 @@ namespace Elsa.Guides.DocumentApproval.WebApp
         public void Build(IWorkflowBuilder builder)
         {
             builder
-                .StartWith<HttpRequestEvent>(
+                .StartWith<ReceiveHttpRequestEvent>(
                     x =>
                     {
                         x.Method = HttpMethod.Post.Method;
@@ -76,7 +76,7 @@ namespace Elsa.Guides.DocumentApproval.WebApp
                     x =>
                     {
                         x.VariableName = "Document";
-                        x.ValueExpression = new JavaScriptExpression<ExpandoObject>("lastResult().Content");
+                        x.ValueExpression = new JavaScriptExpression<ExpandoObject>("lastResult().Body");
                     }
                 )
                 .Then<SendEmail>(
@@ -92,7 +92,7 @@ namespace Elsa.Guides.DocumentApproval.WebApp
                         );
                     }
                 )
-                .Then<HttpResponseAction>(
+                .Then<WriteHttpResponse>(
                     x =>
                     {
                         x.Content = new LiteralExpression(
@@ -206,10 +206,10 @@ namespace Elsa.Guides.DocumentApproval.WebApp
 
 That's a pretty big listing! Let's go over each activity step-by-step from top to bottom.
 
-### HttpRequestEvent
+### ReceiveHttpRequestEvent
 
 ```csharp
-.StartWith<HttpRequestEvent>(
+.StartWith<ReceiveHttpRequestEvent>(
     x =>
     {
         x.Method = HttpMethod.Post.Method;
@@ -219,12 +219,12 @@ That's a pretty big listing! Let's go over each activity step-by-step from top t
 )
 ```
 
-Because of the presence of the `HttpRequestEvent` activity, the workflow will be executed every time a HTTP POST request is received matching the path `/documents`.
+Because of the presence of the `ReceiveHttpRequestEvent` activity, the workflow will be executed every time a HTTP POST request is received matching the path `/documents`.
 
 We set its `ReadContent` to `true` so that the request body will be read & parsed. Parsing the content body is done with an appropriate **IContentFormatter** that is selected based on the request body's *content type*.
 Currently, only the `application/json` and `text/json` content types are supported, but support for `application/x-www-form-urlencoded` and `multipart/form-data` will be added as well. It will parse the JSON content into an [ExpandoObject](https://docs.microsoft.com/en-us/dotnet/api/system.dynamic.expandoobject?view=netcore-2.2). 
 
-With `ReadContent` set to true, we will be able to access the parsed JSON from other activities in the workflow.
+With `ReadContent` set to true, we can access the parsed JSON from other activities in the workflow.
 The activity will store this value in its output dictionary with a key of `"Content"` as well as the workflow execution context's `LastResult` property.
 
 ### SetVariable
@@ -234,7 +234,7 @@ The activity will store this value in its output dictionary with a key of `"Cont
     x =>
     {
         x.VariableName = "Document";
-        x.ValueExpression = new JavaScriptExpression<ExpandoObject>("lastResult().Content");
+        x.ValueExpression = new JavaScriptExpression<ExpandoObject>("lastResult().Body");
     }
 )
 ```
@@ -243,10 +243,9 @@ We then connect to the `SetVariable` activity that sets a custom variable on the
 
 The expression works like this:
 
-- First, we invoke a function called `lastResult`. This function returns the workflow execution context's `LastResult` value. Because this was set by the `HttpRequestEvent`, it will contain an object that consists of two properties: `Content` and `ParsedContent`.
-- `ParsedContent` holds the expando object mentioned earlier, while `Content` holds the raw HTTP request content body.
+- First, we invoke a function called `lastResult`. This function returns the workflow execution context's `LastResult` value. Because this was set by the `ReceiveHttpRequestEvent`, it will contain an object holding details about the received HTTP request, including a `Body` property that contains the parsed JSON object.
 
- We are using the `SetVariable` activity to simplify accessing it from other activities later on, as we'll see in the next activity.
+ We are using the `SetVariable` activity to simplify accessing it from other activities, as we'll see in the next activity.
  
  ### SendEmail
  
@@ -269,7 +268,7 @@ The expression works like this:
 The second thing we want to do is to notify the reviewer that a new document was submitted. We do this by sending an email using the `SendEmail` activity. We configure this activity using a mix of `LiteralExpression` and `JavaScriptExpression` objects.
 A `LiteralExpression` returns the literal string value passed into its constructor, and optionally converts it to a given type if you use the generic type overload. In this case, we just need to specify a literal email address: `"approval@acme.com`.
 
-The expression for the `To`, `Subject` and `Body` are more interesting. The all demonstrate how to use JavaScript expressions to access the `Document` variable we defined earlier on the workflow. 
+The expression for the `To`, `Subject` and `Body` are more interesting, because they demonstrate how to use JavaScript expressions to access the `Document` variable we defined earlier. 
 
 The `Body` property expression uses a JavaScript function called `signalUrl` taking a single argument representing the name of the signal. What this does is generate an absolute URL including a security token that carries the following information:
 
@@ -277,15 +276,15 @@ The `Body` property expression uses a JavaScript function called `signalUrl` tak
 * Name of the signal
 
 When a HTTP request is made to the generated URL (e.g. by clicking on it when the email is received), Elsa will recognize this URL and **trigger** the workflow instance matching the workflow instance ID carried by the security token.
-Specifically, the workflow will be triggered with the `Signaled` event, which causes the workflow to resume if it is **blocked** on an activity of that type.
+More specifically, the workflow will be triggered with the `Signaled` event, which causes the workflow to resume if it is **blocked** on an activity of that type.
 We will get to the `Signaled` shortly.
 
 First, we want to send an HTTP response to the client and say that the document was successfully received.
 
-### HttpResponseAction
+### WriteHttpResponse
 
 ```csharp
-.Then<HttpResponseAction>(
+.Then<WriteHttpResponse>(
     x =>
     {
         x.Content = new LiteralExpression(
@@ -298,7 +297,7 @@ First, we want to send an HTTP response to the client and say that the document 
 )
 ```
 
-The `HttpResponseAction` simply writes a response back to the client. The activity allows us to configure the **status code**, **content type**, **content body** and **response headers** to send back.
+The `WriteHttpResponse` activity simply writes a response back to the client. The activity allows us to configure the **status code**, **content type**, **content body** and **response headers** to send back.
  
 ### SetVariable
  
@@ -312,7 +311,7 @@ The `HttpResponseAction` simply writes a response back to the client. The activi
 ) 
 ```
 
-We encounter the `SetVariable` activity again. This time to initialize another variable we call `Approved`. This variable is used later on to check whether the reviewer clicked the `Approve` or `Reject` link (triggering the appropriate signal).
+This time we use the `SetVariable` activity to initialize another variable called `Approved`. This variable is used later on to check whether the reviewer clicked the `Approve` or `Reject` link (triggering the appropriate signal).
 We need to initialize this variable beforehand because in the next activity, we will **fork** execution into 3 branches, one of which initiates a **timer** that periodically checks this variable. 
 If the variable were undefined, the workflow would **fault**.
 
@@ -363,7 +362,7 @@ When this happens, workflow execution continues on to the `Join` activity, which
 
 Not only will the workflow be blocked on the two Signaled activities, it will also block on the `TimerEvent` activity.
 This activity is configured to trigger every 10 seconds. Every 10 seconds, this branch of the workflow will continue to the `IfElse` activity.
-Notice that we specified an ID value for the `TimerEvent` activity: `"RemindTimer""`. Specifying an explicit ID allows us to reference activities from other parts of the workflows, as we'll see in a few seconds.
+Notice that we specified an ID value for the `TimerEvent` activity: `"RemindTimer""`. Specifying an explicit ID allows us to reference activities from other parts of the workflows.
 
 ### IfElse
 
@@ -538,6 +537,9 @@ Postman enables us to easily post JSON content to our workflow.
 Smtp4Dev enables us to launch an SMTP service locally and intercept all outgoing email messages, without actually sending them to the recipients.
 I configured mine to listen on port `2525`.
 
+> ### Docker Compose & .HTTP files
+> Alternatively, you can choose run the Smtp4Dev service from a docker container using the accompanying docker-compose file and then fire off HTTP requests using the `http-request.http` file. This requires Docker Desktop to be installed on your computer.
+
 First, launch the application. IF all went well, the web host will be ready for incoming HTTP requests at http://localhost:5000:
 
 ```text
@@ -599,7 +601,7 @@ This will continue until you either click the `Approve` or `Reject` link.
 
 ## Summary
 
-In this walkthrough, we've seen how to implement long-running workflows with the help of `HttpRequestEvent`, `Signaled` and the `signalUrl` JavaScript function,
+In this walkthrough, we've seen how to implement long-running workflows with the help of `ReceiveHttpRequestEvent`, `Signaled` and the `signalUrl` JavaScript function,
 We've also seen how to use various other activities to implement a reminding loop. 
 
 ## Source
