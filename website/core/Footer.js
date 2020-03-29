@@ -58,6 +58,12 @@ class Footer extends React.Component {
               rel="noreferrer noopener">
               Stack Overflow
             </a>
+            <a
+                href="https://gitter.im/elsa-workflows/community"
+                target="_blank"
+                rel="noreferrer noopener">
+              Gitter
+            </a>
           </div>
           <div>
             <h5>More</h5>
