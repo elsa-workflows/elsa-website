@@ -20,7 +20,7 @@ const users = [
 
 const siteConfig = {
     title: 'ELSA',
-    tagline: 'An open source .NET Standard 2.0 workflows library',
+    tagline: 'An open source .NET Standard workflows library',
     url: 'https://elsa-workflows.github.io/', // Your website URL
     baseUrl: '/elsa-core/', // Base URL for your project */
     // For github.io type URLs, you would set the url and baseUrl like:
