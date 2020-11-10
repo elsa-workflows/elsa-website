@@ -23,7 +23,7 @@ public void ConfigureServices(IServiceCollection services)
 {
     services
         .AddElsa(elsa => elsa
-            .AddEntityFrameworkStores(options => options
+            .AddEntityFrameworkStores<SqliteContext>(options => options
                 .UseSqlite("Data Source=c:\data\elsa.db;Cache=Shared"));
 }
 ```
