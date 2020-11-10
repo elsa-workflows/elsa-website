@@ -42,4 +42,4 @@ Currently, the following providers are supported:
 
 ## Custom Providers
 
-If none of the providers meet your need, you can implement your own. Look at the source code of [one of the existing providers](https://github.com/elsa-workflows/elsa-core/tree/develop/src/persistence) for an example.
+If none of the providers meet your need, you can implement your own. Look at the source code of [one of the existing providers](https://github.com/elsa-workflows/elsa-core/tree/master/src/persistence) for an example.
