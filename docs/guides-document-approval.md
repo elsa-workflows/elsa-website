@@ -64,7 +64,7 @@ namespace Elsa.Guides.DocumentApproval.WebApp
         public void Build(IWorkflowBuilder builder)
         {
             builder
-                .StartWith<ReceiveHttpRequestEvent>(
+                .StartWith<ReceiveHttpRequest>(
                     x =>
                     {
                         x.Method = HttpMethod.Post.Method;
@@ -206,10 +206,10 @@ namespace Elsa.Guides.DocumentApproval.WebApp
 
 That's a pretty big listing! Let's go over each activity step-by-step from top to bottom.
 
-### ReceiveHttpRequestEvent
+### ReceiveHttpRequest
 
 ```csharp
-.StartWith<ReceiveHttpRequestEvent>(
+.StartWith<ReceiveHttpRequest>(
     x =>
     {
         x.Method = HttpMethod.Post.Method;
@@ -219,7 +219,7 @@ That's a pretty big listing! Let's go over each activity step-by-step from top t
 )
 ```
 
-Because of the presence of the `ReceiveHttpRequestEvent` activity, the workflow will be executed every time a HTTP POST request is received matching the path `/documents`.
+Because of the presence of the `ReceiveHttpRequest` activity, the workflow will be executed every time a HTTP POST request is received matching the path `/documents`.
 
 We set its `ReadContent` to `true` so that the request body will be read & parsed. Parsing the content body is done with an appropriate **IContentFormatter** that is selected based on the request body's *content type*.
 Currently, only the `application/json` and `text/json` content types are supported, but support for `application/x-www-form-urlencoded` and `multipart/form-data` will be added as well. It will parse the JSON content into an [ExpandoObject](https://docs.microsoft.com/en-us/dotnet/api/system.dynamic.expandoobject?view=netcore-2.2). 
@@ -243,7 +243,7 @@ We then connect to the `SetVariable` activity that sets a custom variable on the
 
 The expression works like this:
 
-- First, we invoke a function called `lastResult`. This function returns the workflow execution context's `LastResult` value. Because this was set by the `ReceiveHttpRequestEvent`, it will contain an object holding details about the received HTTP request, including a `Body` property that contains the parsed JSON object.
+- First, we invoke a function called `lastResult`. This function returns the workflow execution context's `LastResult` value. Because this was set by the `ReceiveHttpRequest`, it will contain an object holding details about the received HTTP request, including a `Body` property that contains the parsed JSON object.
 
  We are using the `SetVariable` activity to simplify accessing it from other activities, as we'll see in the next activity.
  
@@ -601,7 +601,7 @@ This will continue until you either click the `Approve` or `Reject` link.
 
 ## Summary
 
-In this walkthrough, we've seen how to implement long-running workflows with the help of `ReceiveHttpRequestEvent`, `Signaled` and the `signalUrl` JavaScript function,
+In this walkthrough, we've seen how to implement long-running workflows with the help of `ReceiveHttpRequest`, `Signaled` and the `signalUrl` JavaScript function,
 We've also seen how to use various other activities to implement a reminding loop. 
 
 ## Source
