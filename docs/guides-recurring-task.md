@@ -17,7 +17,8 @@ Create a new .NET Core Console project called `Elsa.Guides.RecurringTask.Console
 * Elsa.Core
 * Elsa.Activities.Console
 * Elsa.Activities.Timers
-* Microsoft.Extensions.Hosting
+* Elsa.Scripting.JavaScript
+* Microsoft.Extensions.Hosting* 
 
 ## Define Workflow
 
@@ -89,8 +90,9 @@ namespace Elsa.Guides.RecurringTask.ConsoleApp
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddWorkflows()
+            services                
+                .AddElsaCore()
+                .AddJavaScriptExpressionEvaluator()
                 .AddConsoleActivities()
                 .AddTimerActivities(options => options.Configure(x => x.SweepInterval = Duration.FromSeconds(1)))
                 .AddWorkflow<RecurringTaskWorkflow>();
