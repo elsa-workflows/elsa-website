@@ -42,7 +42,7 @@ namespace Elsa.Guides.HelloWorld.ConsoleApp
             var services = new ServiceCollection()
 
                 // Add essential workflow services.
-                .AddElsa()
+                .AddElsaCore()
 
                 // Add Console activities (ReadLine and WriteLine).
                 .AddConsoleActivities()
@@ -64,7 +64,7 @@ namespace Elsa.Guides.HelloWorld.ConsoleApp
             await invoker.StartAsync(workflowDefinition);
 
             // Prevent the console from shutting down until user hits a key.
-            System.Console.ReadLine();
+            Console.ReadLine();
         }
     }
 }
