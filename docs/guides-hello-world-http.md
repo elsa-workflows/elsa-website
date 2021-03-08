@@ -77,7 +77,7 @@ namespace Elsa.Guides.HelloWorld.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddElsa()
+                .AddElsaCore()
                 .AddHttpActivities()
                 .AddWorkflow<HelloWorldHttpWorkflow>;
         }
