@@ -1,18 +1,19 @@
 ---
-id: installing-host
-title: Using Elsa as a Workflow Host
-sidebar_label: Host
+id: installing-elsa-server
+title: Elsa Server
+sidebar_label: Elsa Server
 ---
 
-In order to automatically execute workflows, you will need to start various background services and install various middleware.
-
-For example, in order to trigger the `TimerEvent` activity, the `TimersHostedService` needs to be registered with your [.NET Core host](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host).
-
-In order to trigger the `HttpRequestEvent` activity, the `RequestHandlerMiddleware<TriggerRequestHandler>` middleware needs to be added to the ASP.NET Core middleware pipeline. 
+Although the Elsa Core library provides you with a broad range of APIs to execute workflows manually, ultimately you might want the ability to execute your workflows based on events such as timer events, incoming HTTP requests, incoming service bus messages, and anything else that you can conceive of.
+For that to work, you will need various background services and middleware installed in your (ASP).NET Core host application.
  
-And should you be using [MassTransit](https://masstransit-project.com/), you will want to register some more hosted services that will listen for incoming messages.
- 
-Now that you understand some of the use cases for a .NET Core host, let's see how to setup some common services.
+And once you have an Elsa Server setup, you can connect the workflow designer to it directly and start creating and managing workflows visually.
+
+The following steps assume you created a new, blank ASP.NET Core project.
+
+## Add Package
+
+
 
 ## Startup
 
