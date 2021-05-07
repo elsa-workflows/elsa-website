@@ -1,10 +1,10 @@
 ---
 id: installing-elsa-core
-title: Installing Elsa Core 
+title: Installing Elsa
 sidebar_label: Core
 ---
 
-The **Elsa.Core** NuGet package provides APIs to build and execute workflows. In this section, we'll see how to install the package into a .NET project and register the appropriate services with the DI container.
+The **Elsa** NuGet package provides APIs to build and execute workflows. In this section, we'll see how to install the package into a .NET project and register the appropriate services with the DI container.
 
 ## Add Package
 
