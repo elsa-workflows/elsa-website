@@ -25,6 +25,10 @@ This goes on until there are either no more activities to execute, or an activit
 An activity is an atomic building block that represents a single executable step on the workflow.
 At a bare minimum, an activity implements the `OnExecute` method, which contains the code to execute.
 
+## Starting Activity
+
+An activity which is the starting point of the workflow and does not have any inward connections. They are the entry points to the workflow. 
+
 ## Blocking Activity
 
 When an activity executes, it can return an activity result (somewhat analogous to an MVC ActionResult).
