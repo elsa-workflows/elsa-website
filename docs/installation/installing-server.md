@@ -1,7 +1,7 @@
 ---
-id: installing-elsa-server
+id: installing-server
 title: Elsa Server
-sidebar_label: Elsa Server
+sidebar_label: Server
 ---
 
 Although the Elsa Core library provides you with a broad range of APIs to execute workflows manually, ultimately you might want the ability to execute your workflows based on events such as timer events, incoming HTTP requests, incoming service bus messages, and anything else that you can conceive of.

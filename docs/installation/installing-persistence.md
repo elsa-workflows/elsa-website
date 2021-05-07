@@ -108,7 +108,7 @@ namespace WebApplication1.Data
             var dbContextBuilder = new DbContextOptionsBuilder();
             var connectionString = configuration.GetConnectionString("Elsa");
 
-            dbContextBuilder.UseSqlite(connectionString);
+            dbContextBuilder.UseSqlite(connectionString, sqlite => sqlite.MigrationsAssembly(typeof(Elsa.Persistence.EntityFramework.Sqlite.SqliteElsaContextFactory).Assembly.FullName));
 
             return new ElsaContext(dbContextBuilder.Options);
         }

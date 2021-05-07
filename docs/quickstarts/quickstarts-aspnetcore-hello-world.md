@@ -4,12 +4,15 @@ title: Hello World: ASP.NET Core
 sidebar_label: Hello World HTTP
 ---
 
-In this quickstart, we will do the following:
+In this quickstart, we will take a look at a minimum ASP.NET Core application that executes a workflow.
+The workflow will listen for an incoming HTTP request and write back a simple response.
+
+We will:
 
 * Create an ASP.NET Core application.
 * Programmatically define a workflow definition using Elsa's Workflow Builder API that executes when an HTTP request comes in at a specified URL.
 
-## Create Project
+## The Project
 
 Create a new, empty ASP.NET Core project called `ElsaQuickstarts.WebApp.HelloWorld`:
 
@@ -30,7 +33,7 @@ dotnet add package Elsa --prerelease
 dotnet add package Elsa.Activities.Http --prerelease
 ```
 
-## Create Workflow Class
+## The Workflow
 
 Create a new file called `HelloWorld.cs` and add the following code:
 
@@ -70,7 +73,7 @@ The first activity is connected to the second activity `WriteHttpResponse`, whic
 > ``` 
 > Explicitly connecting to an activity's outcome is necessary anytime you want to connect to an outcome other than `"Done"`
 
-## Update Startup
+## Startup
 
 Next, open `Startup.cs` and replace its contents with the following:
 
@@ -112,13 +115,15 @@ Open a web browser and navigate to `https://localhost:5001/hello-world`.
 
 The result should look like this:
 
-![](./assets/quickstarts/aspnetcore-hello-world-figure-1.png)
+![](assets/quickstarts/aspnetcore-hello-world-figure-1.png)
 
 ## Next Steps
 
 In this guide, we've seen how to setup a workflow that is triggered when an HTTP request comes in.
-Implementing HTTP workflows is a great way to easily implement logic in response to HTTP requests quickly. 
+Implementing HTTP workflows is a great way to easily implement logic in response to HTTP requests quickly.
 
-## Source
+Now that you've seen how to setup an ASP.NET Core server with Elsa workflows support, you might want to learn more about the following:
 
-https://github.com/elsa-workflows/elsa-guides/tree/master/src/Elsa.Guides.HelloWorld.WebApp
+* [How to setup an ASP.NET Core host with Elsa API Endpoints.](quickstarts-aspnetcore-server-api-endpoints.md)
+* [How to setup an ASP.NET Core host with Elsa Dashboard.](quickstarts-aspnetcore-server-dashboard.md)
+* [How to setup an ASP.NET Core host with Elsa Dashboard + API Endpoints.](quickstarts-aspnetcore-server-dashboard-and-api-endpoints.md)

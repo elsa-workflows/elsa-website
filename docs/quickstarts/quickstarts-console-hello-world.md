@@ -4,12 +4,14 @@ title: Hello World: Console
 sidebar_label: Hello World Console
 ---
 
-In this quickstart, we will do the following:
+In this quickstart, we will take a look at a minimum console application that executes a workflow.
+
+We will:
 
 * Programmatically define a workflow definition that displays the text "Hello World" to the console using Elsa's Workflow Builder API.
 * Run the workflow.
 
-## Create Project
+## The Project
 
 Create a new .NET Core Console project called `ElsaQuickstarts.ConsoleApp.HelloWorld`:
 
@@ -30,7 +32,7 @@ dotnet add package Elsa --prerelease
 dotnet add package Elsa.Activities.Console --prerelease
 ```
 
-## Define Workflow
+## The Workflow
 
 Create a new file called `HelloWorld.cs` and add the following code:
 
@@ -52,7 +54,7 @@ namespace ElsaQuickstarts.ConsoleApp.HelloWorld
 
 The above workflow has only one step (a.k.a. activity): `WriteLine`, which writes a line of text to the standard out (the console).
 
-## Program
+## The Program
 
 Open `Program.cs` and replace its contents with the following:
 
@@ -99,5 +101,5 @@ Success! You have successfully created and executed an Elsa workflow.
 Now that you've seen how to write and execute a workflow, you might want to learn more about the following:
 
 * How to create more complicated workflows using the Workflow Builder API.
-* How to create a similar workflow using the Workflow Builder API and HTTP activities.
+* [How to create a similar workflow using the Workflow Builder API and HTTP activities](quickstarts-aspnetcore-hello-world.md).
 * How to create a similar workflow using HTTP activities visually using the Workflow Designer.

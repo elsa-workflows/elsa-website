@@ -59,7 +59,6 @@ Create a new directory called `Pages`.
 Create a new file called `_ViewImports.cshtml` and add the following markup:
 
 ```html
-@using Microsoft.Extensions.Configuration
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 ```
 
@@ -67,9 +66,6 @@ Create a new file called `_Host.cshtml` and add the following markup:
 
 ```html
 @page "/"
-@{
-    ViewData["Title"] = "Home page";
-}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,7 +97,7 @@ None of the menu items will function correctly until you made sure to point the 
 
 ## Elsa Server
 
-Follow [this guide]() to learn how to setup an Elsa server application.
+Follow [this guide](../quickstarts/quickstarts-aspnetcore-server-api-endpoints.md) to learn how to setup an Elsa server application.
 
 ## Workflow Designer
 

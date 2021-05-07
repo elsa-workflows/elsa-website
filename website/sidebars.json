@@ -7,7 +7,7 @@
     "Installation": [
       "installation/installing-feeds",
       "installation/installing-elsa-core",
-      "installation/installing-host",
+      "installation/installing-server",
       "installation/installing-persistence",
       "installation/installing-elsa-dashboard",
       "installation/installing-elsa-designer"
