@@ -1,33 +1,33 @@
 {
   "docs/getting-started": {
     "Installation": [
-      "installing-feeds",
-      "installing-elsa-core",
-      "installing-host",
-      "installing-persistence",
-      "installing-elsa-dashboard",
-      "installing-elsa-designer"
+      "installation/installing-feeds",
+      "installation/installing-elsa-core",
+      "installation/installing-host",
+      "installation/installing-persistence",
+      "installation/installing-elsa-dashboard",
+      "installation/installing-elsa-designer"
     ],
     "Concepts": [
-      "concepts-workflows"
+      "concepts/concepts-workflows"
     ],
     "Guides": [
-      "guides-dashboard",
-      "guides-hello-world-console",
-      "guides-hello-world-http",
-      "guides-recurring-task",
-      "guides-document-approval"
+      "guides/guides-dashboard",
+      "guides/guides-hello-world-console",
+      "guides/guides-hello-world-http",
+      "guides/guides-recurring-task",
+      "guides/guides-document-approval"
     ],
     "Expressions": [
-      "expressions-javascript",
-      "expressions-liquid"
+      "expressions/expressions-javascript",
+      "expressions/expressions-liquid"
     ],
     "Extensibility": [
-      "extensibility-custom-activities",
-      "extensibility-persistence",
-      "extensibility-javascript",
-      "extensibility-liquid",
-      "extensibility-expression-evaluators"
+      "extensibility/extensibility-custom-activities",
+      "extensibility/extensibility-persistence",
+      "extensibility/extensibility-javascript",
+      "extensibility/extensibility-liquid",
+      "extensibility/extensibility-expression-evaluators"
     ]
   },
   "docs/features": {

@@ -64,7 +64,7 @@ class HomeSplash extends React.Component {
                 <div className="inner">
                     <ProjectTitle siteConfig={siteConfig} />
                     <PromoSection>
-                        <Button href={docUrl('installing-elsa-core')}>Get Started</Button>
+                        <Button href={docUrl('installation/installing-elsa-core')}>Get Started</Button>
                     </PromoSection>
                 </div>
             </SplashContainer>
