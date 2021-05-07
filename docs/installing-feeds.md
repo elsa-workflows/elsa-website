@@ -1,6 +1,6 @@
 ---
 id: installing-feeds
-title: Installing Packages from NuGet and MyGet
+title: Installing Packages from MyGet and MyGet
 sidebar_label: Package Feeds 
 ---
 

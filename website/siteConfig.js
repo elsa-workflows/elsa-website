@@ -11,16 +11,16 @@
 // List of projects/orgs using your project for the users page.
 const users = [
     {
-        caption: 'Interfirst',
+        caption: 'Wanderya',
         image: '/img/undraw_open_source.svg',
-        infoLink: 'https://www.interfirst.com/',
+        infoLink: 'https://www.wanderya.com',
         pinned: true,
     },
 ];
 
 const siteConfig = {
-    title: 'ELSA 2.0',
-    tagline: 'An open source .NET Standard workflows framework',
+    title: 'ELSA',
+    tagline: 'An open source .NET Standard workflows library',
     url: 'https://elsa-workflows.github.io/', // Your website URL
     baseUrl: '/elsa-core/', // Base URL for your project */
     // For github.io type URLs, you would set the url and baseUrl like:
@@ -36,8 +36,8 @@ const siteConfig = {
 
     // For no header links in the top nav bar -> headerLinks: [],
     headerLinks: [
-        {doc: 'elsa-2/installation/installing-elsa-core', label: 'Documentation'},
-        {doc: 'elsa-2/features', label: 'Features'},
+        {doc: 'installing-elsa-core', label: 'Documentation'},
+        {doc: 'features', label: 'Features'},
     ],
 
     // If you have users set above, you add it here:
