@@ -1,5 +1,9 @@
 {
   "docs/getting-started": {
+    "Quickstart": [
+      "quickstarts/quickstarts-console-hello-world",
+      "quickstarts/quickstarts-aspnetcore-hello-world"
+    ],
     "Installation": [
       "installation/installing-feeds",
       "installation/installing-elsa-core",

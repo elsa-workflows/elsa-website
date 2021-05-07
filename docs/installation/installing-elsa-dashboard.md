@@ -95,7 +95,7 @@ Notice that you will need to update the `server-url` attribute of the `elsa-stud
 
 When you run your application you should see the following:
 
-![](assets/elsa-dashboard-home.png)
+![](assets/installation/installing-elsa-dashboard-figure-1.png)
 
 None of the menu items will function correctly until you made sure to point the component to a running Elsa server.
 
