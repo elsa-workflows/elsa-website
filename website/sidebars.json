@@ -19,9 +19,6 @@
       "concepts/concepts-workflows"
     ],
     "Guides": [
-      "guides/guides-dashboard",
-      "guides/guides-hello-world-console",
-      "guides/guides-hello-world-http",
       "guides/guides-recurring-task",
       "guides/guides-document-approval"
     ],
