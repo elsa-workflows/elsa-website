@@ -70,4 +70,4 @@ When you run the above program, you will see the following output:
 Hello World!
 ```
 
-See the [Guides](./guides-hello-world-console.md) section for more examples.
+See the [Guides](guides-hello-world-console.md) section for more examples.
