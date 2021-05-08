@@ -38,7 +38,6 @@ Add the following packages:
 
 ```bash
 dotnet add package Elsa --prerelease
-dotnet add package Elsa.Activities.Email --prerelease
 dotnet add package Elsa.Activities.Http --prerelease
 dotnet add package Elsa.Activities.Temporal.Quartz --prerelease
 dotnet add package Elsa.Persistence.EntityFramework.Sqlite --prerelease
@@ -121,8 +120,7 @@ namespace ElsaQuickstarts.Server.ApiEndpoints
                 .AddElsa(elsa => elsa
                     .UseEntityFrameworkPersistence(ef => ef.UseSqlite())
                     .AddConsoleActivities()
-                    .AddHttpActivities(elsaSection.GetSection("Http").Bind)
-                    .AddEmailActivities(elsaSection.GetSection("Smtp").Bind)
+                    .AddHttpActivities(elsaSection.GetSection("Server").Bind)
                     .AddQuartzTemporalActivities()
                     .AddJavaScriptActivities()
                     .AddWorkflowsFrom<Startup>()
@@ -178,11 +176,6 @@ Open `appsettings.json` and add the following section:
   "Elsa": {
     "Http": {
       "BaseUrl": "https://localhost:5001"
-    },
-    "Smtp": {
-      "Host": "localhost",
-      "Port": "2525",
-      "DefaultSender": "noreply@acme.com"
     }
   }
 }

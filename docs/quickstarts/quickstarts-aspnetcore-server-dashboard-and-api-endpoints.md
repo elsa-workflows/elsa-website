@@ -33,7 +33,6 @@ Add the following packages:
 
 ```bash
 dotnet add package Elsa --prerelease
-dotnet add package Elsa.Activities.Email --prerelease
 dotnet add package Elsa.Activities.Http --prerelease
 dotnet add package Elsa.Activities.Temporal.Quartz --prerelease
 dotnet add package Elsa.Persistence.EntityFramework.Sqlite --prerelease
@@ -78,7 +77,6 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
                     .UseEntityFrameworkPersistence(ef => ef.UseSqlite())
                     .AddConsoleActivities()
                     .AddHttpActivities(elsaSection.GetSection("Server").Bind)
-                    .AddEmailActivities(elsaSection.GetSection("Smtp").Bind)
                     .AddQuartzTemporalActivities()
                     .AddJavaScriptActivities()
                     .AddWorkflowsFrom<Startup>()
@@ -100,7 +98,6 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
 
             app
                 .UseStaticFiles() // For Dashboard.
-                .UseCors()
                 .UseHttpActivities()
                 .UseRouting()
                 .UseEndpoints(endpoints =>
@@ -128,11 +125,6 @@ Open `appsettings.json` and add the following section:
   "Elsa": {
     "Server": {
       "BaseUrl": "https://localhost:5001"
-    },
-    "Smtp": {
-      "Host": "localhost",
-      "Port": "2525",
-      "DefaultSender": "noreply@acme.com"
     }
   }
 }
@@ -146,20 +138,13 @@ Since this absolute URL provider can be used outside the context of an actual HT
 Notice that the application will always serve the _Host.cshtml page, which we will create next.
 
 1. Create a new folder called `Pages`.
-2. Inside `Pages`, create a new file called `_ViewImports.cshtml`.
 2. Inside `Pages`, create a new file called `_Host.cshtml`.
 
-Add the following content to `_ViewImports.cshtml`:
-
-```html
-@using Microsoft.Extensions.Configuration
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-```
-
-And add the following content to `_Host.cshtml`:
+Add the following content to `_Host.cshtml`:
 
 ```html
 @page "/"
+@using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration;
 @{
 var elsaServerUrl = Configuration["Elsa:Server:BaseUrl"];
