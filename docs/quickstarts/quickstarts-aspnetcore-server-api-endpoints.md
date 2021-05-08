@@ -1,7 +1,7 @@
 ---
 id: quickstarts-aspnetcore-server-api-endpoints
-title: ASP.NET Core Host with Elsa API Endpoints 
-sidebar_label: Elsa API Endpoints
+title: ASP.NET Core Server with Elsa API Endpoints 
+sidebar_label: Elsa Server
 ---
 
 In this quickstart, we will take a look at a minimum ASP.NET Core application that exposes Elsa API Endpoints and setup a persistence provider.
@@ -116,8 +116,7 @@ namespace ElsaQuickstarts.Server.ApiEndpoints
         {
             var elsaSection = Configuration.GetSection("Elsa");
 
-            services.AddControllers();
-
+            // Elsa services.
             services
                 .AddElsa(elsa => elsa
                     .UseEntityFrameworkPersistence(ef => ef.UseSqlite())
@@ -191,7 +190,6 @@ Open `appsettings.json` and add the following section:
 
 > The reason we are setting a "base URL" is because the HTTP activities library provides an absolute URL provider that can be used by activities and workflow expressions.
 Since this absolute URL provider can be used outside the context of an actual HTTP request (for instance, when a timer event occurs), we cannot rely on e.g. `IHttpContextAccessor`, since there won't be any HTTP context.
-
 
 ## Run
 

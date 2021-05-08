@@ -1,6 +1,6 @@
 ---
 id: quickstarts-aspnetcore-server-dashboard
-title: ASP.NET Core Host with Elsa Dashboard 
+title: ASP.NET Core Server with Elsa Dashboard 
 sidebar_label: Elsa Dashboard
 ---
 

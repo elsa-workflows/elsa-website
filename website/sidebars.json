@@ -2,7 +2,10 @@
   "docs/getting-started": {
     "Quickstart": [
       "quickstarts/quickstarts-console-hello-world",
-      "quickstarts/quickstarts-aspnetcore-hello-world"
+      "quickstarts/quickstarts-aspnetcore-hello-world",
+      "quickstarts/quickstarts-aspnetcore-server-api-endpoints",
+      "quickstarts/quickstarts-aspnetcore-server-dashboard",
+      "quickstarts/quickstarts-aspnetcore-server-dashboard-and-api-endpoints"
     ],
     "Installation": [
       "installation/installing-feeds",

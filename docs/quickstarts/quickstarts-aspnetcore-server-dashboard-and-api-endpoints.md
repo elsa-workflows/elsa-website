@@ -1,7 +1,7 @@
 ---
 id: quickstarts-aspnetcore-server-dashboard-and-api-endpoints
-title: ASP.NET Core Host with Elsa Dashboard + Elsa Server API Endpoints
-sidebar_label: Elsa Dashboard + Server API Endpoints
+title: ASP.NET Core Server with Elsa Dashboard + Elsa Server API Endpoints
+sidebar_label: Elsa Dashboard + Server
 ---
 
 In this quickstart, we will take a look at a minimum ASP.NET Core application that hosts both the Elsa Dashboard component as well as the Elsa Server API endpoints.
@@ -46,28 +46,100 @@ dotnet add package Elsa.Designer.Components.Web --prerelease
 Open `Startup.cs` and replace its contents with the following:
 
 ```csharp
+using Elsa;
+using Elsa.Persistence.EntityFramework.Core.Extensions;
+using Elsa.Persistence.EntityFramework.Sqlite;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-namespace ElsaQuickstarts.Server.Dashboard
+namespace ElsaQuickstarts.Server.DashboardAndServer
 {
     public class Startup
     {
+        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
+        {
+            Environment = environment;
+            Configuration = configuration;
+        }
+
+        private IWebHostEnvironment Environment { get; }
+        private IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            var elsaSection = Configuration.GetSection("Elsa");
+
+            // Elsa services.
+            services
+                .AddElsa(elsa => elsa
+                    .UseEntityFrameworkPersistence(ef => ef.UseSqlite())
+                    .AddConsoleActivities()
+                    .AddHttpActivities(elsaSection.GetSection("Server").Bind)
+                    .AddEmailActivities(elsaSection.GetSection("Smtp").Bind)
+                    .AddQuartzTemporalActivities()
+                    .AddJavaScriptActivities()
+                    .AddWorkflowsFrom<Startup>()
+                );
+
+            // Elsa API endpoints.
+            services.AddElsaApiEndpoints();
+
+            // For Dashboard.
             services.AddRazorPages();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            app.UseStaticFiles();
-            app.UseRouting();
-            app.UseEndpoints(endpoints => { endpoints.MapFallbackToPage("/_Host"); });
+            if (Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app
+                .UseStaticFiles() // For Dashboard.
+                .UseCors()
+                .UseHttpActivities()
+                .UseRouting()
+                .UseEndpoints(endpoints =>
+                {
+                    // Elsa API Endpoints are implemented as regular ASP.NET Core API controllers.
+                    endpoints.MapControllers();
+                    
+                    // For Dashboard.
+                    endpoints.MapFallbackToPage("/_Host");
+                });
         }
     }
 }
 ```
+
+Notice that we're accessing a configuration section called `"Elsa"`. We then use this section to retrieve sub-sections called `"Server"` and `"Smtp"`".
+Let's update `appsettings.json` with these sections next:
+
+## Appsettings.json
+
+Open `appsettings.json` and add the following section:
+
+```json
+{
+  "Elsa": {
+    "Server": {
+      "BaseUrl": "https://localhost:5001"
+    },
+    "Smtp": {
+      "Host": "localhost",
+      "Port": "2525",
+      "DefaultSender": "noreply@acme.com"
+    }
+  }
+}
+```
+
+> The reason we are setting a "base URL" is because the HTTP activities library provides an absolute URL provider that can be used by activities and workflow expressions.
+Since this absolute URL provider can be used outside the context of an actual HTTP request (for instance, when a timer event occurs), we cannot rely on e.g. `IHttpContextAccessor`, since there won't be any HTTP context.
 
 ## _Host.cshtml + _ViewImports.cshtml
 
@@ -80,6 +152,7 @@ Notice that the application will always serve the _Host.cshtml page, which we wi
 Add the following content to `_ViewImports.cshtml`:
 
 ```html
+@using Microsoft.Extensions.Configuration
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 ```
 
@@ -87,6 +160,10 @@ And add the following content to `_Host.cshtml`:
 
 ```html
 @page "/"
+@inject IConfiguration Configuration;
+@{
+var elsaServerUrl = Configuration["Elsa:Server:BaseUrl"];
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,24 +178,77 @@ And add the following content to `_Host.cshtml`:
     <script type="module" src="/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/elsa-workflows-studio.esm.js"></script>
 </head>
 <body class="h-screen" style="background-size: 30px 30px; background-image: url(/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/assets/images/tile.png); background-color: #FBFBFB;">
-<elsa-studio-root server-url="https://your-elsa-server-url" monaco-lib-path="_content/Elsa.Designer.Components.Web"></elsa-studio-root>
+<elsa-studio-root server-url="@elsaServerUrl" monaco-lib-path="_content/Elsa.Designer.Components.Web"></elsa-studio-root>
 </body>
 </html>
 ```
 
+Notice that we are injecting `IConfiguration` in `_Host.cshtml`, allowing us to access the Elsa server address and use it to configure the `<elsa-studio-root>` element.
+
 ## Run
 
-Run the program and open a web browser to the home page (usually happens automatically if you don't change `launchSettings.json`):
+Run the program and open a web browser to the home page:
 
 ![](assets/installation/installing-elsa-dashboard-figure-1.png)
 
-None of the menu items will function correctly until you made sure to point the component to a running Elsa server.
+Because we configured the <elsa-studio-root> element with a valid URL to a running Elsa server (which is the same application hosting the dashboard), we can click around the menu.
+Let's create a workflow next.
+
+## The Workflow
+
+Navigate to the **Workflow Definitions** page and click the **Create Workflow** button.
+We are now on the workflow designer canvas. Click the green **Start** button to open the **Activity Picker** and search for the **HTTP Endpoint** activity and select it.
+
+The next screen presents the available settings for the activity. Specify the following values:
+
+- Path: `/hello-world`
+- Methods: `GET`
+
+And click the **Save** button.
+
+We are now back in the designer which shows the HTTP Endpoint activity we just added. The activity has a single outcome called **Done**. Click on the **plus** button below it to add and connect another activity to this outcome.
+The activity picker shows up again. This time, search for the **HTTP Response** activity and select it.
+
+The next screen presents the available settings for the activity. Specify the following values:
+
+- Status Code: `OK`
+- Content: `<h1>Hello World!</h1>`
+- Content Type: `text/html`
+
+And click the **Save** button.
+
+Finally, let's give our workflow a name. From the designer, you'll find a cog-wheel button at the top-right of the screen. Click it to open the workflow settings and provide the following values:
+
+- Name: **HelloWorld**
+- Display Name: **Hello World**
+
+Leave the rest to their defaults and click the **Save** button.
+
+Back on the designer, click the **Publish** button on the bottom-right of the screen.
+The workflow is now published and ready to be invoked!
+
+We'll try out the workflow in a second. Here's an animation that shows the above steps:
+
+![Elsa Workflows Hello World demo with HTTP activities](assets/quickstarts/quickstarts-aspnetcore-server-dashboard-and-api-endpoints-animation-1.gif)
+
+> **Bug Alert**
+> 
+> There's currently a small issue with the designer where sometimes it doesn't initially render the nodes correctly (which causes the Start node to be invisible for example).
+> Until that issue is resolved, simply refresh the web page (press F5). The workflow should now render properly.
+
+## Execute Workflow
+
+Since the workflow starts with an HTTP Endpoint activity configured to listen for HTTP GET requests at `/hello-world`, we can open a new web browser tab and navigate to `https://localhost:5001/hello-world`.
+
+![Elsa Workflows Hello World workflow](assets/quickstarts/quickstarts-aspnetcore-server-dashboard-and-api-endpoints-figure-1.png)
 
 ## Next Steps
 
-In this guide, we've seen how to setup an Elsa Dashboard that can connect to an Elsa Server. We haven't covered setting up a server in this guide, but is covered [here](quickstarts-aspnetcore-server-api-endpoints.md)).
+You are now well on your way to mastering Elsa Workflows!
+We've seen how to setup an ASP.NET Core project that hosts both the Elsa Dashboard as well as the Elsa Server API Endpoints.
 
-Now that you've seen how to setup an ASP.NET Core server with Elsa workflows support, you might want to learn more about the following:
+Next steps will be to learn more about the various activities available to you, how to configure them with workflow expressions, and how to develop your own activities. 
 
-* [How to setup an ASP.NET Core host with Elsa API Endpoints.](quickstarts-aspnetcore-server-api-endpoints.md)
-* [How to setup an ASP.NET Core host with Elsa Dashboard + API Endpoints.](quickstarts-aspnetcore-server-dashboard-and-api-endpoints.md)
+* [Activities overview]
+* [Workflow expressions]
+* [Custom Activities]

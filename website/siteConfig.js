@@ -11,9 +11,9 @@
 // List of projects/orgs using your project for the users page.
 const users = [
     {
-        caption: 'Wanderya',
-        image: '/img/undraw_open_source.svg',
-        infoLink: 'https://www.wanderya.com',
+        caption: 'Interfirst',
+        image: 'https://github.com/elsa-workflows/elsa-core/raw/master/doc/sponsors/interfirst.svg',
+        infoLink: 'https://www.interfirst.com',
         pinned: true,
     },
 ];
@@ -101,6 +101,8 @@ const siteConfig = {
     // You may provide arbitrary config keys to be used as needed by your
     // template. For example, if you need your repo's URL...
     repoUrl: 'https://github.com/elsa-workflows/elsa-core',
+
+    //defaultVersionShown: 'next'
 };
 
 module.exports = siteConfig;
