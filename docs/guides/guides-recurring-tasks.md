@@ -1,6 +1,6 @@
 ---
-id: guides-recurring-tasks
-title: Create & run a recurring workflow
+id: guides-recurring-tasks 
+title: Create & run a recurring workflow 
 sidebar_label: Recurring Tasks
 ---
 
@@ -60,9 +60,7 @@ namespace ElsaGuides.RecurringTasks
 
 ## Program
 
-Now that we have a workflow, we need to be able to execute it.
-Since the workflow starts with the `Timer` activity, Elsa can invoke it for us if we setup a .NET Host.
-Let's see how that works.
+Now that we have a workflow, we need to be able to execute it. Since the workflow starts with the `Timer` activity, Elsa can invoke it for us if we setup a .NET Host. Let's see how that works.
 
 Open `Program.cs` and replace its contents with the following:
 
@@ -101,12 +99,11 @@ namespace ElsaGuides.RecurringTasks
 }
 ```
 
-> Notice that we don't have to invoke the workflow ourselves manually. Instead, this is taken care of by a background task that is executed within the host built with `HostBuilder`. 
+> Notice that we don't have to invoke the workflow ourselves manually. Instead, this is taken care of by a background task that is executed within the host built with `HostBuilder`.
 
 ## First Run
 
-Run the program.
-After 5 seconds, you will start seeing the following output:
+Run the program. After 5 seconds, you will start seeing the following output:
 
 ```text
 It's now 2021-05-08T11:24:06Z. Let's do this thing!
@@ -117,8 +114,8 @@ It's now 2021-05-08T11:24:16Z. Let's do this thing!
 That's all it takes to setup a .NET application that is capable of executing recurring workflows.
 
 > **The Real World**
-> 
-> In real-world scenarios, you might want to configure a persistence provider so that workflow instances get persisted. 
+>
+> In real-world scenarios, you might want to configure a persistence provider so that workflow instances get persisted.
 
 ## Visual Workflows
 
@@ -134,6 +131,7 @@ We'll use the dashboard to visually create the same workflow.
 Open the `ElsaGuides.RecurringTasks.csproj` file and replace its contents with the following:
 
 ```xml
+
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
@@ -141,11 +139,11 @@ Open the `ElsaGuides.RecurringTasks.csproj` file and replace its contents with t
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Elsa" Version="2.0.0-rc1.27" />
-        <PackageReference Include="Elsa.Activities.Temporal.Quartz" Version="2.0.0-rc1.27" />
-        <PackageReference Include="Elsa.Designer.Components.Web" Version="2.0.0-rc1.27" />
-        <PackageReference Include="Elsa.Persistence.EntityFramework.Sqlite" Version="2.0.0-rc1.27" />
-        <PackageReference Include="Elsa.Server.Api" Version="2.0.0-rc1.27" />
+        <PackageReference Include="Elsa" Version="2.0.0-rc1.27"/>
+        <PackageReference Include="Elsa.Activities.Temporal.Quartz" Version="2.0.0-rc1.27"/>
+        <PackageReference Include="Elsa.Designer.Components.Web" Version="2.0.0-rc1.27"/>
+        <PackageReference Include="Elsa.Persistence.EntityFramework.Sqlite" Version="2.0.0-rc1.27"/>
+        <PackageReference Include="Elsa.Server.Api" Version="2.0.0-rc1.27"/>
     </ItemGroup>
 
 </Project>
@@ -221,7 +219,7 @@ Finally, create a new folder called `Pages` and add a new file called `_Host.csh
 ```html
 @page "/"
 @{
-    var serverUrl = Request.Path.ToString();
+    var serverUrl = $"{Request.Scheme}://{Request.Host}";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -247,23 +245,23 @@ Finally, create a new folder called `Pages` and add a new file called `_Host.csh
 When you now run the project, you should see the Elsa Dashboard homepage and be able to create new workflows.
 
 > **Blank Page?!**
-> 
+>
 > When I first followed my own guide, the page was simply blank when I launched the application.
 > As it turns out, due to the fact that I converted the project from a console app to a web app myself, I didn't get the launchSettings.json file in the Properties folder that is created when using the web project template.
 > This means that by default, the application will run in **Production** mode and not in **Development** mode.
 > According to [the Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-5.0&tabs=visual-studio), assets from Razor Class Libraries (such as `Elsa.Designer.Components.Web`) will only be served in **Development** mode or when the application is published.
 > From the docs:
-> 
+>
 > "When running the consuming app from build output (dotnet run), static web assets are enabled by default in the Development environment. To support assets in other environments when running from build output, call UseStaticWebAssets on the host builder in Program.cs".
-> 
+>
 > For this reason, I included the `UseStaticWebAssets` call in `Program.cs` to make sure this guide works smoothly.
 
 ## Visual Workflow
 
 Let's go ahead and navigate to the **Workflow Definitions** page and click the **Create Workflow** button.
 
-Add a new `Timer` activity by clicking the **Start** button (reload the page [if you don't see any Start button](https://github.com/elsa-workflows/elsa-core/issues/915)).
-Since the `Timer` activity uses NodaTime's `Duration` type to store the interval, we can provide the following text value to specify an interval of 5 seconds:
+Add a new `Timer` activity by clicking the **Start** button (reload the page [if you don't see any Start button](https://github.com/elsa-workflows/elsa-core/issues/915)). Since the `Timer` activity uses NodaTime's `Duration` type to store
+the interval, we can provide the following text value to specify an interval of 5 seconds:
 
 ```text
 00:00:00:05
@@ -285,8 +283,7 @@ Click the **Done** outcome's "plus" button to create & connect a new `WriteLine`
 
 Click **Save** and then click **Publish** (at the bottom right of the screen).
 
-Elsa will now re-index the published workflows and see that there's a workflow with a `Timer` activity.
-Every 5 seconds, something like the following string will be written to standard out:
+Elsa will now re-index the published workflows and see that there's a workflow with a `Timer` activity. Every 5 seconds, something like the following string will be written to standard out:
 
 ```bash
 It's now Sat May 08 2021 12:50:34 GMTZ. Let's do this thing!

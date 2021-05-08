@@ -78,7 +78,6 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
                     .AddConsoleActivities()
                     .AddHttpActivities(elsaSection.GetSection("Server").Bind)
                     .AddQuartzTemporalActivities()
-                    .AddJavaScriptActivities()
                     .AddWorkflowsFrom<Startup>()
                 );
 
@@ -113,7 +112,7 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
 }
 ```
 
-Notice that we're accessing a configuration section called `"Elsa"`. We then use this section to retrieve sub-sections called `"Server"` and `"Smtp"`".
+Notice that we're accessing a configuration section called `"Elsa"`. We then use this section to retrieve sub-sections called `"Server"`.
 Let's update `appsettings.json` with these sections next:
 
 ## Appsettings.json
@@ -133,7 +132,7 @@ Open `appsettings.json` and add the following section:
 > The reason we are setting a "base URL" is because the HTTP activities library provides an absolute URL provider that can be used by activities and workflow expressions.
 Since this absolute URL provider can be used outside the context of an actual HTTP request (for instance, when a timer event occurs), we cannot rely on e.g. `IHttpContextAccessor`, since there won't be any HTTP context.
 
-## _Host.cshtml + _ViewImports.cshtml
+## _Host.cshtml
 
 Notice that the application will always serve the _Host.cshtml page, which we will create next.
 
@@ -144,10 +143,8 @@ Add the following content to `_Host.cshtml`:
 
 ```html
 @page "/"
-@using Microsoft.Extensions.Configuration
-@inject IConfiguration Configuration;
 @{
-var elsaServerUrl = Configuration["Elsa:Server:BaseUrl"];
+    var serverUrl = $"{Request.Scheme}://{Request.Host}";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -163,12 +160,10 @@ var elsaServerUrl = Configuration["Elsa:Server:BaseUrl"];
     <script type="module" src="/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/elsa-workflows-studio.esm.js"></script>
 </head>
 <body class="h-screen" style="background-size: 30px 30px; background-image: url(/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/assets/images/tile.png); background-color: #FBFBFB;">
-<elsa-studio-root server-url="@elsaServerUrl" monaco-lib-path="_content/Elsa.Designer.Components.Web"></elsa-studio-root>
+<elsa-studio-root server-url="@serverUrl" monaco-lib-path="_content/Elsa.Designer.Components.Web"></elsa-studio-root>
 </body>
 </html>
 ```
-
-Notice that we are injecting `IConfiguration` in `_Host.cshtml`, allowing us to access the Elsa server address and use it to configure the `<elsa-studio-root>` element.
 
 ## Run
 
