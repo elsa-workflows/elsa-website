@@ -4,37 +4,54 @@ title: Writing Custom Activities
 sidebar_label: Custom Activities
 ---
 
-One of the most important features of Elsa is its extensibility. Let's have a look at how one can extend the available activities with custom ones.
-Follow these steps to create a custom activity:
+One of Elsa's many strengths is its extensibility.
 
-1. Create a new class that implements `IActivity`. The easiest wayt to do this is by deriving your class from `Activity`.
-1. Optionally annotate your class with `ActivityDefinitionAttribute` and its properties (if any) with `ActivityProperty` attributes to control their representation in the workflow designer.
-1. Implement/override the `OnExecute/OnExecuteAsync` and if necessary the `OnResume/OnResumeAsync` methods. 
-1. Register your activity class with the service container using the `AddActivity<T>` extension method.
-1. Advanced: If your activity represents an event, implement code that triggers the workflow for this event.
+We will take a look at how we can extend the available activities with a custom one.
+
+Creating a custom activity typically involves the following steps:
+
+1. Create a new class that implements `IActivity`. The easiest way to do this is by deriving your class from `Activity`.
+1. Optionally annotate your class with `ActivityAttribute` or one of its derived versions `ActionAttribute` or `TriggerAttribute`. 
+1. Annotate its properties (if any) with `ActivityPropertyAttribute` attributes to influence their representation in the workflow designer.
+1. Implement/override the `OnExecute/OnExecuteAsync` method and if necessary the `OnResume/OnResumeAsync` methods in case you are developing a blocking activity. 
+1. Register your activity class with the service container using the `AddActivity<T>` or `AddActivitiesFrom<T>` extension methods.
+1. Advanced: If your activity represents a trigger, implement auxiliary code that triggers the workflow.
+
+Let's see an example.
 
 ## Hello World Activity
 
-The following is a simple "Hello World" activity:
+The following is a simple activity that write the text `Hello World` to standard out:
 
 ```c#
 public class SayHelloWorld : Activity
-{   
-    protected override ActivityExecutionResult OnExecute(WorkflowExecutionContext context)
+{
+    protected override IActivityExecutionResult OnExecute()
     {
         Console.WriteLine("Hello World!");
-
+        
         return Done();
     }
 }
 ```
 
+The activity does two things:
+
+1. Perform some work (writing some text to the console).
+1. Return an `IActivityExecutionResult` - an `OutcomeResult` in this example.
+
 ## Registering Activities
 
-To use an activity, make sure to register it with the service container, like so:
+To make your activity available for use, it needs to be registered with the DI service container:
 
 ```c#
 services.AddActivity<SayHelloWorld>();
+```
+
+Alternatively, you can register all activities from an assembly using the following extension method:
+
+```c#
+services.AddActivitiesFrom<TMarkerType>(); // TMarkerType is any type in the assembly from which you want to find and register activities.
 ```
 
 ## Dependency Injection
@@ -69,7 +86,7 @@ public class SayHelloWorld : Activity
 
 ## Async Execution
 
-If you need to make asynchronous invocations from your activity, override `OnExecuteAsync` method instead of `OnExecute`:
+If you need to make asynchronous invocations from your activity, override the `OnExecuteAsync` method instead of `OnExecute`:
 
 ```c#
 public class SayHelloWorld : Activity
@@ -124,32 +141,22 @@ public class WriteLine : Activity
 * **Label**: Controls the display text when rendering this property on a form in the activity editor. 
 * **Type**: Controls the data type of this property. If not specified, the type is inferred from the property type. The type is then used as a hint to the activity editor to select the proper field editor.
 * **Hint**: Controls the hint text displayed underneath the field editor in the activity editor.
-
-### State
-
-Values stored in activity properties aren't automatically persisted. For example, if a user were to configure an activity property using the activity editor, the value will be lost. To persist activity property values, they will have to be stored in the activity's `State` property. The easiest way to do this is by implementing properties using the `GetState<T>` and `SetState<T>` methods. For example:
-
-```c#
-public string Message
-{
-    get => GetState<string>();
-    set => SetState(value);
-}
-```
-
-Now when the workflow definition containing this activity is serialized, the value specified in the `Message` property will be serialized as well.
+* **Category**: Controls in what tab the property is displayed on the designer. If not specified, properties are displayed in the **Properties** tab.
+* **DefaultSyntax**: Controls what syntax is used for this property by default. Defaults to `"Literal"`.
+* **SupportedSyntaxes**: Controls what syntaxes are available to use when specifying a value for this property through the activity editor.
+* **UIHint**: Controls what type of input control to use to present to the user on the activity editor for this property. When unspecified, Elsa tries to select the most appropriate one given the property type.  
+* **Options**: Controls options that are specific to the selected `UIHint` property of the attribute.
 
 ## Activity Picker
 
-The Activity Picker used when designing workflows will be configured with all available activities that are registered with the IoC service container. It will use the activity class name as the display name, and a default icon and no description.
-In order to provide a custom display name, icon and description, annotate your activity class with `ActivityDefinitionAttribute`. For example:
+The Activity Picker used when designing workflows will be configured with all available activities that are registered with the DI service container. It will use the activity class name as the display name and no description.
+In order to provide a custom display name and description, annotate your activity class with `ActivityAttribute`. For example:
 
 ```c#
-[ActivityDefinition(
-    Category = "Console",
+[Activity(
+    Category = "Demo",
     DisplayName = "Write Line",
     Description = "Write text to standard out.",
-    Icon = "fas fa-terminal",
     Outcomes = new[] { OutcomeNames.Done }
 )]
 public class WriteLine : Activity
@@ -157,8 +164,6 @@ public class WriteLine : Activity
 ...
 }
 ```
-
-> The Icon value will be rendered as a CSS class on the activity icon's HTML element.
 
 ## Outcomes
 

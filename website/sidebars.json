@@ -16,11 +16,15 @@
       "installation/installing-elsa-designer"
     ],
     "Concepts": [
-      "concepts/concepts-workflows"
+      "concepts/concepts-workflows",
+      "concepts/concepts-workflow-context"
     ],
     "Guides": [
       "guides/guides-recurring-tasks",
-      "guides/guides-document-approval"
+      "guides/guides-document-approval",
+      "guides/guides-master-child-workflows",
+      "guides/guides-composite-activities",
+      "guides/guides-runtime-list-values"
     ],
     "Expressions": [
       "expressions/expressions-javascript",
@@ -31,7 +35,8 @@
       "extensibility/extensibility-persistence",
       "extensibility/extensibility-javascript",
       "extensibility/extensibility-liquid",
-      "extensibility/extensibility-expression-evaluators"
+      "extensibility/extensibility-expression-evaluators",
+      "extensibility/extensibility-property-editor-types"
     ]
   },
   "docs/features": {
