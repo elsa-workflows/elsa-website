@@ -14,7 +14,7 @@ Any workflow variable can be accessed directly as if they were a global variable
 
 For example, if the `SetVariable` activity sets a variable called `FirstName` to `'Luke'`, it can be accessed as follows:
 
-Expression: `` `Hello ${Foo}` ``
+Expression: `` `Hello ${FirstName}` ``
 
 Result: `"Hello Luke"`
 
