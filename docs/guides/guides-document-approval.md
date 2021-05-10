@@ -15,6 +15,15 @@ We will see how to implement such a workflow programmatically using the Workflow
 
 Let's get into it!
 
+> **Source Code**
+> 
+> The source code of the completed project [can be found here](https://github.com/elsa-workflows/elsa-guides/tree/elsa-2.0/src/ElsaGuides.ContentApproval.Web).
+> 
+> **Workflow Export**
+> 
+> The visually designed workflow can be found as a [JSON export here](https://github.com/elsa-workflows/elsa-guides/blob/elsa-2.0/src/ElsaGuides.ContentApproval.Web/VisualDocumentApprovalWorkflow.json).
+> To import this file, run the project, create a new workflow definition, and choose **Import** (as a sub-option on the **Publish** button), 
+
 ## Workflow Requirements
 
 The purpose of the workflow is to allow authors to submit documents (modeled as JSON objects), and have a reviewer either **approve** or **reject** the document. Furthermore, if the reviewer takes too long to take action, they are **
@@ -332,10 +341,6 @@ When you click on the workflow instance, you will be taken to the workflow insta
 
 ![](assets/guides/guides-document-approval-figure-4.png)
 
-> **Visual Glitches**
-> 
-> At the time of this writing, there's an issue with the `Fork` activity being displayed on the designer when using programmatic workflows, where non of the fork's outcomes are displayed. Which is why the fork activity in the above screenshot appears to be disconnected from the two `Signal Received` activities. 
-
 Now that we've seen how to create the workflow programmatically, let's do it again but this time using the designer!
 
 ## Document Approval Workflow: Visual Designer
@@ -390,13 +395,6 @@ Click the **Done** outcome button on the previous activity and look for the **HT
 - Status Code: `OK`
 - Content: `<h1>Request for Approval Sent</h1><p>Your document has been received and will be reviewed shortly.</p>`
 - Content Type: `text/html`
-
-### Set Document Variable
-
-Click the **Done** outcome button on the previous activity and look for the **Set Variable** activity and configure it as follows:
-
-- Variable Name: `Approved`
-- Value: `false`
 
 ### Fork
 
