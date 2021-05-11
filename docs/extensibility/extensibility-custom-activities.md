@@ -42,21 +42,21 @@ The activity does two things:
 
 ## Registering Activities
 
-To make your activity available for use, it needs to be registered with the DI service container:
+To make your activity available for use, it needs to be registered with the `ElsaOptions` as follows:
 
 ```c#
-services.AddActivity<SayHelloWorld>();
+services.AddElsa(elsaOptions => elsaOptions.AddActivity<SayHelloWorld>());
 ```
 
 Alternatively, you can register all activities from an assembly using the following extension method:
 
 ```c#
-services.AddActivitiesFrom<TMarkerType>(); // TMarkerType is any type in the assembly from which you want to find and register activities.
+services.AddElsa(elsaOptions => elsaOptions.AddActivitiesFrom<TMarkerType>()); // TMarkerType is any type in the assembly from which you want to find and register activities.
 ```
 
 ## Dependency Injection
 
-Since activities are registered with the service container, you can inject services into their constructor.
+Activities are registered with the service container as well, which means that you can inject services into their constructor.
 For example, if you register the following service:
 
 ```c#
@@ -75,7 +75,7 @@ public class SayHelloWorld : Activity
         _writer = writer;
     }
 
-    protected override ActivityExecutionResult OnExecute(WorkflowExecutionContext context)
+    protected override IActivityExecutionResult OnExecute(ActivityExecutionContext context)
     {
         _writer.WriteLine("Hello World!");
 
@@ -98,7 +98,7 @@ public class SayHelloWorld : Activity
         _writer = writer;
     }
 
-    protected override async Task<ActivityExecutionResult> OnExecuteAsync(WorkflowExecutionContext context, CancellationToken cancellationToken)
+    protected override async ValueTask<IActivityExecutionResult> OnExecuteAsync(ActivityExecutionContext context)
     {
         await _writer.WriteLineAsync("Hello World!");
 
@@ -126,7 +126,7 @@ public class WriteLine : Activity
     [ActivityProperty(Hint = "The message to write.")]
     public string Message { get; set; }
 
-    protected override async Task<ActivityExecutionResult> OnExecuteAsync(WorkflowExecutionContext context, CancellationToken cancellationToken)
+    protected override async ValueTask<IActivityExecutionResult> OnExecuteAsync(ActivityExecutionContext context)
     {
         await _writer.WriteLineAsync(Message);
 
@@ -173,7 +173,7 @@ To return an `OutcomeResult`, use the `Outcome` method like so:
 ```c#
 public class WriteLine : Activity
 { 
-    protected override async Task<ActivityExecutionResult> OnExecuteAsync(WorkflowExecutionContext context, CancellationToken cancellationToken)
+    protected override IActivityExecutionResult OnExecute(ActivityExecutionContext context)
     {
         // Do something useful.
         
@@ -190,7 +190,7 @@ Since many activities only need to return a single outcome indicating that they'
 ```c#
 public class WriteLine : Activity
 { 
-    protected override async Task<ActivityExecutionResult> OnExecuteAsync(WorkflowExecutionContext context, CancellationToken cancellationToken)
+    protected override IActivityExecutionResult OnExecute(ActivityExecutionContext context)
     {
         // Do something useful.
         
@@ -212,7 +212,7 @@ For example:
 [ActivityDefinition(Outcomes = new[] { "Success", "Failed" })]
 public class WriteLine : Activity
 { 
-    protected override ActivityExecutionResult OnExecute(WorkflowExecutionContext context)
+    protected override IActivityExecutionResult OnExecute(ActivityExecutionContext context)
     {
         var success = DoSomething();
         var outcomeName = success ? "Success" : "Failed";
@@ -225,11 +225,11 @@ public class WriteLine : Activity
 ## Suspend & Resume
 
 Some activities represent workflow triggers, and require a certain event to be triggered before they return an outcome for the workflow runner to continue.
-The `TimerEvent` activity is one such example. When it executes, instead of returning an `OutcomeResult`, it will return a `HaltResult` which instructs the workflow runner to suspend & persist the workflow.
+The `Timer` activity is one such example. When it executes, instead of returning an `OutcomeResult`, it will return a `SuspendResult` which instructs the workflow runner to suspend & persist the workflow.
 
-The workflow is now said to be *halted*. The `TimerEvent` activity is said to be *blocking*. 
+The workflow is now said to be *suspended*. The `Timer` activity is said to be *blocking*. 
 
-When a timer event is eventually triggered, the workflow will be *resumed*. When a workflow resumes, it will invoke the blocking activity's `ResumeAsync` method.
+When a timer is eventually triggered, the workflow will be *resumed*. When a workflow resumes, it will invoke the blocking activity's `ResumeAsync` method.
 This method then performs any work that needs to be done, and depending on the activity's functionality, returns an appropriate activity execution result.
 
 For example, imagine we have a `ReadLine` activity that will block until a line is read from the console and fed into the halted workflow: 
@@ -237,19 +237,19 @@ For example, imagine we have a `ReadLine` activity that will block until a line 
 ```c#
 public class ReadLine : Activity
 {
-    protected override ActivityExecutionResult OnExecute(WorkflowExecutionContext context)
+    protected override IActivityExecutionResult OnExecute(ActivityExecutionContext context)
     {
         // Instruct the workflow runner to suspend the workflow.
-        return Halt();
+        return Suspend();
     }
-    
-    protected override ActivityExecutionResult OnResume(WorkflowExecutionContext context)
+
+    protected override IActivityExecutionResult OnResume(ActivityExecutionContext context)
     {
         // Read received input.
-        var receivedInput = (string) context.Workflow.Input["ReadLineInput"];
-        
+        var receivedInput = context.GetInput<string>();
+    
         // Store received input into activity output.
-        Output.SetVariable("Input", receivedInput);
+        context.Output = receivedInput;
 
         // Instruct workflow runner that we're done.
         return Done();
@@ -257,14 +257,4 @@ public class ReadLine : Activity
 }
 ```
 
-A workflow containing this activity would halt when it is executed. It's then up to your application to provide input to the workflow, typically by triggering an event. For example:
-
-```c#
-var line = Console.ReadLine();
-var input = new Variables { ["ReadLineInput"] = line  };
-
-// Trigger the ReadLine event activity.
-_workflowInvoker.TriggerAsync(nameof(ReadLine), input);
-```
-
-The `TriggerAsync` method will start any workflows that have `ReadLine` as a starting activity, an will resume any workflows that are blocked by `ReadLine`.
+A workflow containing this activity will become suspended when it is executed. It is then up to your application to provide input to the workflow.
