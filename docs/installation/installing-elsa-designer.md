@@ -16,7 +16,7 @@ The following snippet demonstrates using the `<elsa-workflow-definition-editor-s
 > If you install the NPM package directly, it is up to you to also install the [Monaco Editor](https://www.npmjs.com/package/monaco-editor) package as outlined further down below.
 
 ```html
-<elsa-workflow-definition-editor-screen server-url="https://your-elsa-server" workflow-definition-id="some-workflow-definition-id" monaco-lib-path="_content/Elsa.Designer.Components.Web"/>
+<elsa-workflow-definition-editor-screen server-url="https://your-elsa-server" workflow-definition-id="some-workflow-definition-id" monaco-lib-path="_content/Elsa.Designer.Components.Web/monaco-editor/min"/>
 ```
 
 # Monaco Editor
@@ -24,10 +24,10 @@ The following snippet demonstrates using the `<elsa-workflow-definition-editor-s
 Elsa uses the [Monaco Editor](https://www.npmjs.com/package/monaco-editor) package for the expression editors. When using the `Elsa.Designer.Bindings.Web` NuGet package, this library will already be provided as embedded assets that you can include in your HTML document (see [Installing Elsa Dashboard](installing-elsa-dashboard.md)).
 But if you installed the [Elsa Workflow Designer](https://www.npmjs.com/package/@elsa-workflows/elsa-workflow-designer) NPM package directly, you need to also install the Monaco Editor NPM package and copy its contents to a location that can be accessed the same way as other assets from your web application.
 
-For example, if you copied the contents of `monaco-editor` folder from `node_modules` to `wwwroot/js/monaco-editor` in some ASP.NET Core application, you need to specify `/js/monaco-editor` as the value for the `monaco-lib-path` attribute:
+For example, if you copied the contents of `monaco-editor` folder from `node_modules` to `wwwroot/js/monaco-editor` in some ASP.NET Core application, you need to specify `/js/monaco-editor/min` as the value for the `monaco-lib-path` attribute:
 
 ```html
-<elsa-workflow-definition-editor-screen server-url="https://your-elsa-server" workflow-definition-id="some-workflow-definition-id" monaco-lib-path="/js/monaco-editor"/>
+<elsa-workflow-definition-editor-screen server-url="https://your-elsa-server" workflow-definition-id="some-workflow-definition-id" monaco-lib-path="/js/monaco-editor/min"/>
 ```
 
 > You're not limited to using the Elsa web components in ASP.NET Core applications. It also works with regular HTML pages, ReactJS, Angular, Vue, etc.  
