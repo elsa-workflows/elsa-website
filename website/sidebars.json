@@ -31,8 +31,12 @@
       "expressions/expressions-javascript",
       "expressions/expressions-liquid"
     ],
+    "Designer": [
+      "designer/designer-using-the-designer"
+    ],
     "Extensibility": [
       "extensibility/extensibility-custom-activities",
+      "extensibility/extensibility-customize-existing-activities",
       "extensibility/extensibility-persistence",
       "extensibility/extensibility-javascript",
       "extensibility/extensibility-liquid",
