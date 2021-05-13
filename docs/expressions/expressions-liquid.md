@@ -28,7 +28,11 @@ Input values can be accessed using the following syntax:
 
 ### Activity Output
 
-To access a named activity's output, use the following syntax: `{{ Activities.SomeActivityName.Output }}`
+To access a named activity's output, use the following syntax: 
+
+```liquid
+{{ Activities.SomeActivityName.Output }}
+```
 
 ### CorrelationId
 
@@ -36,6 +40,30 @@ Returns the correlation ID (if any) of the currently executing workflow.
 
 ```liquid
 {{ CorrelationId }}
+```
+
+### WorkflowInstanceId
+
+Returns the workflow instance ID of the currently executing workflow.
+
+```liquid
+{{ WorkflowInstanceId }}
+```
+
+### WorkflowDefinitionId
+
+Returns the workflow definition ID of the currently executing workflow.
+
+```liquid
+{{ WorkflowDefinitionId }}
+```
+
+### WorkflowDefinitionVersion
+
+Returns the workflow definition version of the currently executing workflow.
+
+```liquid
+{{ WorkflowDefinitionVersion }}
 ```
 
 ### Configuration
