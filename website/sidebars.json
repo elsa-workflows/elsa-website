@@ -17,6 +17,7 @@
     ],
     "Concepts": [
       "concepts/concepts-workflows",
+      "concepts/concepts-workflow-variables",
       "concepts/concepts-workflow-context"
     ],
     "Guides": [
@@ -35,7 +36,7 @@
       "extensibility/extensibility-persistence",
       "extensibility/extensibility-javascript",
       "extensibility/extensibility-liquid",
-      "extensibility/extensibility-expression-evaluators",
+      "extensibility/extensibility-expression-handlers",
       "extensibility/extensibility-property-editor-types"
     ]
   },
