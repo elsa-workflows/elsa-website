@@ -85,7 +85,7 @@ workflowDefinitionId: string
 Contains the workflow definition version of the currently executing workflow.
 
 ```typescript
-workflowDefinitionVersion: int
+workflowDefinitionVersion: number
 ```
 
 ### correlationId
