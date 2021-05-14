@@ -5,7 +5,8 @@
       "quickstarts/quickstarts-aspnetcore-hello-world",
       "quickstarts/quickstarts-aspnetcore-server-api-endpoints",
       "quickstarts/quickstarts-aspnetcore-server-dashboard",
-      "quickstarts/quickstarts-aspnetcore-server-dashboard-and-api-endpoints"
+      "quickstarts/quickstarts-aspnetcore-server-dashboard-and-api-endpoints",
+      "quickstarts/quickstarts-elsa-dashboard-docker"
     ],
     "Installation": [
       "installation/installing-feeds",
@@ -24,8 +25,10 @@
       "guides/guides-recurring-tasks",
       "guides/guides-document-approval",
       "guides/guides-master-child-workflows",
+      "guides/guides-signaling-workflows",
       "guides/guides-composite-activities",
-      "guides/guides-runtime-list-values"
+      "guides/guides-runtime-list-values",
+      "guides/guides-json-workflows"
     ],
     "Expressions": [
       "expressions/expressions-javascript",
@@ -36,6 +39,7 @@
     ],
     "Extensibility": [
       "extensibility/extensibility-custom-activities",
+      "extensibility/extensibility-custom-activity-providers",
       "extensibility/extensibility-customize-existing-activities",
       "extensibility/extensibility-persistence",
       "extensibility/extensibility-javascript",
