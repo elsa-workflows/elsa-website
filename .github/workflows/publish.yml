@@ -19,6 +19,7 @@ jobs:
         env:
           USE_SSH: false
           GIT_USER: sfmskywalker
+        working-directory: website  
         run: |
           git config --global user.email "sipke@elsaworkflows.io"
           git config --global user.name "sfmskywalker"
