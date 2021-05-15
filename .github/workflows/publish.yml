@@ -30,3 +30,4 @@ jobs:
           npm i
           fi
           npm run deploy
+          
