@@ -22,6 +22,6 @@ jobs:
 
       - name: Publish website
         env:
-          GIT_USER: ${{ github.repository_owner }}
+          GIT_USER: ${{ secrets.GIT_USER }}
         run: npm run publish
         working-directory: website
