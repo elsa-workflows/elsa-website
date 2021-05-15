@@ -30,4 +30,4 @@ jobs:
           else
           npm i
           fi
-          npm run deploy
+          npm run publish
