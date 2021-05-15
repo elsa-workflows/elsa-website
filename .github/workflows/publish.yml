@@ -31,3 +31,4 @@ jobs:
           npm i
           fi
           npm run publish
+          
