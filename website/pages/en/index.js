@@ -15,11 +15,8 @@ const GridBlock = CompLibrary.GridBlock;
 
 class HomeSplash extends React.Component {
     render() {
-        const {siteConfig, language = ''} = this.props;
-        const {baseUrl, docsUrl} = siteConfig;
-        const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
-        const langPart = `${language ? `${language}/` : ''}`;
-        const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
+        const {siteConfig} = this.props;
+        const {baseUrl} = siteConfig;
 
         const SplashContainer = props => (
             <div className="homeContainer">
@@ -31,7 +28,7 @@ class HomeSplash extends React.Component {
 
         const Logo = props => (
             <div className="projectLogo">
-                <img src={props.img_src} alt="Project Logo" />
+                <img src={props.img_src} alt="Project Logo"/>
             </div>
         );
 
@@ -60,11 +57,11 @@ class HomeSplash extends React.Component {
 
         return (
             <SplashContainer>
-                <Logo img_src={`${baseUrl}img/undraw_breaking_barriers_vnf3.svg`} />
+                <Logo img_src={`${baseUrl}img/undraw_breaking_barriers_vnf3.svg`}/>
                 <div className="inner">
-                    <ProjectTitle siteConfig={siteConfig} />
+                    <ProjectTitle siteConfig={siteConfig}/>
                     <PromoSection>
-                        <Button href={docUrl('installation/installing-elsa-core')}>Get Started</Button>
+                        <Button href='docs/next/quickstarts/quickstarts-console-hello-world'>Get Started</Button>
                     </PromoSection>
                 </div>
             </SplashContainer>
@@ -74,7 +71,7 @@ class HomeSplash extends React.Component {
 
 class Index extends React.Component {
     render() {
-        const {config: siteConfig, language = ''} = this.props;
+        const {config: siteConfig, language = '', version = ''} = this.props;
         const {baseUrl} = siteConfig;
 
         const Block = props => (
@@ -96,7 +93,7 @@ class Index extends React.Component {
                 {[
                     {
                         content: 'Workflows can be defined using plain C# code. In addition to an increasing number of activities that you can choose from, Elsa is designed to be extensible with your own **custom activities**.\n\n' +
-                            '[Learn how](docs/guides-dashboard)',
+                            '[Learn how](docs/next/quickstarts/quickstarts-aspnetcore-server-dashboard)',
                         image: `${baseUrl}img/undraw_data_trends_b0wg.svg`,
                         imageAlign: 'right',
                         title: 'Manage Workflows using the Elsa Dashboard built with ASP.NET Core',
@@ -111,7 +108,7 @@ class Index extends React.Component {
                     {
                         content:
                             'The Workflow Designer is a **100% client-side web component** that can be **re-used** in any application, and allows you to easily design workflows. Workflows can be exported as JSON files, which can then be executed using the Elsa Core API.\n\n' +
-                            '[Learn how](docs/installing-elsa-designer)',
+                            '[Learn how](docs/next/quickstarts/quickstarts-aspnetcore-server-dashboard)',
                         image: `${baseUrl}img/undraw_software_engineer_lvl5.svg`,
                         imageAlign: 'left',
                         title: 'Design workflows using the reusable HTML5 Workflow Designer',
@@ -138,7 +135,7 @@ class Index extends React.Component {
                             '```' +
                             '\n\n' +
                             'Short-running Workflows can be useful to implement a business rules engine, while long-running workflows greatly simplify the implementation of complex processes that involve coordinating between multiple agents (users & machines).\n\n' +
-                            '[Learn how](docs/guides-hello-world-console)',
+                            '[Learn how](docs/next/quickstarts/quickstarts-console-hello-world)',
                         image: `${baseUrl}img/undraw_Designer_by46.svg`,
                         imageAlign: 'right',
                         title: 'Craft workflows using C#',
@@ -151,8 +148,8 @@ class Index extends React.Component {
             <Block layout="threeColumn" className="feature-block">
                 {[
                     {
-                        content: 'Build workflows **in code** using the **fluent API** or **as data** using **JSON** or **YAML** syntax. Or use the **workflow designer** to design executable workflows visually.\n\n' +
-                            'Elsa comes with an ASP.NET Core area that provides a **dashboard** to manage workflows and activities.',
+                        content: 'Build workflows **in code** using the **Workflow Builder API** or **as data** using **JSON** syntax. Or use the **workflow designer** to design executable workflows visually.\n\n' +
+                            'Elsa comes with a reusable **dashboard** component to manage workflows and activities.',
                         title: 'Build',
                     },
                     {
@@ -168,15 +165,15 @@ class Index extends React.Component {
                 ]}
             </Block>
         );
-        
+
         return (
             <div>
-                <HomeSplash siteConfig={siteConfig} language={language} />
+                <HomeSplash siteConfig={siteConfig} language={language} version={version}/>
                 <div className="mainContainer">
-                    <Headlines />
-                    <WorkflowsByCode />
-                    <DesignWorkflows />
-                    <ManageWorkflows />
+                    <Headlines/>
+                    <WorkflowsByCode/>
+                    <DesignWorkflows/>
+                    <ManageWorkflows/>
                 </div>
             </div>
         );

@@ -162,6 +162,6 @@ Order signal received!
 Now that we have seen the basics of workflow signaling, let's consider a more complex scenario where we provide a customer ID when triggering the "order-received" signal.
 We will correlate the workflow with the customer and create a third workflow that will ship the order for the specified customer ID.
 
-> In real world applications, you will probably correlated the workflow with an actual order ID rather than the customer ID, but the main point here is to show the mechanics of workflow correlation with signals.
+> In real world applications, you will probably correlated the workflow with an actual order ID rather than the customer ID.
 
 **Work In Progress**

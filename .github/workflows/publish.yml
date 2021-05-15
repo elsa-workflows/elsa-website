@@ -1,0 +1,27 @@
+name: Publish Elsa Website
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish_to_github_website:
+    name: Publish the website to the GitHub website branch on Elsa Core
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install NPM dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+          working-directory: |
+            website     
+
+      - name: Publish website
+        env:
+          GIT_USER: ${{ github.repository_owner }}
+        run: npm run publish
+        working-directory: website
