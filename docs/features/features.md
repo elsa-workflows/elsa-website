@@ -4,18 +4,16 @@ title: Features
 sidebar_label: Features
 ---
 
-Elsa Workflows is packed with features that help you implement workflow-driven applications with ease.
+Elsa Workflows is packed with features that help you implement workflow-driven, lo-code applications with ease.
 
 ## Visual Workflow Designer
 
 Elsa comes with a standalone, reusable **HTML5 workflow designer** web component that you can embed in your own HTML web pages.
 The designer operates completely client-side, and has a rich JavaScript API that allows you to define custom plugins in order to extend its functionality.
 
-However, you don't have to any of that; all of the extensibility is used by the Elsa Dashboard application that discovers all of the registered activities and registers them with the designer.   
-
 ## Elsa Dashboard
 
-The Elsa Dashboard enables you to define workflow definitions and inspect executed workflows. To design a workflow, just right-click on the canvas, choose an activity from the activity picker, configure it, and drag connections between multiple activities to create processes ranging from simple short-running workflows to advanced long-running workflows. 
+The Elsa Dashboard enables you to define workflow definitions and inspect executed workflows. 
 
 ## Short and Long Running Workflows
 
@@ -35,84 +33,6 @@ In order to support long-running workflows, **correlation** is a crucial feature
 An Activity represents a single step in the workflow. 
 Out of the box, the Elsa suite of NuGet packages provides you with a decent set of activities to start with:
 
-### Primitives
-
-Primitives are low-level, technical activities.
-
-* SetVariable
-
-### Control Flow
-
-Control flow activities provide control over the process. For example, the **Fork** activity will split the workflow in two or more branches of execution.
-
-* ForEach
-* Fork
-* IfElse
-* Join
-* Switch
-* While
-
-### Workflow
-
-Activities in the Workflow category are related to workflow-level functions, such as correlation and signaling.
-
-* Correlate
-* Finish
-* Signaled
-* Start
-* TriggerSignal
-* TriggerWorkflow
-
-### Console
-
-Console activities are useful when implementing console-based applications powered with workflows.
-
-* ReadLine
-* WriteLine
-
-### DropBox
-
-Dropbox activities help you integrate with the Dropbox API.
-
-* SaveToDropbox
-
-### Email
-
-Email activities allow you to send emails using SMTP.
-
-* SendEmail 
-
-### HTTP
-
-HTTP activities enable you to implement workflows that send outgoing HTTP requests and respond to incoming HTTP requests, and are great for integrating with external web-based APIs. 
-
-* ReceiveHttpRequest
-* SendHttpRequest
-* WriteHttpResponse
-
-### MassTransit
-
-MassTransit activities make it super-easy to send and receive messages using MassTransit. Simply define your message classes and leverage the `SendMassTransitMessage` and `ReceiveMassTransitMessage` activities to send and receive messages.
-
-* ReceiveMassTransitMessage
-* SendMassTransitMessage
-
-### Timers
-
-Timer activities allow you to trigger workflows based on a certain time-based event, such as a CRON expression, a regular timer, or at a specific time in the future.
-
-* CronEvent
-* InstantEvent
-* TimerEvent
-
-### User Tasks
-
-A User Task event is an activity that you configure with a set of possible actions a user can take. Each action corresponds to an outcome of the activity.
-Once the user performs any of these actions, the workflow resumes along the appropriate path. The idea here is that your application will trigger the workflow with the selected action.
-This could be represented as a set of simple buttons for example. It's up to your application to decide how to present these actions.
-
-* UserTask
-
 ## Versioning
 
 Each workflow definition is versioned. When you publish a new version of your workflow, its version number is incremented. Existing workflow instances will still use the previous versions of your workflow definition, but new workflows will use the latest one.
@@ -121,19 +41,15 @@ Each workflow definition is versioned. When you publish a new version of your wo
 
 Elsa ships with the following persistence providers:
 
-### CosmosDB (DocumentDB)
-### Entity Framework Core
-### Memory
+* InMemory (specifically useful for unit testing and short-running workflows that complete in a single run)
+* Entity Framework Core
+* MongoDB
+* YesSQL
 
-Non-persistent, use only for tests and/or short-lived workflows.
+## Workflow Expressions
 
-### MongoDB
-### YesSQL
-
-## Expressions
-
-Many activities expose properties that can be set to an **expression**, which are evaluated at runtime/
-Using expressions allows you to reference values produced by other activities for example.
+Most activities expose properties that can be set to an **expression**, which are evaluated at runtime.
+Expressions allow you to reference values produced by other activities for example.
 Elsa ships with three expression evaluators:
 
 ### Literal
