@@ -6,7 +6,7 @@
       "quickstarts/quickstarts-aspnetcore-server-api-endpoints",
       "quickstarts/quickstarts-aspnetcore-server-dashboard",
       "quickstarts/quickstarts-aspnetcore-server-dashboard-and-api-endpoints",
-      "quickstarts/quickstarts-elsa-dashboard-docker"
+      "quickstarts/quickstarts-elsa-and-docker"
     ],
     "Installation": [
       "installation/installing-feeds",
