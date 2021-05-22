@@ -46,6 +46,9 @@
       "extensibility/extensibility-liquid",
       "extensibility/extensibility-expression-handlers",
       "extensibility/extensibility-property-editor-types"
+    ],
+    "Hosting": [
+      "hosting/hosting-distributed-hosting"
     ]
   },
   "docs/features": {
