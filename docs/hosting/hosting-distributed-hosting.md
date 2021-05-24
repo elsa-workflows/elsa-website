@@ -8,13 +8,14 @@ Hosting Elsa in a multi-node environment is 100% supported and can significantly
 
 ## Distributed Setup
 
-To make sure Elsa operates well in such an environment, there are three aspects to configure:
+To make sure Elsa operates well in such an environment, there are four aspects to configure:
 
-1. Service Bus Broker
-2. Distributed Lock Provider
-3. Distributed Cache Signal Provider
+1. [Service Bus Broker](#service-bus-broker)
+2. [Distributed Lock Provider](#distributed-lock-provider)
+3. [Distributed Cache Signal Provider](#distributed-cache-signal-provider)
+4. [Distributed Temporal Services](#distributed-temporal-services)
 
-### Service Bus Broker
+## Service Bus Broker
 
 Elsa uses [Rebus](https://github.com/rebus-org/Rebus) for sending messages via service bus brokers.
 Out of the box, it uses a memory provider.
@@ -37,7 +38,7 @@ Elsa currently ships with support for RabbitMq and Azure Service Bus packages fo
 services.AddElsa(elsa => elsa.UseServiceBus(context => context.Configurer.Transport(t => t.UsePubSub(context.QueueName)));
 ```
 
-### Distributed Lock Provider
+## Distributed Lock Provider
 
 Elsa uses [DistributedLock](https://github.com/madelson/DistributedLock) to ensure thant only one thread can work on a workflow instance. By default, the [FileSystem](https://github.com/madelson/DistributedLock/blob/master/docs/DistributedLock.FileSystem.md) lock is used, which ensures that no matter how many threads try to load a workflow instance from the store, only one of them will be able to do so at a time until the lock is released.
 When multiple threads try to acquire a lock on a given workflow instance, only the first one will succeed. Subsequent threads will simply wait until the lock is released.
@@ -67,7 +68,7 @@ services.AddElsa(elsa => elsa.ConfigureDistributedLockProvider(options => option
 })));
 ```
 
-### Distributed Cache Signal Provider
+## Distributed Cache Signal Provider
 
 Elsa uses a local memory cache to store things like [Workflow Blueprints](#). However, when using a local memory cache in a multi-node environment, the caches need to be synchronized to avoid caches from becoming stale.
 
@@ -75,7 +76,7 @@ When one is dealing with just one node, invalidating local cache entries is easy
 
 For example, whenever you make changes to a workflow definition, Elsa publishes a domain event called `WorkflowDefinitionSaved`, which is handled by the `CachingWorkflowRegistry` decorator type and clears the cache using a service called `ICacheSignal`.
 
-#### ICacheSignal
+### ICacheSignal
 
 `ICacheSignal` is a relatively simple service that produces [IChangeToken](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.primitives.ichangetoken) objects that are used by [IMemoryCache](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory).
 Other parts of Elsa can then **trigger** a signal that is being observed by the cache in order to invalidate that cache entry.
@@ -87,7 +88,7 @@ Elsa provides two additional implementations of `ICacheSignal`, which are:
 * RebusCacheSignal
 * RedisCacheSignal
 
-#### RebusCacheSignal
+### RebusCacheSignal
 
 This implementation uses Elsa's Rebus configuration to **publish a message to all nodes in the cluster**.
 Each node receiving this message will then trigger the appropriate change token.
@@ -102,7 +103,7 @@ services.AddElsa(elsa => elsa.UseRebusCacheSignal());
 
 No further configuration is necessary since you will already have configured Rebus itself. 
 
-#### RedisCacheSignal
+### RedisCacheSignal
 
 This implementation uses Redis' pub/sub mechanism to publish and subscribe to messages and can be enabled as follows:
 
@@ -116,54 +117,70 @@ Similar to setting up Redis as the [Distributed Lock Provider](#distributed-lock
 services.AddRedis("localhost:6379,abortConnect=false"); // Provided by the Elsa.Providers.Redis package.
 ```
 
-## Background Information
+## Distributed Temporal Services
 
-What follows is some more background information about why we need the additional configuration described previously.
+A temporal service provides functionality to schedule a workflow to execute at a specific time and/or on a recurring interval.
+Elsa uses these services to implement the **Timer**, **Cron** and **StartAt** activities.
 
-To support a multi-node setup, there are a few key aspects to accomodate for, which are:
+Elsa comes with the following temporal services:
 
-* Background timer events (`Timer`, `Cron`, `StartAt`)
-* Workflow concurrency
-* Local memory cache (`WorkflowRegistry`)
+* [Quartz.NET](https://www.quartz-scheduler.net/)
+* [Hangfire](https://www.hangfire.io/)
 
-### Background Timer Events
+To register the temporal activities using Quartz.NET as the provider, you would do so as follows:
 
-Background timer events are basically background jobs executed by services such as Quartz.NET and Hangfire.
-These background jobs execute in the background whenever it is time to start or resume a workflow.
+```c#
+servives.AddElsa(elsa => elsa.AddQuartzTemporalActivities());
+```
 
-The key thing to understand here is that these background jobs execute **on each node in the cluster**.
-By default (i.e. without configuring Elsa for a multi-node hosting environment), this will mean that if you for example have a workflow with a **Timer** activity, this workflow will execute on each node. Depending on your workflow specifics, this may or may not be problematic.
+And to use Hangfire instead, you do so as follows:
 
-### Workflow Concurrency
+```c#
+servives.AddElsa(elsa => elsa.AddHangfireTemporalActivities());
+```
 
-However, in order to avoid concurrency issues with workflow execution, it is crucial that only one node operates on a specific workflow instance at a time.
+By default, both Quartz.NET and Hangfire are configured to use an in-memory storage provider, which works well for single-node Elsa Server applications.
+But when you run multiple Elsa nodes, this also means that each node will begin executing workflows that start with a temporal activity such as **Timer**.
+This may or may not be what you want.
 
-> To avoid any confusion, it is perfectly fine and even desirable that a given node operates on many workflow instances simultaneously.
-> But the opposite is true for the other way around: it is bad for many nodes to operate on the same workflow at the same time.
+In most typical scenarios, you will probably want to run a given time-driven workflow only once per event.
+For example, if you have a workflow that sends out newsletters once per day from an Elsa Server cluster consisting of 3 nodes, you probably don't want each node to be sending the newsletter.
+Instead, one node should schedule the job, and when the time interval is reached, only one node (which may be another node in the cluster) should execute the job.
 
-Elsa ensures the execution of only one workflow on one node at a given time by employing a technique called [Distributed Locking](https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html).
+To enable this "cluster" mode of operation, you must configure the temporal provider with a persistent storage such as SQL Server. The types of storage providers available depend on the actual temporal provider.
 
-By default, Elsa uses a file-based primitive to acquire a distributed lock. Although this works fine when hosting multiple application instances on the same machine, it will not work when hosting Elsa in multiple Docker containers for instance.
+Let's take a look at how to configure both providers.
 
-For that, we need access to a shared resource such as a database, Redis server or a blob in the cloud.
+> Both providers are provided as separate NuGet packages:
+> * `Elsa.Activities.Temporal.Quartz`
+> * `Elsa.Activities.Temporal.Hangfire`
 
-### Local Memory Cache
+### Quartz.NET
 
-To optimize performance, Elsa employs caching of certain objects such as [Workflow Blueprints]().
-However, imagine you have 3 instances of Elsa Server running behind some load balancer and a separate Elsa Dashboard application that communicates with the cluster through the load balancer.
+To setup Quartz.NET to operate in a cluster, we need to configure three aspects:
 
-When you make a change to a workflow definition, this change will be posted to Elsa Server. This HTTP request may end up being handled by any of the 3 nodes in the cluster, and only that node will now have an updated cache.
-The two other nodes will now have an outdated cache.
+1. A persistent [job store](https://www.quartz-scheduler.net/documentation/quartz-3.x/configuration/reference.html#datasources-ado-net-jobstores).
+2. A [serializer](https://www.quartz-scheduler.net/documentation/quartz-3.x/packages/json-serialization.html#installation).
+3. Enable [cluster mode](https://www.quartz-scheduler.net/documentation/quartz-3.x/configuration/reference.html#clustering).
 
-In order to mitigate this issue, we can do one of two things:
+The following snippet demonstrates setting up Quartz.NET:
 
-1. Implement a distributed cache (using e.g. Redis), or:
-2. Implement distributed cache signaling.
+```c#
+services.AddElsa(elsa => elsa
+    .AddQuartzTemporalActivities(configureQuartz: quartz => quartz.UsePersistentStore(store =>
+    {
+        store.UseJsonSerializer();
+        store.UseSqlServer("Server=local;Database=Elsa;");
+        store.UseClustering();
+    }));
+```
 
-Elsa employs the second technique: distributed cache signaling. The advantage of that is performance. Updates made to workflow definitions occur far less often than reading workflow blueprints from the workflow registry, so it makes sense to optimize for that scenario.
+### Hangfire
 
-Local caches perform much better than distributed caches, because objects are stored in-memory, while distributed caches such as Redis are stored out of process, possibly on a different server which requires network roundtrips.
+Hangfire [supports operation within a cluster automatically](https://docs.hangfire.io/en/latest/background-processing/running-multiple-server-instances.html), provided that you configured it to use persistent storage such as SQL Server.
 
-> An advantage of a distributed cache such as Redis however is that one might store much more information compared to a Docker container for example.
-> Elsa does not support storing workflow blueprints in a distributed cache such as Redis because workflow blueprints aren't serializable.
+The following snippet demonstrates setting Hangfire with Elsa:
 
+```c#
+services.AddElsa(elsa => elsa.AddHangfireTemporalActivities(hangfire => hangfire.UseSqlServerStorage("Server=local;Database=Elsa;")));
+```
