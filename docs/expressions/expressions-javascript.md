@@ -131,7 +131,17 @@ Generates a new GUID value and returns its string representation.
 guid(): string
 ```
 
-> This function is a thin wrapper around the following .NET code: `Guid.NewGuid().ToString()`. 
+> This function is a thin wrapper around the following .NET code: `Guid.NewGuid().ToString()`.
+
+### parseGuid
+
+Parses a string into a GUID value.
+
+```typescript
+parseGuid(value: string): Guid
+```
+
+> This function is a thin wrapper around the following .NET code: `Guid.Parse(value)`.
 
 ### setVariable
 
