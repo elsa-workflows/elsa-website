@@ -37,7 +37,7 @@ cd ElsaQuickstarts.Server.Dashboard
 Add the following packages:
 
 ```bash
-dotnet add package Elsa.Designer.Components.Web --prerelease
+dotnet add package Elsa.Designer.Components.Web
 ```
 
 ## Startup

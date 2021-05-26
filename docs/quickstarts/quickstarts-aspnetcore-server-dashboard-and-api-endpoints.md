@@ -32,12 +32,12 @@ cd ElsaQuickstarts.Server.DashboardAndServer
 Add the following packages:
 
 ```bash
-dotnet add package Elsa --prerelease
-dotnet add package Elsa.Activities.Http --prerelease
-dotnet add package Elsa.Activities.Temporal.Quartz --prerelease
-dotnet add package Elsa.Persistence.EntityFramework.Sqlite --prerelease
-dotnet add package Elsa.Server.Api --prerelease
-dotnet add package Elsa.Designer.Components.Web --prerelease
+dotnet add package Elsa
+dotnet add package Elsa.Activities.Http
+dotnet add package Elsa.Activities.Temporal.Quartz
+dotnet add package Elsa.Persistence.EntityFramework.Sqlite
+dotnet add package Elsa.Server.Api
+dotnet add package Elsa.Designer.Components.Web
 ```
 
 ## Startup

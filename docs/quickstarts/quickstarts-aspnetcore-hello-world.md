@@ -29,8 +29,8 @@ cd ElsaQuickstarts.WebApp.HelloWorld
 Add the following packages:
 
 ```bash
-dotnet add package Elsa --prerelease
-dotnet add package Elsa.Activities.Http --prerelease
+dotnet add package Elsa
+dotnet add package Elsa.Activities.Http
 ```
 
 ## The Workflow
