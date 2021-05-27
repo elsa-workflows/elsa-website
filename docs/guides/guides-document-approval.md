@@ -17,11 +17,11 @@ Let's get into it!
 
 > **Source Code**
 > 
-> The source code of the completed project [can be found here](https://github.com/elsa-workflows/elsa-guides/tree/elsa-2.0/src/ElsaGuides.ContentApproval.Web).
+> The source code of the completed project [can be found here](https://github.com/elsa-workflows/elsa-guides/tree/master/src/ElsaGuides.ContentApproval.Web).
 > 
 > **Workflow Export**
 > 
-> The visually designed workflow can be found as a [JSON export here](https://github.com/elsa-workflows/elsa-guides/blob/elsa-2.0/src/ElsaGuides.ContentApproval.Web/VisualDocumentApprovalWorkflow.json).
+> The visually designed workflow can be found as a [JSON export here](https://github.com/elsa-workflows/elsa-guides/blob/master/src/ElsaGuides.ContentApproval.Web/VisualDocumentApprovalWorkflow.json).
 > To import this file, run the project, create a new workflow definition, and choose **Import** (as a sub-option on the **Publish** button), 
 
 ## Workflow Requirements
