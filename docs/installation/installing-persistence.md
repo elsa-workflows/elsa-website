@@ -16,7 +16,7 @@ Out of the box, Elsa currently ships with the following providers:
 * [MongoDB](https://www.mongodb.com/)
 * [YesSQL](https://github.com/sebastienros/yessql/blob/dev/README.md)
 
-## Example using Entity Framework Core
+## Entity Framework Core
 For example, to use the [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) persistence provider and Sqlite as the database engine, add the following packages:
 
 ```bash
@@ -27,7 +27,7 @@ dotnet add package Elsa.Persistence.EntityFramework.Sqlite
 
 When installed, update your `Startup` class as follows to configure Elsa to use the EF Core provider with SQLite:
 
-```csharp
+```c#
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddElsa(options => options.UseEntityFrameworkPersistence(ef => ef.UseSqlite()));
@@ -37,8 +37,7 @@ public void ConfigureServices(IServiceCollection services)
 By default, Elsa will use the following connection string when using SQLite: `"Data Source=elsa.sqlite.db;Cache=Shared;"`.
 You can override this by importing the `Microsoft.EntityFrameworkCore` namespace to make available the default `UseSqlite()` extension method that accepts a connection string. Example:
 
-```csharp
-...
+```c#
 using Microsoft.EntityFrameworkCore;
 
 public void ConfigureServices(IServiceCollection services)
@@ -48,6 +47,64 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 > You can find an [example using Entity Framework Core](https://github.com/elsa-workflows/elsa-core/blob/master/src/samples/persistence/Elsa.Samples.Persistence.EntityFramework/Program.cs#L21) and [YesSQL](https://github.com/elsa-workflows/elsa-core/blob/master/src/samples/persistence/Elsa.Samples.Persistence.YesSql/Program.cs) in the samples folder on GitHub as well.
+
+
+### SQL Server
+
+To use SQL Server as the EF Core provider, add the `Elsa.Persistence.EntityFramework.SqlServer` package:
+
+```bash
+dotnet add package Elsa.Persistence.EntityFramework.SqlServer
+```
+
+Then update your Startup class as follows:
+
+```c#
+using Elsa.Persistence.EntityFramework.SqlServer
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddElsa(options => options.UseEntityFrameworkPersistence(ef => ef.UseSqlServer("Server=local;Database=Elsa")));
+}
+```
+
+### MySQL
+
+To use MySQL as the EF Core provider, add the `Elsa.Persistence.EntityFramework.MySql` package:
+
+```bash
+dotnet add package Elsa.Persistence.EntityFramework.MySql
+```
+
+Then update your Startup class as follows:
+
+```c#
+using Elsa.Persistence.EntityFramework.MySql
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddElsa(options => options.UseEntityFrameworkPersistence(ef => ef.UseMySql("Server=localhost;Port=3306;Database=elsa;User=myuser;Password=mypassword;")));
+}
+```
+
+### Postgres
+
+To use PostgreSQL as the EF Core provider, add the `Elsa.Persistence.EntityFramework.PostgreSql` package:
+
+```bash
+dotnet add package Elsa.Persistence.EntityFramework.PostgreSql
+```
+
+Then update your Startup class as follows:
+
+```c#
+using Elsa.Persistence.EntityFramework.PostgreSql
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddElsa(options => options.UseEntityFrameworkPersistence(ef => ef.UsePostgreSql("Server=127.0.0.1;Port=5432;Database=elsa;User Id=postgres;Password=password;")));
+}
+```
 
 ### EF Core Migrations
 
@@ -117,6 +174,107 @@ namespace WebApplication1.Data
 ```
 
 Notice that the factory accepts command-line arguments, which conveniently allows us to invoke the `dotnet ef database update` command by passing in arguments that get parsed into a `Configuration` object, making it convenient from the factory class to access the specified connection string.
+
+## MongoDB
+
+To configure Elsa with MongoDB, do the following:
+
+Add the `Elsa.Persistence.MongoDb` package:
+
+```bash
+dotnet add package Elsa.Persistence.MongoDb
+```
+
+And update your Startup class as follows:
+
+```c#
+using Elsa.Persistence.MongoDb
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddElsa(options => options.UseMongoDbPersistence(options => options.ConnectionString = "mongodb://localhost:27017/Elsa"));
+}
+```
+
+## YesSQL
+
+To configure Elsa with YesSQL, do the following:
+
+Add the `Elsa.Persistence.YesSql` package:
+
+```bash
+dotnet add package Elsa.Persistence.YesSql
+```
+
+And update your Startup class as follows:
+
+```c#
+using Elsa.Persistence.YesSql
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddElsa(options => options.UseYesSqlPersistence());
+}
+```
+
+If you don't configure YesSql with a specific database provider, Elsa will us SQLite by default.
+
+### SQL Server
+
+To configure YesSQL with SQL Server, add the `YesSql.Provider.SqlServer` package:
+
+```bash
+dotnet add package YesSql.Provider.SqlServer
+```
+
+And update your Startup class as follows:
+
+```c#
+using Elsa.Persistence.YesSql
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddElsa(options => options.UseYesSqlPersistence(config => config.UseSqlServer("Server=local;Database=Elsa")));
+}
+```
+
+### Postgres
+
+To configure YesSQL with PostgreSql, add the `YesSql.Provider.PostgreSql` package:
+
+```bash
+dotnet add package YesSql.Provider.PostgreSql
+```
+
+And update your Startup class as follows:
+
+```c#
+using Elsa.Persistence.YesSql
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddElsa(options => options.UseYesSqlPersistence(config => config.UsePostgreSql("Server=127.0.0.1;Port=5432;Database=elsa;User Id=postgres;Password=password;")));
+}
+```
+
+### MySql
+
+To configure YesSQL with PostgreSql, add the `YesSql.Provider.MySql` package:
+
+```bash
+dotnet add package YesSql.Provider.MySql
+```
+
+And update your Startup class as follows:
+
+```c#
+using Elsa.Persistence.YesSql
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddElsa(options => options.UseYesSqlPersistence(config => config.UseMySql("Server=localhost;Port=3306;Database=elsa;User=myuser;Password=mypassword;")));
+}
+```
 
 ## Custom Providers
 
