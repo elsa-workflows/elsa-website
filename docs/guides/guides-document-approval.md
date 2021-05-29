@@ -386,7 +386,7 @@ Click the **Done** outcome button on the previous activity and look for the **Se
 - From: `workflow@acme.com`
 - To: `josh@acme.com`
 - Subject: `Document received from {{Variables.Document.Author.Name}}` (Liquid)
-- Body: `Document from {{ Variables.Document.Author.Name }} received for review.<br><a href="{{ "Approve" | signal_url }}">Approve</a> or <a href="{{ "Reject" | signal_url }}"">Reject</a>`
+- Body: `Document from {{ Variables.Document.Author.Name }} received for review.<br><a href="{{ "Approve" | signal_url }}">Approve</a> or <a href="{{ "Reject" | signal_url }}">Reject</a>`
 
 ### HTTP Response: Document Received
 
@@ -445,7 +445,7 @@ Click the **Done** outcome button on the previous activity and look for the **Se
 - From: `workflow@acme.com`
 - To: `josh@acme.com`
 - Subject: `{{ Variables.Document.Author.Name }} is waiting for your review!` (Liquid)
-- Body: `Don't forget to review document {{ Variables.Document.Id }}.<br><a href="{{ "Approve" | signal_url }}">Approve</a> or <a href="{{ "Rejecte" | signal_url }}">Reject</a>` (Liquid)
+- Body: `Don't forget to review document {{ Variables.Document.Id }}.<br><a href="{{ "Approve" | signal_url }}">Approve</a> or <a href="{{ "Reject" | signal_url }}">Reject</a>` (Liquid)
 
 Now connect the `Send Email` activity we just added back to the `Timer` activity so that the workflow will keep sending reminders for as long as we haven't received a signal.
 To connect an outcome to an existing activity, simply press and hold the SHIFT button while clicking the outcome. Release the SHIFT button and left-click on the target activity:
