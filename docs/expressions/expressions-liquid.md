@@ -4,6 +4,38 @@ title: Liquid Expressions
 sidebar_label: Liquid
 ---
 
+## Accessing Custom Types
+
+Liquid is a secure template language which will only allow a predefined set of members to be accessed, and where model members can't be changed. Property are added to the TemplateOptions.MemberAccessStrategy property. This options object can be reused every time a template is rendered.
+
+Alternatively, the `MemberAccessStrategy` can be assigned an instance of `UnsafeMemberAccessStrategy` which will allow any property to be accessed.
+
+### Allow-listing a specific type
+
+To configure the liquid engine, implement `INotificationHandler<EvaluatingLiquidExpression>`. This notification handler will be invoked every time Elsa is about to evaluate a liquid expression.
+
+The following example demonstrates how to allow access to a custom type called `MyType` from liquid expressions:
+
+```c#
+public class ConfigureLiquidEngine : INotificationHandler<EvaluatingLiquidExpression>
+{
+    public Task Handle(EvaluatingLiquidExpression notification, CancellationToken cancellationToken)
+    {
+        notification.TemplateContext.Options.MemberAccessStrategy.Register<Mytype>();
+    }
+}
+```
+
+Make sure to register your handler with DI:
+
+```c#
+services.AddNotificationHandler<ConfigureLiquidEngine>();
+```
+
+For more information about stuff you can do with Fluid, the engine used by Elsa for liquid handling, checkout [their documentation](https://github.com/sebastienros/fluid#basic-overview).
+
+## Liquid Expressions
+
 The following Liquid expressions are supported:
 
 ## Common Variables
