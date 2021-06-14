@@ -27,7 +27,7 @@ Value stored in the variable:
 This also works when setting variables using the [setVariable](#setvariable) function.
 Because ultimately, both the `SetVariable` activity and `setVariable` function use the same API under the cover to set a workflow variable.
 
-### Activity Output
+### Activity Output (Elsa 2.0)
 
 Any activity might provide some output, which is accessible from any other activity using workflow expressions.
 To access an activity's output using a JavaScript expression, you can do so by specifying the **activity name** followed by `.Output`.
@@ -55,6 +55,35 @@ Then you can access the `"Title"` field like this:
 
 > If your activity is a direct child of an HTTP Endpoint activity, you can access its output directly via the `input` variable, which will be an instance of `HttpRequestModel`.
 
+
+### Activity Output (Elsa 2.1)
+
+Any activity might provide some output, which is accessible from any other activity using workflow expressions.
+To access an activity's output property called e.g. `Output` using a JavaScript expression, you can do so by specifying `activities`, then the **activity name** followed by `.Output()`.
+Notice that you must invoke the property as if it were a method. This is due to the way workflow storage providers work, which are potentially asynchronous in nature (such as Azure Blob Storage).
+
+For example, if you have an activity named `MyActivity`, you can access its output as follows: `activities.MyActivity.Output()`.
+
+If the output is an object, you can access its properties too. For instance, the **HTTP Endpoint** activity returns the HTTP request as its output which is of type [HttpRequestModel](https://github.com/elsa-workflows/elsa-core/blob/master/src/activities/Elsa.Activities.Http/Models/HttpRequestModel.cs).
+When you name this activity `"MyHttpEndpoint"`, you can access the HTTP request body like this:
+
+`activities.MyHttpEndpoint.Output().Body`
+
+If you happened to post a JSON document to your HTTP endpoint that looks like this:
+
+```json
+{
+  "SomeDocument": {
+    "Title": "About Elsa Workflows"
+  }
+}
+```
+
+Then you can access the `"Title"` field like this:
+
+`activities.MyHttpEndpoint.Output().Body.SomeDocument.Title`
+
+> If your activity is a direct child of an HTTP Endpoint activity, you can access its output directly via the `input` variable, which will be an instance of `HttpRequestModel`.
 
 ### input
 
