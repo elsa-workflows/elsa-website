@@ -42,6 +42,7 @@
       "extensibility/extensibility-custom-activity-providers",
       "extensibility/extensibility-customize-existing-activities",
       "extensibility/extensibility-persistence",
+      "extensibility/extensibility-workflow-storage-providers",
       "extensibility/extensibility-javascript",
       "extensibility/extensibility-liquid",
       "extensibility/extensibility-expression-handlers",
