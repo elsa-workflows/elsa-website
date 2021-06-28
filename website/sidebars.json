@@ -19,7 +19,8 @@
     "Concepts": [
       "concepts/concepts-workflows",
       "concepts/concepts-workflow-variables",
-      "concepts/concepts-workflow-context"
+      "concepts/concepts-workflow-context",
+      "concepts/concepts-correlation"
     ],
     "Guides": [
       "guides/guides-recurring-tasks",
@@ -49,7 +50,8 @@
       "extensibility/extensibility-property-editor-types"
     ],
     "Hosting": [
-      "hosting/hosting-distributed-hosting"
+      "hosting/hosting-distributed-hosting",
+      "hosting/hosting-workflow-recovery"
     ]
   },
   "docs/features": {
