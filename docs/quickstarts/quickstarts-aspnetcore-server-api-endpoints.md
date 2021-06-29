@@ -1,10 +1,10 @@
 ---
 id: quickstarts-aspnetcore-server-api-endpoints
-title: ASP.NET Core Server with Elsa API Endpoints 
+title: Elsa Server 
 sidebar_label: Elsa Server
 ---
 
-In this quickstart, we will take a look at a minimum ASP.NET Core application that exposes Elsa API Endpoints and setup a persistence provider.
+In this quickstart, we will take a look at a minimum ASP.NET Core application that sets up an Elsa Server.
 We will also install some more commonly used activities such as `Timer`, `Cron` and `SendEmail` to implement simple recurring workflows.
 
 > The purpose of this application is to be a workflow server. This means that it will host and execute workflows, but it will not host the dashboard UI.
