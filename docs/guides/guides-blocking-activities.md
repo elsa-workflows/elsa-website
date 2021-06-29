@@ -1081,4 +1081,5 @@ In this guide we have seen how to:
 - Trigger workflows using bookmarks.
 - Setup liquid to allow-access properties of custom .NET types.
 - Setup javascript intellisense.
+- Leverage Workflow Storage Providers to configure activity input and output storage. 
 
