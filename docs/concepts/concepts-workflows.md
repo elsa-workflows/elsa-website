@@ -71,6 +71,14 @@ Visually, this would look like this:
 
 ![](assets/concepts/concepts-workflows-figure-1.png)
 
+## Long Running Workflows
+
+A long-running workflow is a workflow that doesn't run from start to end in one go. Instead, it might have one or more blocking activities that will instruct the workflow engine to suspend the workflow until it receives the appropriate stimulus to resume execution.
+
+## Short Running Workflows
+
+A short-running workflow is a workflow that, in contrast to long-running workflows, does run from start to end in one go. 
+
 ## Burst of Execution
 
 A burst of execution refers to the execution of a sequence of activities one after another until either one of the following occurs:
