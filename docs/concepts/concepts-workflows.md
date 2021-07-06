@@ -70,3 +70,10 @@ This means we need the following two connections:
 Visually, this would look like this:
 
 ![](assets/concepts/concepts-workflows-figure-1.png)
+
+## Burst of Execution
+
+A burst of execution refers to the execution of a sequence of activities one after another until either one of the following occurs:
+
+- No more activities were scheduled (the end of the workflow was reached), or
+- A blocking activity was encountered.
