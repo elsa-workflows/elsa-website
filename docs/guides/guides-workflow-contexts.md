@@ -6,6 +6,12 @@ sidebar_label: Workflow Contexts
 
 In this guide, we will learn how to work with **Workflow Contexts**.
 
+## Source Code
+
+The completed solution for this guide can be found [here](https://github.com/elsa-workflows/elsa-guides/tree/master/src/ElsaGuides.WorkflowContexts).
+
+## Workflow Context
+
 A workflow context represents a model that is specific to your own domain, which means it can be any object that you like.
 Examples are documents, time sheets, users, employees, products, shopping carts, leave requests, change requests, blog posts and so forth.
 
