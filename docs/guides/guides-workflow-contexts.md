@@ -1,7 +1,7 @@
 ---
-id: guides-workflow-context
-title: Working with Workflow Context
-sidebar_label: Workflow Context
+id: guides-workflow-contexts
+title: Working with Workflow Contexts
+sidebar_label: Workflow Contexts
 ---
 
 In this guide, we will learn how to work with **Workflow Contexts**.
@@ -11,7 +11,7 @@ Examples are documents, time sheets, users, employees, products, shopping carts,
 
 > See also the [conceptual definition of Workflow Context](../concepts/concepts-workflow-context).
 
-## Why Use Workflow Context?
+## Why Use Workflow Contexts?
 
 Oftentimes when you work with long-running workflows that deal with domain entities, you need to load the entity into memory before you can start reading information from it or perform update operations.
 
@@ -23,7 +23,7 @@ This is usually solved by writing custom activities that take care of loading (a
 
 Elsa's Workflow Context helps alleviate this by providing an API to the developer that allows them to implement a workflow context provider that can load and/or save domain entities from their own data source.
 
-## How Use Workflow Context?
+## How Use Workflow Contexts?
 
 To demonstrate how to work with workflow contexts, we will setup a simple web application that handles incoming blog posts that can be submitted to a workflow.
 This workflow will do the following things:
@@ -452,10 +452,87 @@ JSON.stringify(workflowContext)
 
 Make sure to select the JavaScript syntax and set the **Content Type** field to `application/json`.
 
-Finally, publish the workflow. Now it's time to try it out!
+The result should look like this:
+
+![](assets/guides/guides-workflow-contexts-1.png)
+
+Make sure to **publish** the workflow.
+
+It's time to try it out!
 
 ## Running the Workflow
 
-> **UNDER CONSTRUCTION**
->
-> We're working on it. Check back soon!
+To run the workflow, open your favorite HTTP client application such as Postman and execute the following request:
+
+```bash
+curl --location --request POST 'https://localhost:5001/workflows/blog-posts' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "Title": "Creating Workflow Driven Apps with Elsa",
+    "Body": "Low-code applications are the future."
+}'
+```
+
+The response will be something like this:
+
+```json
+{
+    "blogPost": {
+        "Id": "c82116f015fd4eedafba4ce5dc24d75a",
+        "Title": "Creating Workflow Driven Apps with Elsa",
+        "Body": "Low-code applications are the future.",
+        "IsPublished": false
+    },
+    "workflowInstanceId": "039893a53e2c484b92519d33947b29c5"
+}
+```
+
+So far so good. If we take a look at the created workflow instance, we should see that it is currently in the **Suspended** state:
+
+![](assets/guides/guides-workflow-contexts-2.png)
+
+Clicking the workflow instance ID will take us to the workflow instance viewer:
+
+![](assets/guides/guides-workflow-contexts-3.png)
+
+Notice that the last activity that was executed is indeed the **Signal Received** activity. When this activity executed, it instructed the workflow runner to **suspend** the workflow.
+
+So right now, the workflow is waiting for a signal to be received.
+
+Sending a signal to a workflow can be done in various ways. To do it programmatically, we might take advantage of the `ISignaler` service like so:
+
+```csharp
+await _signaler.TriggerSignalAsync(signal: "Publish", workflowInstanceId: "039893a53e2c484b92519d33947b29c5");
+```
+
+We can also do it via an API endpoint like this:
+
+```bash
+curl --location --request POST 'https://localhost:5001/v1/signals/publish/execute' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "workflowInstanceId": "039893a53e2c484b92519d33947b29c5"
+}'
+```
+
+When you invoke the HTTP request, the workflow instance will be resumed and the response should look something like:
+
+```json
+{
+    "Id": "c82116f015fd4eedafba4ce5dc24d75a",
+    "Title": "Creating Workflow Driven Apps with Elsa",
+    "Body": "Low-code applications are the future.",
+    "IsPublished": true
+}
+```
+Notice that the `IsPublished` field is set to `true` - this was done by our workflow.
+Looking at the dashboard again, we should indeed see that the workflow was finished:
+
+![](assets/guides/guides-workflow-contexts-4.png)
+
+
+Finally, let's make sure the posted Blog Post object was actually stored in the database as published:
+
+![](assets/guides/guides-workflow-contexts-5.png)
+
+And sure enough, the blog post is there AND it is marked as published.

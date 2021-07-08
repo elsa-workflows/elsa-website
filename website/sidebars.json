@@ -30,7 +30,8 @@
       "guides/guides-composite-activities",
       "guides/guides-runtime-list-values",
       "guides/guides-json-workflows",
-      "guides/guides-blocking-activities"
+      "guides/guides-blocking-activities",
+      "guides/guides-workflow-contexts"
     ],
     "Expressions": [
       "expressions/expressions-javascript",
