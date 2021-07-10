@@ -16,6 +16,10 @@
       "installation/installing-elsa-dashboard",
       "installation/installing-elsa-designer"
     ],
+    "Upgrading": [
+      "upgrading/upgrading-v1.x-to-v2.0",
+      "upgrading/upgrading-v2.0-to-v2.1"
+    ],
     "Concepts": [
       "concepts/concepts-workflows",
       "concepts/concepts-workflow-variables",
