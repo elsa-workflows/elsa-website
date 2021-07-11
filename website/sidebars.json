@@ -29,8 +29,8 @@
     "Guides": [
       "guides/guides-recurring-tasks",
       "guides/guides-document-approval",
-      "guides/guides-master-child-workflows",
       "guides/guides-signaling-workflows",
+      "guides/guides-parent-child-workflows",
       "guides/guides-composite-activities",
       "guides/guides-runtime-list-values",
       "guides/guides-json-workflows",
