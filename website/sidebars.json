@@ -37,6 +37,13 @@
       "guides/guides-blocking-activities",
       "guides/guides-workflow-contexts"
     ],
+    "Activities": [
+      "activities/control-flow",
+      "activities/primitives",
+      "activities/signaling",
+      "activities/state-machine",
+      "activities/workflows"
+    ],
     "Expressions": [
       "expressions/expressions-javascript",
       "expressions/expressions-liquid"
