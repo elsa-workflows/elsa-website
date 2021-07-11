@@ -38,6 +38,7 @@
       "guides/guides-workflow-contexts"
     ],
     "Activities": [
+      "activities/common",
       "activities/control-flow",
       "activities/primitives",
       "activities/signaling",

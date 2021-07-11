@@ -26,4 +26,4 @@ This property is always available to you from the **Activity Execution Context**
 
 ## Additional Resources
 
-To see how to use workflow contexts in practice, check out the following guide: [Working with Workflow Context]() 
+To see how to use workflow contexts in practice, check out the following guide: [Working with Workflow Context](guides/guides-workflow-contexts.md)

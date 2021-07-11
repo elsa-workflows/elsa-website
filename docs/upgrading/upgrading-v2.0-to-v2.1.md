@@ -4,6 +4,6 @@ title: Upgrading 2.0 to 2.1
 sidebar_label: 2.0 to 2.1
 ---
 
-> **UNDER CONSTRUCTION**
+> **PRERELEASE**
 >
-> We're working on it. Check back soon!
+> Elsa 2.1 is currently available as a prerelease from [MyGet](installation/installing-feeds.md#myget). Check back soon!

@@ -4,10 +4,10 @@ title: Primitives
 sidebar_label: Primitives
 ---
 
-* Set Context ID
-* Set Name
-* Set Transient Variable
-* Set Variable
+* [Set Context ID](#set-context-id)
+* [Set Name](#set-name)
+* [Set Transient Variable](#set-transient-variable)
+* [Set Variable](#set-variable)
 
 ## Set Context ID
 
