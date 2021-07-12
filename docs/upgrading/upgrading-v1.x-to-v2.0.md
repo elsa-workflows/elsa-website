@@ -66,6 +66,11 @@ In v2, an activity provides output by exposing a public property that is marked 
 
 Furthermore, if that property is named `Output`, it is automatically sent as **input** into the next activity to execute. 
 
+#### LastResult
+
+In V2, `context.CurrentScope.LastResult` and the `lastResult()` JS function have been removed.
+Instead, you now use the `input` JS variable to access the output of the last executed activity.
+
 ### Workflow Execution
 
 In v1, the service to execute a workflow is `IWorkflowInvoker`.
