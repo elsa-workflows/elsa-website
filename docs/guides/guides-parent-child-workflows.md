@@ -147,8 +147,8 @@ Message received from child 975ed020276e430f91c1338e92131402: Hello parent!
 When you look at the workflow instances, you will see that both the Child as well as the Parent are now in the `Finished` state.
 
 The following JSON files are completed workflows that you can import.
-* [Scenario 2: Parent Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-1-parent.json)
-* [Scenario 2: Child Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-1-parent.json)
+* [Scenario 2: Parent Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-2-parent.json)
+* [Scenario 2: Child Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-2-parent.json)
 
 ## Scenario 3: Parent Children: Run Many Children and Block until Complete.
 
