@@ -68,7 +68,7 @@ Parent says: "Hello child!"
 
 The following JSON files are completed workflows that you can import. 
 * [Scenario 1: Parent Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-1-parent.json)
-* [Scenario 1: Child Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-1-parent.json)
+* [Scenario 1: Child Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-1-child.json)
 
 ## Scenario 2: Parent Child: Block until Complete
 
@@ -148,7 +148,7 @@ When you look at the workflow instances, you will see that both the Child as wel
 
 The following JSON files are completed workflows that you can import.
 * [Scenario 2: Parent Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-2-parent.json)
-* [Scenario 2: Child Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-2-parent.json)
+* [Scenario 2: Child Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-2-child.json)
 
 ## Scenario 3: Parent Children: Run Many Children and Block until Complete.
 
@@ -310,4 +310,4 @@ After the last child executes, the HTTP response should read `All set!`, and all
 
 The following JSON files are completed workflows that you can import.
 * [Scenario 2: Parent Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-3-parent.json)
-* [Scenario 2: Child Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-3-parent.json)
+* [Scenario 2: Child Workflow JSON](assets/guides/guides-parent-child-workflows-scenario-3-child.json)
