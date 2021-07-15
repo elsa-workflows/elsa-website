@@ -29,7 +29,7 @@ public class ConfigureLiquidEngine : INotificationHandler<EvaluatingLiquidExpres
 Make sure to register your handler with DI:
 
 ```c#
-services.AddNotificationHandler<ConfigureLiquidEngine>();
+services.AddNotificationHandler<EvaluatingLiquidExpression, ConfigureLiquidEngine>();
 ```
 
 For more information about stuff you can do with Fluid, the engine used by Elsa for liquid handling, checkout [their documentation](https://github.com/sebastienros/fluid#basic-overview).
