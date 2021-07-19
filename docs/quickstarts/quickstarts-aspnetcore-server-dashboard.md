@@ -99,7 +99,7 @@ And add the following content to `_Host.cshtml`:
     <script src="/_content/Elsa.Designer.Components.Web/monaco-editor/min/vs/loader.js"></script>
     <script type="module" src="/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/elsa-workflows-studio.esm.js"></script>
 </head>
-<body class="h-screen" style="background-size: 30px 30px; background-image: url(/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/assets/images/tile.png); background-color: #FBFBFB;">
+<body>
 <elsa-studio-root server-url="https://your-elsa-server-url" monaco-lib-path="_content/Elsa.Designer.Components.Web/monaco-editor/min">
     <elsa-studio-dashboard></elsa-studio-dashboard>
 </elsa-studio-root>
