@@ -1,7 +1,8 @@
 ---
-id: quickstarts-aspnetcore-server-dashboard
+id: version-2.1.0-quickstarts-aspnetcore-server-dashboard
 title: ASP.NET Core Server with Elsa Dashboard
 sidebar_label: Elsa Dashboard
+original_id: quickstarts-aspnetcore-server-dashboard
 ---
 
 In this quickstart, we will take a look at a minimum ASP.NET Core application that hosts the Elsa Dashboard component and connect it to an [Elsa Server](quickstarts-aspnetcore-server-api-endpoints.md).
@@ -95,14 +96,12 @@ And add the following content to `_Host.cshtml`:
     <link rel="icon" type="image/png" sizes="32x32" href="/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/assets/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/assets/images/favicon-16x16.png">
     <link rel="stylesheet" href="/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/assets/fonts/inter/inter.css">
-    <link rel="stylesheet" href="/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/elsa-workflows-studio.css">
+    <link rel="stylesheet" href="/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/assets/styles/tailwind.css">
     <script src="/_content/Elsa.Designer.Components.Web/monaco-editor/min/vs/loader.js"></script>
     <script type="module" src="/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/elsa-workflows-studio.esm.js"></script>
 </head>
 <body class="h-screen" style="background-size: 30px 30px; background-image: url(/_content/Elsa.Designer.Components.Web/elsa-workflows-studio/assets/images/tile.png); background-color: #FBFBFB;">
-<elsa-studio-root server-url="https://your-elsa-server-url" monaco-lib-path="_content/Elsa.Designer.Components.Web/monaco-editor/min">
-    <elsa-studio-dashboard></elsa-studio-dashboard>
-</elsa-studio-root>
+<elsa-studio-root server-url="https://your-elsa-server-url" monaco-lib-path="_content/Elsa.Designer.Components.Web/monaco-editor/min"></elsa-studio-root>
 </body>
 </html>
 ```
