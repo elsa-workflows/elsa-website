@@ -109,7 +109,7 @@ public class SayHelloWorld : Activity
 
 ## Properties
 
-Activities can have properties. These properties can be made available to visual workflow composers by annotating them with `ActivityPropertyAttribute`.
+Activities can have properties. These properties can be made available to visual workflow composers by annotating them with `ActivityInputAttribute`.
 
 For example:
 
@@ -123,7 +123,7 @@ public class WriteLine : Activity
         _writer = writer;
     }
 
-    [ActivityProperty(Hint = "The message to write.")]
+    [ActivityInput(Hint = "The message to write.")]
     public string Message { get; set; }
 
     protected override async ValueTask<IActivityExecutionResult> OnExecuteAsync(ActivityExecutionContext context)
@@ -135,7 +135,7 @@ public class WriteLine : Activity
 }
 ```
 
-`ActivityPropertyAttribute` has more properties you can set:
+`ActivityInputAttribute` has more properties you can set:
 
 * **Name**: Controls the technical name of the property. Not commonly used
 * **Label**: Controls the display text when rendering this property on a form in the activity editor. 
@@ -209,7 +209,7 @@ For example:
 
 ```c#
 // To display possible outcomes in workflow designer: 
-[ActivityDefinition(Outcomes = new[] { "Success", "Failed" })]
+[Activity(Outcomes = new[] { "Success", "Failed" })]
 public class WriteLine : Activity
 { 
     protected override IActivityExecutionResult OnExecute(ActivityExecutionContext context)
