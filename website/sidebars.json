@@ -61,7 +61,8 @@
       "extensibility/extensibility-javascript",
       "extensibility/extensibility-liquid",
       "extensibility/extensibility-expression-handlers",
-      "extensibility/extensibility-property-editor-types"
+      "extensibility/extensibility-property-editor-types",
+      "extensibility/extensibility-designer-plugins"
     ],
     "Hosting": [
       "hosting/hosting-distributed-hosting",
