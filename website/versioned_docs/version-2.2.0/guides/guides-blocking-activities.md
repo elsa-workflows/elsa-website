@@ -1,7 +1,8 @@
 ---
-id: guides-blocking-activities
-title: Writing Blocking Activities 
+id: version-2.2.0-guides-blocking-activities
+title: Writing Blocking Activities
 sidebar_label: Blocking Activities
+original_id: guides-blocking-activities
 ---
 
 In this guide, we will learn how to create [blocking activities](concepts/concepts-workflows.md#blocking-activity) by implementing a sample activity that acts as a workflow trigger.
