@@ -1,33 +1,72 @@
 {
   "docs/getting-started": {
+    "Quickstart": [
+      "quickstarts/quickstarts-console-hello-world",
+      "quickstarts/quickstarts-aspnetcore-hello-world",
+      "quickstarts/quickstarts-aspnetcore-server-api-endpoints",
+      "quickstarts/quickstarts-aspnetcore-server-dashboard",
+      "quickstarts/quickstarts-aspnetcore-server-dashboard-and-api-endpoints",
+      "quickstarts/quickstarts-elsa-and-docker"
+    ],
     "Installation": [
-      "installing-feeds",
-      "installing-elsa-core",
-      "installing-host",
-      "installing-persistence",
-      "installing-elsa-dashboard",
-      "installing-elsa-designer"
+      "installation/installing-feeds",
+      "installation/installing-elsa-core",
+      "installation/installing-server",
+      "installation/installing-persistence",
+      "installation/installing-elsa-dashboard",
+      "installation/installing-elsa-designer"
+    ],
+    "Upgrading": [
+      "upgrading/upgrading-v1.x-to-v2.0",
+      "upgrading/upgrading-v2.0-to-v2.1"
     ],
     "Concepts": [
-      "concepts-workflows"
+      "concepts/concepts-workflows",
+      "concepts/concepts-workflow-variables",
+      "concepts/concepts-workflow-context",
+      "concepts/concepts-correlation"
     ],
     "Guides": [
-      "guides-dashboard",
-      "guides-hello-world-console",
-      "guides-hello-world-http",
-      "guides-recurring-task",
-      "guides-document-approval"
+      "guides/guides-recurring-tasks",
+      "guides/guides-document-approval",
+      "guides/guides-signaling-workflows",
+      "guides/guides-parent-child-workflows",
+      "guides/guides-composite-activities",
+      "guides/guides-runtime-list-values",
+      "guides/guides-json-workflows",
+      "guides/guides-blocking-activities",
+      "guides/guides-workflow-contexts"
+    ],
+    "Activities": [
+      "activities/common",
+      "activities/control-flow",
+      "activities/primitives",
+      "activities/signaling",
+      "activities/state-machine",
+      "activities/workflows"
     ],
     "Expressions": [
-      "expressions-javascript",
-      "expressions-liquid"
+      "expressions/expressions-javascript",
+      "expressions/expressions-liquid"
+    ],
+    "Designer": [
+      "designer/designer-using-the-designer"
     ],
     "Extensibility": [
-      "extensibility-custom-activities",
-      "extensibility-persistence",
-      "extensibility-javascript",
-      "extensibility-liquid",
-      "extensibility-expression-evaluators"
+      "extensibility/extensibility-custom-activities",
+      "extensibility/extensibility-custom-activity-providers",
+      "extensibility/extensibility-customize-existing-activities",
+      "extensibility/extensibility-persistence",
+      "extensibility/extensibility-workflow-storage-providers",
+      "extensibility/extensibility-javascript",
+      "extensibility/extensibility-liquid",
+      "extensibility/extensibility-expression-handlers",
+      "extensibility/extensibility-property-editor-types",
+      "extensibility/extensibility-designer-plugins"
+    ],
+    "Hosting": [
+      "hosting/hosting-distributed-hosting",
+      "hosting/hosting-workflow-recovery"
     ]
   },
   "docs/features": {

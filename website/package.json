@@ -1,14 +1,15 @@
 {
   "scripts": {
     "examples": "docusaurus-examples",
-    "start": "docusaurus-start",
+    "start": "docusaurus-start --port 4000",
     "build": "docusaurus-build",
     "publish": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",
-    "rename-version": "docusaurus-rename-version"
+    "rename-version": "docusaurus-rename-version",
+    "publish-gh-pages": "docusaurus-publish"
   },
   "devDependencies": {
-    "docusaurus": "^1.14.6"
+    "docusaurus": "^1.14.7"
   }
 }

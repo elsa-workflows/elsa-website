@@ -37,13 +37,16 @@ class Footer extends React.Component {
           </a>
           <div>
             <h5>Docs</h5>
-            <a href={this.docUrl('installing-elsa-core', this.props.language)}>
+            <a href={this.docUrl('next/installation/installing-elsa-core')}>
               Getting Started
             </a>
-            <a href={this.docUrl('concepts-workflows', this.props.language)}>
+            <a href={this.docUrl('next/concepts/concepts-workflows')}>
               Concepts
             </a>
-            <a href={this.docUrl('guides-simple-workflow-csharp', this.props.language)}>
+            <a href={this.docUrl('next/quickstarts/quickstarts-console-hello-world')}>
+              Quickstarts
+            </a>
+            <a href={this.docUrl('next/guides/guides-recurring-tasks')}>
               Guides
             </a>
           </div>
@@ -59,10 +62,10 @@ class Footer extends React.Component {
               Stack Overflow
             </a>
             <a
-                href="https://gitter.im/elsa-workflows/community"
+                href="https://discord.gg/hhChk5H472"
                 target="_blank"
                 rel="noreferrer noopener">
-              Gitter
+              Discord
             </a>
           </div>
           <div>

@@ -1,0 +1,75 @@
+{
+  "version-2.2.0-docs/getting-started": {
+    "Quickstart": [
+      "version-2.2.0-quickstarts/quickstarts-console-hello-world",
+      "version-2.2.0-quickstarts/quickstarts-aspnetcore-hello-world",
+      "version-2.2.0-quickstarts/quickstarts-aspnetcore-server-api-endpoints",
+      "version-2.2.0-quickstarts/quickstarts-aspnetcore-server-dashboard",
+      "version-2.2.0-quickstarts/quickstarts-aspnetcore-server-dashboard-and-api-endpoints",
+      "version-2.2.0-quickstarts/quickstarts-elsa-and-docker"
+    ],
+    "Installation": [
+      "version-2.2.0-installation/installing-feeds",
+      "version-2.2.0-installation/installing-elsa-core",
+      "version-2.2.0-installation/installing-server",
+      "version-2.2.0-installation/installing-persistence",
+      "version-2.2.0-installation/installing-elsa-dashboard",
+      "version-2.2.0-installation/installing-elsa-designer"
+    ],
+    "Upgrading": [
+      "version-2.2.0-upgrading/upgrading-v1.x-to-v2.0",
+      "version-2.2.0-upgrading/upgrading-v2.0-to-v2.1"
+    ],
+    "Concepts": [
+      "version-2.2.0-concepts/concepts-workflows",
+      "version-2.2.0-concepts/concepts-workflow-variables",
+      "version-2.2.0-concepts/concepts-workflow-context",
+      "version-2.2.0-concepts/concepts-correlation"
+    ],
+    "Guides": [
+      "version-2.2.0-guides/guides-recurring-tasks",
+      "version-2.2.0-guides/guides-document-approval",
+      "version-2.2.0-guides/guides-signaling-workflows",
+      "version-2.2.0-guides/guides-parent-child-workflows",
+      "version-2.2.0-guides/guides-composite-activities",
+      "version-2.2.0-guides/guides-runtime-list-values",
+      "version-2.2.0-guides/guides-json-workflows",
+      "version-2.2.0-guides/guides-blocking-activities",
+      "version-2.2.0-guides/guides-workflow-contexts"
+    ],
+    "Activities": [
+      "version-2.2.0-activities/common",
+      "version-2.2.0-activities/control-flow",
+      "version-2.2.0-activities/primitives",
+      "version-2.2.0-activities/signaling",
+      "version-2.2.0-activities/state-machine",
+      "version-2.2.0-activities/workflows"
+    ],
+    "Expressions": [
+      "version-2.2.0-expressions/expressions-javascript",
+      "version-2.2.0-expressions/expressions-liquid"
+    ],
+    "Designer": [
+      "version-2.2.0-designer/designer-using-the-designer"
+    ],
+    "Extensibility": [
+      "version-2.2.0-extensibility/extensibility-custom-activities",
+      "version-2.2.0-extensibility/extensibility-custom-activity-providers",
+      "version-2.2.0-extensibility/extensibility-customize-existing-activities",
+      "version-2.2.0-extensibility/extensibility-persistence",
+      "version-2.2.0-extensibility/extensibility-workflow-storage-providers",
+      "version-2.2.0-extensibility/extensibility-javascript",
+      "version-2.2.0-extensibility/extensibility-liquid",
+      "version-2.2.0-extensibility/extensibility-expression-handlers",
+      "version-2.2.0-extensibility/extensibility-property-editor-types",
+      "version-2.2.0-extensibility/extensibility-designer-plugins"
+    ],
+    "Hosting": [
+      "version-2.2.0-hosting/hosting-distributed-hosting",
+      "version-2.2.0-hosting/hosting-workflow-recovery"
+    ]
+  },
+  "version-2.2.0-docs/features": {
+    "Features": []
+  }
+}
