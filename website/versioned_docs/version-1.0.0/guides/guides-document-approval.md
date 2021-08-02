@@ -38,6 +38,8 @@ Create a new, empty ASP.NET Core project called `Elsa.Guides.ContentApproval.Web
 * Elsa.Activities.Email
 * Elsa.Activities.Http
 * Elsa.Activities.Timers
+* Elsa.Activities.Workflows
+* Elsa.Activities.ControlFlow
 
 ## Create Workflow Class
 
@@ -48,13 +50,14 @@ using System;
 using System.Dynamic;
 using System.Net;
 using System.Net.Http;
-using Elsa.Activities.ControlFlow;
+using Elsa.Activities;
+using Elsa.Activities.ControlFlow.Activities;
 using Elsa.Activities.Email.Activities;
 using Elsa.Activities.Http.Activities;
-using Elsa.Activities.Primitives;
 using Elsa.Activities.Timers.Activities;
-using Elsa.Activities.Workflows;
+using Elsa.Activities.Workflows.Activities;
 using Elsa.Expressions;
+using Elsa.Scripting.JavaScript;
 using Elsa.Services;
 using Elsa.Services.Models;
 
@@ -462,15 +465,15 @@ Finally, we simply check the value of `Approved`, and send the appropriate email
 Now that the workflow has been defined, we should update the `Startup` class as follows:
 
 ```csharp
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Elsa.Activities.ControlFlow.Extensions;
 using Elsa.Activities.Email.Extensions;
 using Elsa.Activities.Http.Extensions;
 using Elsa.Activities.Timers.Extensions;
-using Elsa.Extensions;
-using Elsa.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+using Elsa.Activities.Workflows.Extensions;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Elsa.Guides.DocumentApproval.WebApp
 {
@@ -486,11 +489,14 @@ namespace Elsa.Guides.DocumentApproval.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddElsa()
+                .AddElsaCore()
+                .AddJavaScriptExpressionEvaluator()
+                .AddControlFlowActivities()
+                .AddWorkflowActivities()
                 .AddHttpActivities(options => options.Bind(Configuration.GetSection("Http")))
                 .AddEmailActivities(options => options.Bind(Configuration.GetSection("Smtp")))
                 .AddTimerActivities(options => options.Bind(Configuration.GetSection("BackgroundRunner")))
-                .AddWorkflow<DocumentApprovalWorkflow>;
+                .AddWorkflow<DocumentApprovalWorkflow>();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -521,7 +527,7 @@ As you can see, we are configuring the **HTTP**, **Email** and **Timer** activit
     "Port": "2525"
   },
   "BackgroundRunner": {
-    "SweepInterval": "PT01S"
+    "SweepInterval": "0:00:00:10"
   }
 }
 
