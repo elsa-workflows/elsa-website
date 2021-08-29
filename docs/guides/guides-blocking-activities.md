@@ -319,7 +319,7 @@ Now that we have the basics in place, we should be able to add the activity to a
 ```csharp
 
 var bookmark = new FileReceivedBookmark();
-var context = new CollectWorkflowsContext(nameof(FileReceived), bookmark);
+var context = new WorkflowsQuery(nameof(FileReceived), bookmark);
 await _workflowLaunchpad.CollectAndDispatchWorkflowsAsync(context);
 ```
 
@@ -365,13 +365,13 @@ namespace MyActivityLibrary.Services
         
         public async Task<IEnumerable<CollectedWorkflow>> DispatchWorkflowsAsync(CancellationToken cancellationToken = default)
         {
-            var context = new CollectWorkflowsContext(nameof(FileReceived), new FileReceivedBookmark());
+            var context = new WorkflowsQuery(nameof(FileReceived), new FileReceivedBookmark());
             return await _workflowLaunchpad.CollectAndDispatchWorkflowsAsync(context, null, cancellationToken);
         }
 
         public async Task<IEnumerable<CollectedWorkflow>> ExecuteWorkflowsAsync(CancellationToken cancellationToken = default)
         {
-            var context = new CollectWorkflowsContext(nameof(FileReceived), new FileReceivedBookmark());
+            var context = new WorkflowsQuery(nameof(FileReceived), new FileReceivedBookmark());
             return await _workflowLaunchpad.CollectAndExecuteWorkflowsAsync(context, null, cancellationToken);
         }
     }
@@ -501,13 +501,13 @@ The `FileReceivedInvoker` concrete implementation should be updated as well:
 ```csharp
 public async Task<IEnumerable<CollectedWorkflow>> DispatchWorkflowsAsync(FileModel file, CancellationToken cancellationToken = default)
 {
-    var context = new CollectWorkflowsContext(nameof(FileReceived), new FileReceivedBookmark());
+    var context = new WorkflowsQuery(nameof(FileReceived), new FileReceivedBookmark());
     return await _workflowLaunchpad.CollectAndDispatchWorkflowsAsync(context, file, cancellationToken);
 }
 
 public async Task<IEnumerable<CollectedWorkflow>> ExecuteWorkflowsAsync(FileModel file, CancellationToken cancellationToken = default)
 {
-    var context = new CollectWorkflowsContext(nameof(FileReceived), new FileReceivedBookmark());
+    var context = new WorkflowsQuery(nameof(FileReceived), new FileReceivedBookmark());
     return await _workflowLaunchpad.CollectAndExecuteWorkflowsAsync(context, file, cancellationToken);
 }
 ```
@@ -1048,8 +1048,8 @@ namespace MyActivityLibrary.Services
 
         private async Task<IEnumerable<CollectedWorkflow>> CollectWorkflowsAsync(FileModel fileModel, CancellationToken cancellationToken)
         {
-            var wildcardContext = new CollectWorkflowsContext(nameof(FileReceived), new FileReceivedBookmark());
-            var filteredContext = new CollectWorkflowsContext(nameof(FileReceived), new FileReceivedBookmark(Path.GetExtension(fileModel.FileName)));
+            var wildcardContext = new WorkflowsQuery(nameof(FileReceived), new FileReceivedBookmark());
+            var filteredContext = new WorkflowsQuery(nameof(FileReceived), new FileReceivedBookmark(Path.GetExtension(fileModel.FileName)));
 
             var wildcardWorkflows = await _workflowLaunchpad.CollectWorkflowsAsync(wildcardContext, cancellationToken).ToList();
             var filteredWorkflows = await _workflowLaunchpad.CollectWorkflowsAsync(filteredContext, cancellationToken).ToList();
