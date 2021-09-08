@@ -383,7 +383,7 @@ Next, click the **Start** button to add the **HTTP Endpoint** activity with the 
 
 - Properties
     - Path: `/blog-posts`
-    - Methods: `GET`
+    - Methods: `POST`
     - Read Content: `on`
 - Advanced
     - Target Type: `ElsaGuides.WorkflowContexts.Web.Models.BlogPost, ElsaGuides.WorkflowContexts.Web`
