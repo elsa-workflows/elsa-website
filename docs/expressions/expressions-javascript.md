@@ -85,6 +85,17 @@ Then you can access the `"Title"` field like this:
 
 > If your activity is a direct child of an HTTP Endpoint activity, you can access its output directly via the `input` variable, which will be an instance of `HttpRequestModel`.
 
+#### SendHttpRequest Activity
+
+The output property of the **SendHttpRequest** has two output properties:
+
+```csharp
+        [ActivityOutput] public HttpResponseModel? Response { get; set; }
+        [ActivityOutput] public object? ResponseContent { get; set; 
+```
+ 
+To access an **SendHttpRequest** activity with name `SampleRequest1`'s response content, use `activities.SampleRequest1.ResponseContent()`.
+
 ### input
 
 Contains the input value that was received as output from the previously executed activity, if any.
