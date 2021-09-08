@@ -87,14 +87,14 @@ Then you can access the `"Title"` field like this:
 
 #### SendHttpRequest Activity
 
-The output property of the **SendHttpRequest** has two output properties:
+The **SendHttpRequest** activity has two output properties:
 
 ```csharp
         [ActivityOutput] public HttpResponseModel? Response { get; set; }
         [ActivityOutput] public object? ResponseContent { get; set; 
 ```
  
-To access an **SendHttpRequest** activity with name `SampleRequest1`'s response content, use `activities.SampleRequest1.ResponseContent()`.
+To access a **SendHttpRequest** activity with name `SampleRequest1`'s response content, use `activities.SampleRequest1.ResponseContent()`.
 
 ### input
 
