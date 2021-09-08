@@ -387,13 +387,10 @@ Next, click the **Start** button to add the **HTTP Endpoint** activity with the 
     - Read Content: `on`
 - Advanced
     - Target Type: `ElsaGuides.WorkflowContexts.Web.Models.BlogPost, ElsaGuides.WorkflowContexts.Web`
-- Common
-    - Name: `HttpEndpoint1`
 - Storage
     - Save Workflow Context: `on`
     
 The Target Type setting together with Read Content tell the activity to parse the received JSON into an actual `BlogPost` instance.
-Notice also that we **named** the activity `HttpEndpoint1`, which allows us to access this activity's output from JavaScript by name.
 
 ### HTTP Response 1
 
