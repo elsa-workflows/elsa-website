@@ -39,6 +39,8 @@ Elsa currently ships with support for RabbitMq and Azure Service Bus packages fo
 services.AddElsa(elsa => elsa.UseServiceBus(context => context.Configurer.Transport(t => t.UsePubSub(context.QueueName)));
 ```
 
+Note: Whatever provider you are going to use, remember to keep the ```context.QueueName```, i.e. **Do not change it with a custom name!**
+
 ## Distributed Lock Provider
 
 Elsa uses [DistributedLock](https://github.com/madelson/DistributedLock) to ensure thant only one thread can work on a workflow instance. By default, the [FileSystem](https://github.com/madelson/DistributedLock/blob/master/docs/DistributedLock.FileSystem.md) lock is used, which ensures that no matter how many threads try to load a workflow instance from the store, only one of them will be able to do so at a time until the lock is released.
