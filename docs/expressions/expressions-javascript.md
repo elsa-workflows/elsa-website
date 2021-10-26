@@ -213,6 +213,12 @@ Provides access to a .NET configuration value.
 getConfig(name: string): string
 ```
 
+> This is a security-sensitive function and is therefore not available by default. You need to enable this function through a setting.
+> To enable this function, add the following code to your Startup class:
+> ```csharp
+> services.WithJavaScriptOptions(options => options.EnableConfigurationAccess = true);
+> ```
+
 As an example, let's say you have the following JSON in `appsettings.json`:
 
 ```json
