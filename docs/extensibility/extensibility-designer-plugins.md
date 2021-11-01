@@ -215,7 +215,7 @@ function MyCustomInputDriver(elsaStudio) {
     const {getOrCreateProperty, htmlToElement} = elsaStudio;
     
     // Implement the display method, which receives the activity model and the property for which the editor must be rendered.
-    this.display = (activity, property) => {
+    this.display = (activity, propertyDescriptor) => {
         // Get the property model.
         const propertyModel = getOrCreateProperty(activity, propertyDescriptor.name);
 
