@@ -17,9 +17,9 @@ Examples of blocking activities are the [Timer](), [Cron](), [HTTP Endpoint](), 
 Blocking activities can be used to trigger the start of a workflow or resume suspended ones.
 To implement a blocking activity, we need to follow these three steps:
 
-1. Create the activity and implement its `OnExecuteAsync` and `OnResumeAsync` method.
+1. Create the activity and implement its `OnExecuteAsync` and `OnResumeAsync` methods.
 2. Create a bookmark provider.
-3. Create a service that triggers workflows that start with or or blocked on our custom activity.
+3. Create a service that triggers workflows that start with or blocked on our custom activity.
 
 We will go through each step in detail by implementing a demo activity called **File Received**.
 
