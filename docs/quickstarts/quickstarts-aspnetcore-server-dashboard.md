@@ -117,7 +117,7 @@ None of the menu items will function correctly until you made sure to point the 
 
 ## Next Steps
 
-In this guide, we've seen how to setup an Elsa Dashboard that can connect to an Elsa Server. We haven't covered setting up a server in this guide, but is covered [here](quickstarts-aspnetcore-server-api-endpoints.md)).
+In this guide, we've seen how to setup an Elsa Dashboard that can connect to an Elsa Server. We haven't covered setting up a server in this guide, but is covered [here](quickstarts-aspnetcore-server-api-endpoints.md).
 
 Now that you've seen how to setup an ASP.NET Core server with Elsa workflows support, you might want to learn more about the following:
 
