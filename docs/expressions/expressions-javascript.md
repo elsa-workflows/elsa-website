@@ -205,6 +205,16 @@ getVariable(name: string): object
 
 > This function is a thin wrapper around the following .NET code: `activityContext.GetVariable(name)`.
 
+### getTransientVariable
+
+Returns a transient workflow variable with the specified name.
+
+```typescript
+getTransientVariable(name: string): object
+````
+
+> This function is a thin wrapper around the following .NET code: `activityContext.GetTransientVariable(name)`.
+
 ### getConfig
 
 Provides access to a .NET configuration value.
