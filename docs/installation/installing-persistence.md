@@ -259,7 +259,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### MySql
 
-To configure YesSQL with PostgreSql, add the `YesSql.Provider.MySql` package:
+To configure YesSQL with MySql, add the `YesSql.Provider.MySql` package:
 
 ```bash
 dotnet add package YesSql.Provider.MySql
