@@ -247,6 +247,7 @@ function MyCustomInputDriver(elsaStudio) {
         // Initialize the property editor.
         propertyEditor.propertyDescriptor = propertyDescriptor;
         propertyEditor.propertyModel = propertyModel;
+        propertyEditor.activityModel = activity;
 
         // Setup change handler for custom control that updates the property model.
         inputElement.addEventListener('change', (e) => {
