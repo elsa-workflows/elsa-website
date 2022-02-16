@@ -1,9 +1,10 @@
 {
+  "name": "elsa-documentation",
   "scripts": {
     "examples": "docusaurus-examples",
     "start": "docusaurus-start --port 4000",
     "build": "docusaurus-build",
-    "publish": "docusaurus-publish",
+    "publish": "set GIT_USER=sfmskywalker && docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",
     "rename-version": "docusaurus-rename-version",
@@ -11,5 +12,6 @@
   },
   "devDependencies": {
     "docusaurus": "^1.14.7"
-  }
+  },
+  "version": "0.0.0"
 }
