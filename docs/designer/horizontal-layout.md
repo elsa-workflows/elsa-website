@@ -24,7 +24,7 @@ File sample:
 ```
 
 Properties:
-- **enabled**: determines the if the feature is enabled and will be applied
+- **enabled**: determines if the feature is enabled and will be applied
 - **ui**: determines if the feature is displayed in the UI or not.
 - **defaultValue**: the initial value. For the layout feature the options are: "topbottom", "bottomtop", "leftright" & "rightleft".
 
