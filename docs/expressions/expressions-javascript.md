@@ -10,22 +10,16 @@ The following JavaScript expressions are supported:
 
 ### Workflow Variables
 
-Any [workflow variable](concepts/concepts-workflow-variables.md) can be accessed directly as if they were a global variable.
+To access a workflow variable, use the [getVariable](#getvariable) function.
 
 For example, if the `SetVariable` activity sets a variable called `FirstName` to `'Luke'`, it can be accessed as follows:
 
 ```javascript
- `Hello ${FirstName}`
+const firstName = getVariable('FirstName');
+ `Hello ${firstName}`
 ```
 
-Value stored in the variable:
-
-```text
-"Hello Luke"
-```
-
-This also works when setting variables using the [setVariable](#setvariable) function.
-Because ultimately, both the `SetVariable` activity and `setVariable` function use the same API under the cover to set a workflow variable.
+To set a workflow variable, use the [setVariable](#setvariable) function.
 
 ### Activity Output (Elsa 2.0)
 
