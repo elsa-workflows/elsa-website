@@ -34,6 +34,7 @@ First, create a new workflow called **Signal Sender** and add the following acti
     - Methods: `GET`
 - **Send Signal**
     - Signal: `signal-1`
+    - SendMode: `Synchronously`
     
 Publish the workflow.
     
