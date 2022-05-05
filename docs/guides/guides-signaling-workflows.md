@@ -20,7 +20,7 @@ In this guide, we will take a look at setting up two simple workflows where one 
 To follow this guide, make sure to run Elsa Dashboard. If you have Docker installed then running the following command is the quickest way to get started:
 
 ```bash
-docker run -t -i -p 13000:80 elsaworkflows/elsa-dashboard-and-server:latest
+docker run -t -i -p 14000:80 elsaworkflows/elsa-dashboard-and-server:latest
 ```
 
 This will start the Elsa Dashboard in a container which you can access from a web browser at `http://localhost:14000`.
