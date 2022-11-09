@@ -6,7 +6,7 @@ sidebar_label: Signaling Workflows
 
 Elsa comes with simple yet powerful signaling capabilities that allow you to send simple signals from and to workflows as well as from your application code.
 
-You can thing of a signal as an event and consists of the following attributes:
+You can think of a signal as an event and consists of the following attributes:
 
 * Signal Name
 * Signal Payload
